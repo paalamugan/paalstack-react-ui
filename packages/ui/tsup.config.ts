@@ -5,9 +5,6 @@ import fse from 'fs-extra';
 import postcss from 'postcss';
 import { defineConfig } from 'tsup';
 
-const name = {
-  assets: 'assets',
-};
 async function buildScopedCss() {
   const inputPath = path.resolve('src/styles/index.app.css');
   const outputPath = path.resolve('dist/index.app.css');
