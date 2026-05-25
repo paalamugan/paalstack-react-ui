@@ -1,5 +1,11 @@
 # @paalstack/react-ui
 
+## 1.1.1
+
+### Patch Changes
+
+- [`9e6b2b2`](https://github.com/paalamugan/paalstack-react-ui/commit/9e6b2b2c347c4c131b025c96314203f152177d64) Thanks [@paalamugan](https://github.com/paalamugan)! - docs: update README notes to include direct npm links for @paalstack/react-ui
+
 ## 1.1.0
 
 ### Minor Changes
