@@ -1,6 +1,6 @@
 {
   "name": "@paalstack/react-ui",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "All-in-one React UI library — accessible components, layout primitives, hooks, icons, and providers styled with Tailwind CSS v4",
   "type": "module",
   "types": "dist/index.d.ts",
