@@ -6,7 +6,7 @@ Polymorphic layout primitives and typography components for building structured 
 
 ## Docs
 
-[Storybook → Layout docs](https://paalamugan.github.io/paalstack-react-ui/)
+[Storybook → Layout docs](https://paalamugan.github.io/paalstack-react-ui/?path=/docs/overview-layouts--docs)
 
 ## Installation
 

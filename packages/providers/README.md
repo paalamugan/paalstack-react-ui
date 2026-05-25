@@ -6,7 +6,7 @@ React context providers for theming, toast notifications, and internationalisati
 
 ## Docs
 
-[Storybook → Getting Started](https://paalamugan.github.io/paalstack-react-ui/)
+[Storybook → Providers docs](https://paalamugan.github.io/paalstack-react-ui/?path=/docs/overview-providers--docs)
 
 ## Installation
 

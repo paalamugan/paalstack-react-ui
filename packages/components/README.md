@@ -6,7 +6,7 @@ Accessible, unstyled-first React UI components built on top of [Base UI](https:/
 
 ## Docs
 
-[Storybook → Component docs](https://paalamugan.github.io/paalstack-react-ui/)
+[Storybook → Component docs](https://paalamugan.github.io/paalstack-react-ui/?path=/docs/overview-components--docs)
 
 ## Installation
 
