@@ -24,9 +24,6 @@
     "publish:locally": "npx yalc publish",
     "test": "jest --passWithNoTests"
   },
-  "dependencies": {
-    "@paalstack/react-providers": "workspace:*"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -48,11 +45,20 @@
   "license": "MIT",
   "files": [
     "dist",
-    "tsconfig.json",
-    "README.md"
+    "tsconfig.json"
   ],
   "devDependencies": {
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1"
+  },
+  "keywords": [
+    "react",
+    "testing",
+    "test-utils",
+    "browser-api-mocks",
+    "accessibility-helpers"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -60,7 +60,34 @@
   "license": "MIT",
   "files": [
     "dist",
-    "tsconfig.json",
-    "README.md"
-  ]
+    "tsconfig.json"
+  ],
+  "keywords": [
+    "react",
+    "typescript",
+    "tailwindcss",
+    "tailwind-css-v4",
+    "component-library",
+    "ui-components",
+    "design-system",
+    "react-components",
+    "storybook",
+    "monorepo",
+    "pnpm",
+    "tsup",
+    "vite",
+    "hooks",
+    "icons",
+    "layouts",
+    "test-utils",
+    "accessibility",
+    "dark-mode",
+    "base-ui",
+    "open-source",
+    "ui-kit",
+    "frontend"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

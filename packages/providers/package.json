@@ -79,5 +79,16 @@
   "devDependencies": {
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1"
+  },
+  "keywords": [
+    "react",
+    "providers",
+    "context",
+    "theming",
+    "toast-notifications",
+    "internationalisation"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }
