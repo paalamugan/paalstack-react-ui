@@ -17,6 +17,7 @@ export default defineConfig(() => {
     clean: true, // clean up the dist folder before building
     dts: true,
     platform: 'browser',
+    shims: true,
     noExternal: ['react-icons'],
     async onSuccess() {
       console.log('Copying packages...');
@@ -40,10 +41,6 @@ export default defineConfig(() => {
         }
       }
       console.log('Packages copied!');
-    },
-    define: {
-      'import.meta.env.TEST': 'false',
-      'import.meta.env.DEV': 'false',
     },
   };
 });

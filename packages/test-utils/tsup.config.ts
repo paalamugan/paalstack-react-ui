@@ -19,9 +19,6 @@ export default defineConfig(() => {
     banner: {
       js: "'use client';",
     },
-    define: {
-      'import.meta.env.TEST': 'false',
-      'import.meta.env.DEV': 'false',
-    },
+    shims: true,
   };
 });

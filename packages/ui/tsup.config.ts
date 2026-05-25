@@ -39,9 +39,6 @@ export default defineConfig(() => {
       console.log('Build succeeded!');
       await Promise.all([fse.copy('src/styles/theme.css', 'dist/theme.css'), buildScopedCss()]);
     },
-    define: {
-      'import.meta.env.TEST': 'false',
-      'import.meta.env.DEV': 'false',
-    },
+    shims: true,
   };
 });

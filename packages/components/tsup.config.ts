@@ -15,15 +15,12 @@ export default defineConfig(() => {
     sourcemap: false,
     clean: true, // clean up the dist folder before building
     platform: 'browser',
+    shims: true,
     dts: {
       entry: 'src/index.ts',
     },
     banner: {
       js: "'use client';",
-    },
-    define: {
-      'import.meta.env.TEST': 'false',
-      'import.meta.env.DEV': 'false',
     },
   };
 });

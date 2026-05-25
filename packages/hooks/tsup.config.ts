@@ -13,14 +13,11 @@ export default defineConfig(() => {
     bundle: true,
     treeshake: false,
     sourcemap: false,
+    shims: true,
     clean: true, // clean up the dist folder before building
     platform: 'browser',
     dts: {
       entry: 'src/index.ts',
-    },
-    define: {
-      'import.meta.env.TEST': 'false',
-      'import.meta.env.DEV': 'false',
     },
     banner: {
       js: "'use client';",

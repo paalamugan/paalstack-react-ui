@@ -20,11 +20,8 @@ export default defineConfig(() => {
     treeshake: false,
     sourcemap: false,
     clean: true, // clean up the dist folder before building
-    define: {
-      'import.meta.env.TEST': 'false',
-      'import.meta.env.DEV': 'false',
-    },
     dts: true,
     platform: 'browser',
+    shims: true,
   };
 });
