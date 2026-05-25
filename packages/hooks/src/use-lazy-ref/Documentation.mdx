@@ -1,0 +1,158 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as allStories from './use-lazy-ref.stories';
+
+<Meta of={allStories} />
+
+# useLazyRef
+
+`useLazyRef` returns a stable ref object whose `.current` value is initialized **once** by a
+factory function on the first render. Subsequent renders return the exact same ref without calling
+the factory again.
+
+This mirrors the lazy-initializer pattern of `useState(() => expensiveValue)` — but for refs,
+giving you a mutable, stable container that is never recreated across re-renders.
+
+> **Tip:** Use `useLazyRef` whenever you'd write `useRef(new Something())` and worry that
+> `new Something()` runs on every render. The factory is guaranteed to run exactly once.
+
+## When to use it
+
+| Scenario                                   | Recommended hook            |
+| ------------------------------------------ | --------------------------- |
+| Constant value that never needs to change  | `useConst`                  |
+| Stable mutable container, initialized once | **`useLazyRef`**            |
+| Ref that always tracks the latest value    | `useAsRef` / `useLatestRef` |
+
+## Usage
+
+### Basic example
+
+The factory runs exactly once per component instance. The stable ID never changes across
+re-renders, proving the factory is not called again.
+
+<Canvas of={allStories.Usage} />
+
+```tsx
+import { useLazyRef } from '@paalstack/react-hooks';
+
+function Demo() {
+  // Factory is called once — never on subsequent renders
+  const idRef = useLazyRef(() => Math.random().toString(36).slice(2));
+
+  return <p>Stable ID: {idRef.current}</p>;
+}
+```
+
+### Comparison with plain `useRef`
+
+A plain `useRef(fn())` calls the factory on **every render** because JavaScript evaluates
+`fn()` before `useRef` even runs. `useLazyRef` defers evaluation and skips it after the first
+call.
+
+<Canvas of={allStories.CompareWithPlainRef} />
+
+```tsx
+// ❌ fn() is called on every render — useRef just ignores the result after the first
+const ref = useRef(fn());
+
+// ✅ fn() is called once — useLazyRef short-circuits on subsequent renders
+const ref = useLazyRef(fn);
+```
+
+### Holding a mutable store
+
+`useLazyRef` is the natural home for imperative store objects (pub-sub, state machines, class
+instances) that need to be created once and mutated directly — without triggering React's
+re-render cycle.
+
+<Canvas of={allStories.WithStore} />
+
+```tsx
+import { useEffect } from 'react';
+
+import { useLazyRef } from '@paalstack/react-hooks';
+
+function createStore(initial: number) {
+  let value = initial;
+  const listeners = new Set<() => void>();
+  return {
+    get: () => value,
+    set: (next: number) => {
+      value = next;
+      listeners.forEach((l) => l());
+    },
+    subscribe: (l: () => void) => {
+      listeners.add(l);
+      return () => listeners.delete(l);
+    },
+  };
+}
+
+function Counter() {
+  const storeRef = useLazyRef(() => createStore(0));
+
+  // Subscribe to store changes to trigger React re-renders when needed
+  const [, forceUpdate] = useState(0);
+  useEffect(() => storeRef.current.subscribe(() => forceUpdate((n) => n + 1)), [storeRef]);
+
+  return (
+    <>
+      <p>Value: {storeRef.current.get()}</p>
+      <button onClick={() => storeRef.current.set(storeRef.current.get() + 1)}>+</button>
+    </>
+  );
+}
+```
+
+### Expensive initialisation
+
+When building a resource that is costly to construct (a Web Worker, a WASM module, a compiled
+regex, a large data structure), `useLazyRef` ensures the cost is paid only on the first render.
+
+<Canvas of={allStories.WithExpensiveInitialisation} />
+
+```tsx
+import { useEffect } from 'react';
+
+import { useLazyRef } from '@paalstack/react-hooks';
+
+function Chart({ data }: { data: number[] }) {
+  // Web Worker is created once and reused across renders
+  const workerRef = useLazyRef(() => new Worker('/chart.worker.js'));
+
+  useEffect(() => {
+    workerRef.current.postMessage(data);
+  }, [data, workerRef]);
+
+  return <canvas id="chart" />;
+}
+```
+
+## Parameters
+
+| Parameter | Type      | Description                                                                   |
+| --------- | --------- | ----------------------------------------------------------------------------- |
+| `fn`      | `() => T` | A factory function called **once** on the first render to initialize the ref. |
+
+## Returns
+
+`useLazyRef` returns a `React.MutableRefObject<T>`. The **ref object itself is stable** — its
+identity never changes across renders.
+
+| Property      | Type | Description                                                            |
+| ------------- | ---- | ---------------------------------------------------------------------- |
+| `ref.current` | `T`  | The value produced by `fn` on the first render. Can be mutated freely. |
+
+## Notes
+
+- **Single call guarantee** — the factory `fn` is invoked synchronously during the first render
+  when `ref.current` is `null`. It is never called again for the lifetime of the component.
+- **Null guard** — internally the ref is typed as `T | null` and initialized to `null`. The hook
+  checks `ref.current === null` before calling `fn`, then casts the result to
+  `MutableRefObject<T>` for the caller.
+- **No re-renders** — mutating `ref.current` does not schedule a React re-render. If you need
+  to reflect mutations in the UI, pair `useLazyRef` with a `useState` or `useSyncExternalStore`
+  subscription (as shown in the store example above).
+- **Avoid `null` as a valid value** — because `null` is used as the sentinel to detect "not yet
+  initialized", do not use `useLazyRef` when `null` is a meaningful runtime value for `T`.

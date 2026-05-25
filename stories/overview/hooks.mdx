@@ -1,0 +1,429 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Overview/Hooks" />
+
+# React Hooks
+
+A comprehensive collection of **62+ custom React hooks** designed to simplify common tasks and enhance your development workflow. These hooks cover state management, UI interactions, browser APIs, performance optimization, and more.
+
+## Installation
+
+```bash
+pnpm add @paalstack/react-hooks
+```
+
+## Usage
+
+Import the hooks you need from `@paalstack/react-hooks`:
+
+```jsx
+import { useCounter, useLocalStorage, useToggle } from '@paalstack/react-hooks';
+
+function MyComponent() {
+  const [isOpen, toggle] = useToggle();
+  const [count, { increment, decrement }] = useCounter(0);
+  const [value, setValue] = useLocalStorage('my-key', 'default');
+
+  return (
+    <div>
+      <button onClick={toggle}>{isOpen ? 'Close' : 'Open'}</button>
+      <button onClick={() => increment()}>Count: {count}</button>
+      <input value={value} onChange={(e) => setValue(e.target.value)} />
+    </div>
+  );
+}
+```
+
+## Hook Categories
+
+### 🎯 State Management
+
+Hooks for managing component state and data.
+
+- **[useCounter](/docs/hooks-state-management-usecounter--documentation)** - Manage counter state with increment/decrement
+- **[useToggle](/docs/hooks-state-management-usetoggle--documentation)** - Toggle boolean state
+- **[useDisclosure](/docs/hooks-state-management-usedisclosure--documentation)** - Manage open/close state with callbacks
+- **[useInputState](/docs/hooks-state-management-useinputstate--documentation)** - Manage input field state
+- **[useListState](/docs/hooks-state-management-useliststate--documentation)** - Manage array state with helpers
+- **[useSetState](/docs/hooks-state-management-usesetstate--documentation)** - setState like in class components
+- **[useQueue](/docs/hooks-state-management-usequeue--documentation)** - Manage queue data structure
+- **[useValidatedState](/docs/hooks-state-management-usevalidatedstate--documentation)** - State with validation
+- **[usePrevious](/docs/hooks-state-management-useprevious--documentation)** - Get previous value of state
+- **[useAsRef](/docs/hooks-state-management-useasref--documentation)** - Stable ref always synchronized with the latest value (SSR-safe, effect-phase)
+- **[useLazyRef](/docs/hooks-state-management-uselazyref--documentation)** - Lazily initialize a ref once via a factory function
+
+### 💾 Storage & Persistence
+
+Hooks for working with browser storage APIs.
+
+- **[useLocalStorage](/docs/hooks-storage-uselocalstorage--documentation)** - Sync state with localStorage
+- **[useSessionStorage](/docs/hooks-storage-usesessionstorage--documentation)** - Sync state with sessionStorage
+- **[useHash](/docs/hooks-storage-usehash--documentation)** - Get and set URL hash
+- **[useSearchParams](/docs/hooks-storage-usesearchparams--documentation)** - Manage URL search parameters
+
+### 🎨 UI & Interactions
+
+Hooks for handling user interactions and UI behavior.
+
+- **[useClickOutside](/docs/hooks-ui-useclickoutside--documentation)** - Detect clicks outside element
+- **[useHover](/docs/hooks-ui-usehover--documentation)** - Detect hover state
+- **[useFocusWithin](/docs/hooks-ui-usefocuswithin--documentation)** - Detect focus within element
+- **[useFocusTrap](/docs/hooks-ui-usefocustrap--documentation)** - Trap focus within element
+- **[useFocusReturn](/docs/hooks-ui-usefocusreturn--documentation)** - Return focus to previous element
+- **[useFocusOnPointerDown](/docs/hooks-ui-usefocusonpointerdown--documentation)** - Focus element on pointer down
+- **[useHotkeys](/docs/hooks-ui-usehotkeys--documentation)** - Handle keyboard shortcuts
+- **[useShortcut](/docs/hooks-ui-useshortcut--documentation)** - Handle keyboard shortcuts (alternative)
+- **[useMove](/docs/hooks-ui-usemove--documentation)** - Handle drag and move interactions
+- **[useMouse](/docs/hooks-ui-usemouse--documentation)** - Track mouse position
+- **[useTextSelection](/docs/hooks-ui-usetextselection--documentation)** - Get selected text
+- **[useFullscreen](/docs/hooks-ui-usefullscreen--documentation)** - Toggle fullscreen mode
+- **[useScrollLock](/docs/hooks-ui-usescrolllock--documentation)** - Lock/unlock scroll
+- **[useScrollIntoView](/docs/hooks-ui-usescrollintoview--documentation)** - Scroll element into view
+
+### 📐 Size & Position
+
+Hooks for measuring and tracking element dimensions.
+
+- **[useElementSize](/docs/hooks-size-useelementsize--documentation)** - Get element dimensions
+- **[useResizeObserver](/docs/hooks-size-useresizeobserver--documentation)** - Observe element size changes
+- **[useSize](/docs/hooks-size-usesize--documentation)** - Get element size
+- **[useViewportSize](/docs/hooks-size-useviewportsize--documentation)** - Get viewport dimensions
+- **[useIntersection](/docs/hooks-size-useintersection--documentation)** - Detect element visibility
+- **[useWindowScroll](/docs/hooks-size-usewindowscroll--documentation)** - Get window scroll position
+
+### 🌐 Browser & Document
+
+Hooks for interacting with browser APIs and document state.
+
+- **[useDocumentTitle](/docs/hooks-browser-usedocumenttitle--documentation)** - Set document title
+- **[useDocumentVisibility](/docs/hooks-browser-usedocumentvisibility--documentation)** - Track document visibility
+- **[useFavicon](/docs/hooks-browser-usefavicon--documentation)** - Set favicon dynamically
+- **[usePageLeave](/docs/hooks-browser-usepageleave--documentation)** - Detect when user leaves page
+- **[useIdle](/docs/hooks-browser-useidle--documentation)** - Detect user inactivity
+- **[useNetwork](/docs/hooks-browser-usenetwork--documentation)** - Get network status
+- **[useOS](/docs/hooks-browser-useos--documentation)** - Detect operating system
+- **[useColorScheme](/docs/hooks-browser-usecolorscheme--documentation)** - Get system color scheme preference
+- **[useReducedMotion](/docs/hooks-browser-usereducedmotion--documentation)** - Detect reduced motion preference
+- **[useMediaQuery](/docs/hooks-browser-usemediaquery--documentation)** - Match media queries
+- **[useEyeDropper](/docs/hooks-browser-useeyedropper--documentation)** - Use EyeDropper API
+
+### 📡 Data Fetching
+
+Hooks for fetching and managing remote data.
+
+- **[useFetcher](/docs/hooks-data-usefetcher--documentation)** - Fetch data with loading states
+- **[useQueryFetcher](/docs/hooks-data-usequeryfetcher--documentation)** - Query data fetcher
+- **[useLazyQueryFetcher](/docs/hooks-data-uselazyqueryfetcher--documentation)** - Lazy query fetcher
+- **[useSubscription](/docs/hooks-data-usesubscription--documentation)** - Subscribe to data updates
+
+### ⏱️ Time & Performance
+
+Hooks for timing, debouncing, and performance optimization.
+
+- **[useTimeout](/docs/hooks-time-usetimeout--documentation)** - Execute callback after timeout
+- **[useInterval](/docs/hooks-time-useinterval--documentation)** - Execute callback at intervals
+- **[useDebouncedValue](/docs/hooks-time-usedebouncedvalue--documentation)** - Debounce value changes
+- **[useDebouncedState](/docs/hooks-time-usedebouncedstate--documentation)** - Debounced state
+- **[useHeadroom](/docs/hooks-time-useheadroom--documentation)** - Hide/show header on scroll
+
+### 🔧 Utilities & Helpers
+
+Core utility hooks for common patterns.
+
+- **[useCallbackRef](/docs/hooks-utilities-usecallbackref--documentation)** - Memoized callback ref
+- **[useConst](/docs/hooks-utilities-useconst--documentation)** - Create constant value
+- **[useControllable](/docs/hooks-utilities-usecontrollable--documentation)** - Controlled/uncontrolled state
+- **[useEventListener](/docs/hooks-utilities-useeventlistener--documentation)** - Add event listeners
+- **[useWindowEvent](/docs/hooks-utilities-usewindowevent--documentation)** - Add window event listeners
+- **[useForceUpdate](/docs/hooks-utilities-useforceupdate--documentation)** - Force component re-render
+- **[useId](/docs/hooks-utilities-useid--documentation)** - Generate unique IDs
+- **[useIsomorphicEffect](/docs/hooks-utilities-useisomorphiceffect--documentation)** - useEffect that works in SSR
+- **[useLatestRef](/docs/hooks-utilities-uselatestref--documentation)** - Always-current ref (render-phase write)
+- **[useLatestValue](/docs/hooks-utilities-uselatestvalue--documentation)** - Always-current value
+- **[useMergedRef](/docs/hooks-utilities-usemergedref--documentation)** - Merge multiple refs
+- **[useUpdateEffect](/docs/hooks-utilities-useupdateeffect--documentation)** - useEffect that skips initial render
+- **[useShallowEffect](/docs/hooks-utilities-useshalloweffect--documentation)** - useEffect with shallow comparison
+- **[useLogger](/docs/hooks-utilities-uselogger--documentation)** - Debug component lifecycle
+
+### 🆕 New Hooks
+
+Recently added hooks expanding the library's capabilities.
+
+- **[useAsRef](/docs/hooks-state-management-useasref--documentation)** - Returns a stable ref synchronized with the latest value via `useIsomorphicEffect` (effect-phase write, SSR-safe). Prevents stale closures in event listeners and intervals without re-subscribing.
+- **[useLazyRef](/docs/hooks-state-management-uselazyref--documentation)** - Returns a stable ref whose `.current` is lazily initialized by a factory function on the first render only — the factory never runs again. Ideal for expensive resources, class instances, and imperative stores.
+
+### 🧭 Navigation & Routing
+
+Hooks for routing and navigation (React Router).
+
+- **[useLocalNavigate](/docs/hooks-navigation-uselocalnavigate--documentation)** - Navigate with React Router
+- **[usePagination](/docs/hooks-navigation-usepagination--documentation)** - Manage pagination state
+
+### 📋 Clipboard
+
+Hooks for clipboard operations.
+
+- **[useClipboard](/docs/hooks-clipboard-useclipboard--documentation)** - Copy to clipboard
+
+## Common Patterns
+
+### State Management Example
+
+```jsx
+import { useCounter, useInputState, useToggle } from '@paalstack/react-hooks';
+
+function Counter() {
+  const [count, { increment, decrement, reset, set }] = useCounter(0, { min: 0, max: 10 });
+  const [enabled, toggle] = useToggle(true);
+  const [name, setName] = useInputState('');
+
+  return (
+    <div>
+      <input value={name} onChange={setName} placeholder="Enter name" />
+
+      <button onClick={toggle}>{enabled ? 'Disable' : 'Enable'}</button>
+
+      {enabled && (
+        <>
+          <h2>Count: {count}</h2>
+          <button onClick={() => increment()}>+</button>
+          <button onClick={() => decrement()}>-</button>
+          <button onClick={() => reset()}>Reset</button>
+        </>
+      )}
+    </div>
+  );
+}
+```
+
+### Storage Persistence Example
+
+```jsx
+import { useLocalStorage, useSessionStorage } from '@paalstack/react-hooks';
+
+function Settings() {
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [sessionData, setSessionData] = useSessionStorage('session', {});
+
+  return (
+    <div>
+      <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  );
+}
+```
+
+### UI Interactions Example
+
+```jsx
+import { useClickOutside, useHotkeys, useHover } from '@paalstack/react-hooks';
+
+function Dropdown() {
+  const [opened, { close, toggle }] = useDisclosure(false);
+  const { hovered, ref: hoverRef } = useHover();
+  const dropdownRef = useClickOutside(close);
+
+  useHotkeys([
+    ['Escape', close],
+    ['mod+K', toggle],
+  ]);
+
+  return (
+    <div>
+      <button onClick={toggle}>Toggle Dropdown</button>
+      {opened && (
+        <div ref={dropdownRef}>
+          <div ref={hoverRef} style={{ background: hovered ? 'blue' : 'gray' }}>
+            Hover me
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### Data Fetching Example
+
+```jsx
+import { useFetcher } from '@paalstack/react-hooks';
+
+function UserProfile({ userId }) {
+  const { data, loading, error, refetch } = useFetcher(`/api/users/${userId}`, { method: 'GET' });
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      <h1>{data?.name}</h1>
+      <p>{data?.email}</p>
+      <button onClick={refetch}>Refresh</button>
+    </div>
+  );
+}
+```
+
+### Debouncing Example
+
+```jsx
+import { useDebouncedValue, useInputState } from '@paalstack/react-hooks';
+
+function SearchBar() {
+  const [search, setSearch] = useInputState('');
+  const [debouncedSearch] = useDebouncedValue(search, 500);
+
+  // debouncedSearch will only update 500ms after user stops typing
+  useEffect(() => {
+    if (debouncedSearch) {
+      // Perform search API call
+      searchAPI(debouncedSearch);
+    }
+  }, [debouncedSearch]);
+
+  return <input value={search} onChange={setSearch} placeholder="Search..." />;
+}
+```
+
+## TypeScript Support
+
+All hooks are written in TypeScript and include full type definitions:
+
+```tsx
+import { useCounter, UseCounterHandlers } from '@paalstack/react-hooks';
+
+function TypedCounter() {
+  const [count, handlers]: [number, UseCounterHandlers] = useCounter(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => handlers.increment()}>Increment</button>
+    </div>
+  );
+}
+```
+
+## Browser Compatibility
+
+Most hooks work in all modern browsers. Some hooks require specific APIs:
+
+- **useEyeDropper** - Requires EyeDropper API (Chromium-based browsers)
+- **useFullscreen** - Requires Fullscreen API
+- **useNetwork** - Requires Network Information API
+- **useMediaQuery** - Requires matchMedia API
+
+Always check browser compatibility for specific features at [caniuse.com](https://caniuse.com).
+
+## Best Practices
+
+### 1. **Cleanup and Memory Leaks**
+
+Most hooks handle cleanup automatically, but be mindful of:
+
+```jsx
+// ✅ Good - hook handles cleanup
+const { hovered } = useHover();
+
+// ⚠️ Be careful with custom effects
+useEffect(() => {
+  const subscription = subscribe();
+  return () => subscription.unsubscribe(); // Always cleanup
+}, []);
+```
+
+### 2. **Dependencies**
+
+Many hooks accept dependency arrays. Keep them accurate:
+
+```jsx
+// ✅ Good
+useEventListener('click', handleClick, targetRef);
+
+// ❌ Bad - missing dependencies could cause stale closures
+useEffect(() => {
+  doSomething(count);
+}, []); // Should include 'count'
+```
+
+### 3. **Performance**
+
+Use debouncing and throttling for expensive operations:
+
+```jsx
+// ✅ Good - debounced for performance
+const [search] = useDebouncedValue(query, 300);
+
+// ❌ Bad - triggers on every keystroke
+useEffect(() => {
+  expensiveSearch(query);
+}, [query]);
+```
+
+### 4. **SSR Compatibility**
+
+Use `useIsomorphicEffect` for SSR-safe effects:
+
+```jsx
+import { useIsomorphicEffect } from '@paalstack/react-hooks';
+
+// Works in both browser and server
+useIsomorphicEffect(() => {
+  // This runs on both client and server safely
+}, []);
+```
+
+### Stable Ref Patterns Example
+
+```jsx
+import { useAsRef, useLazyRef } from '@paalstack/react-hooks';
+
+// useAsRef — stable ref always holding the latest callback, no re-subscription
+function useWindowEvent(event, handler) {
+  const handlerRef = useAsRef(handler);
+
+  useEffect(() => {
+    const listener = (e) => handlerRef.current(e);
+    window.addEventListener(event, listener);
+    return () => window.removeEventListener(event, listener);
+  }, [event, handlerRef]); // handlerRef is stable — no teardown on handler change
+}
+
+// useLazyRef — create an expensive resource once, reuse across renders
+function Chart({ data }) {
+  const workerRef = useLazyRef(() => new Worker('/chart.worker.js'));
+
+  useEffect(() => {
+    workerRef.current.postMessage(data);
+  }, [data, workerRef]);
+}
+
+// useLazyRef — hold an imperative store that outlives re-renders
+function Counter() {
+  const storeRef = useLazyRef(() => createCounterStore({ initialCount: 0 }));
+  const [, forceUpdate] = useState(0);
+
+  useEffect(() => storeRef.current.subscribe(() => forceUpdate((n) => n + 1)), [storeRef]);
+
+  return (
+    <div>
+      <p>Count: {storeRef.current.get()}</p>
+      <button onClick={() => storeRef.current.increment()}>+</button>
+    </div>
+  );
+}
+```
+
+## Documentation Links
+
+- [State Management Hooks](/docs/hooks-state-management-usecounter--documentation)
+- [Storage Hooks](/docs/hooks-storage-uselocalstorage--documentation)
+- [UI Interaction Hooks](/docs/hooks-ui-useclickoutside--documentation)
+- [Data Fetching Hooks](/docs/hooks-data-usefetcher--documentation)
+- [Time & Performance Hooks](/docs/hooks-time-usetimeout--documentation)
+- [Browser & Document Hooks](/docs/hooks-browser-usedocumenttitle--documentation)
+- [useAsRef](/docs/hooks-state-management-useasref--documentation)
+- [useLazyRef](/docs/hooks-state-management-uselazyref--documentation)

@@ -1,0 +1,83 @@
+{
+  "name": "@paalstack/react-providers",
+  "version": "1.0.0",
+  "description": "React UI providers",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "author": {
+    "name": "Paalamugan Samayamuthu",
+    "email": "paalamugan@users.noreply.github.com"
+  },
+  "scripts": {
+    "build": "npm run type-check && npm run lint && npm run clean && npm run tsup",
+    "lint": "eslint ./src --ext ts,tsx --config ../../.eslintrc.cjs --report-unused-disable-directives --max-warnings 0 --cache",
+    "lint:fix": "npm run lint -- --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,md,mdx}\" --cache",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,md,mdx}\" --cache",
+    "tsup": "tsup",
+    "tsup:watch": "tsup --watch",
+    "prepublishOnly": "npm run tsup",
+    "clean": "rimraf dist",
+    "test": "jest --passWithNoTests"
+  },
+  "dependencies": {
+    "next-themes": "^0.4.6",
+    "sonner": "^2.0.7",
+    "react-router": "^7.9.1"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.x",
+    "react-dom": ">=18.2.x"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./FormatIntlProvider": {
+      "types": "./dist/FormatIntlProvider/index.d.ts",
+      "import": "./dist/FormatIntlProvider/index.js",
+      "require": "./dist/FormatIntlProvider/index.cjs"
+    },
+    "./ThemeProvider": {
+      "types": "./dist/ThemeProvider/index.d.ts",
+      "import": "./dist/ThemeProvider/index.js",
+      "require": "./dist/ThemeProvider/index.cjs"
+    },
+    "./NextThemeProvider": {
+      "types": "./dist/NextThemeProvider/index.d.ts",
+      "import": "./dist/NextThemeProvider/index.js",
+      "require": "./dist/NextThemeProvider/index.cjs"
+    },
+    "./ToastProvider": {
+      "types": "./dist/ToastProvider/index.d.ts",
+      "import": "./dist/ToastProvider/index.js",
+      "require": "./dist/ToastProvider/index.cjs"
+    },
+    "./styles.css": "./dist/index.css"
+  },
+  "engines": {
+    "node": ">=20.12.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paalamugan/paalstack-react-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/paalamugan/paalstack-react-ui/issues"
+  },
+  "homepage": "https://github.com/paalamugan/paalstack-react-ui#readme",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "tsconfig.json"
+  ],
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1"
+  }
+}

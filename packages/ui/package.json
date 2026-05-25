@@ -1,0 +1,93 @@
+{
+  "name": "@paalstack/react-ui",
+  "version": "1.0.0",
+  "description": "React UI combining all packages",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "author": {
+    "name": "Paalamugan Samayamuthu",
+    "email": "paalamugan@users.noreply.github.com"
+  },
+  "scripts": {
+    "build": "npm run type-check && npm run lint && npm run clean && npm run tsup",
+    "lint": "eslint ./src --ext ts,tsx --config ../../.eslintrc.cjs --report-unused-disable-directives --max-warnings 0 --cache",
+    "lint:fix": "npm run lint -- --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx}\" --cache",
+    "tsup": "tsup",
+    "tsup:watch": "tsup --watch",
+    "prepublishOnly": "npm run tsup",
+    "clean": "rimraf dist",
+    "test": "jest --passWithNoTests"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.4.1",
+    "@hookform/resolvers": "^5.2.2",
+    "@tanstack/react-table": "^8.21.3",
+    "axios": "^1.15.2",
+    "cheerio": "^1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
+    "embla-carousel-react": "^8.6.0",
+    "input-otp": "^1.4.2",
+    "intl-messageformat": "^11.1.1",
+    "lodash-es": "^4.17.21",
+    "next-themes": "^0.4.6",
+    "sonner": "^2.0.7",
+    "react-day-picker": "^9.13.0",
+    "react-error-boundary": "^6.1.0",
+    "react-hook-form": "^7.71.1",
+    "react-resizable-panels": "^4.7.3",
+    "react-router": "^7.12.0",
+    "recharts": "^3.8.1",
+    "tailwind-merge": "^3.4.0",
+    "vaul": "^1.1.2",
+    "zod": "^3.25.76"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "tailwindcss": ">=4"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/index.css",
+    "./styles-scoped.css": "./dist/index.app.css",
+    "./theme.css": "./dist/theme.css",
+    "./lib": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.js",
+      "require": "./dist/lib/index.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paalamugan/paalstack-react-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/paalamugan/paalstack-react-ui/issues"
+  },
+  "homepage": "https://github.com/paalamugan/paalstack-react-ui#readme",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "tsconfig.json"
+  ],
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1"
+  }
+}

@@ -1,0 +1,506 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Overview/Charts" />
+
+# Charts & Data Visualization
+
+Beautiful, customizable charts built with [Recharts](https://recharts.github.io/). Our chart components are designed to work seamlessly with your design system, supporting theming, accessibility, and full customization.
+
+## Overview
+
+All chart components are built on top of Recharts with custom styling and theming support. They integrate perfectly with our component library and support both light and dark themes out of the box.
+
+### Key Features
+
+- 🎨 **Themeable** - Built-in support for CSS variables and custom theming
+- ♿ **Accessible** - Full keyboard navigation and screen reader support
+- 📱 **Responsive** - Adapts to different screen sizes automatically
+- 🎯 **Customizable** - Extensive customization options for tooltips, legends, and more
+- 🌙 **Dark Mode** - Automatic dark mode support with theme switching
+- 📊 **Multiple Chart Types** - Area, Bar, Line, Pie, Radar, and Radial charts
+
+## Installation
+
+The chart components are part of the `@paalstack/react-ui` package. We use **Recharts v3**, which includes improved performance, better accessibility defaults, and enhanced TypeScript support.
+
+```bash
+pnpm add @paalstack/react-ui recharts
+```
+
+**Note:** Recharts v3 requires React 16.8+, TypeScript 5.x+, and Node.js v18+.
+
+## Basic Usage
+
+```tsx
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@paalstack/react-ui';
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
+
+const chartData = [
+  { month: 'January', value: 186 },
+  { month: 'February', value: 305 },
+  { month: 'March', value: 237 },
+];
+
+const chartConfig = {
+  value: {
+    label: 'Value',
+    color: 'var(--chart-1)',
+  },
+};
+
+export function MyChart() {
+  return (
+    <ChartContainer config={chartConfig} className="w-full" height={250} initialDimension={{ width: 320, height: 200 }}>
+      <AreaChart data={chartData}>
+        <CartesianGrid vertical={false} />
+        <XAxis dataKey="month" tickLine={false} axisLine={false} />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <Area dataKey="value" fill="var(--color-value)" stroke="var(--color-value)" />
+      </AreaChart>
+    </ChartContainer>
+  );
+}
+```
+
+**With TypeScript (Recommended):**
+
+```tsx
+import type { ChartConfig } from '@paalstack/react-ui';
+
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@paalstack/react-ui';
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
+
+interface ChartData {
+  month: string;
+  value: number;
+}
+
+const chartData: ChartData[] = [
+  { month: 'January', value: 186 },
+  { month: 'February', value: 305 },
+  { month: 'March', value: 237 },
+];
+
+const chartConfig = {
+  value: {
+    label: 'Value',
+    color: 'var(--chart-1)',
+  },
+} satisfies ChartConfig;
+
+export function MyChart() {
+  return (
+    <ChartContainer config={chartConfig} height={250} className="w-full">
+      <AreaChart data={chartData} accessibilityLayer>
+        <CartesianGrid vertical={false} />
+        <XAxis dataKey="month" tickLine={false} axisLine={false} />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <Area dataKey="value" fill="var(--color-value)" stroke="var(--color-value)" />
+      </AreaChart>
+    </ChartContainer>
+  );
+}
+```
+
+## Available Chart Types
+
+### Area Charts
+
+Area charts are great for showing trends over time with filled regions below the line.
+
+**Variants:**
+
+- Default - Simple area chart
+- Interactive - With date range selector
+- Linear - Linear interpolation
+- Step - Step interpolation
+- Stacked - Multiple stacked areas
+- Stacked Expand - Percentage-based stacking
+- With Icons - Custom icons in legend
+- With Gradient - Gradient fill effects
+- With Axes - X and Y axis display
+- With Legend - Multiple series with legend
+
+[View Area Chart Examples →](?path=/docs/charts-area--docs)
+
+### Bar Charts
+
+Bar charts display categorical data with rectangular bars.
+
+**Variants:**
+
+- Default - Simple bar chart
+- Interactive - With date range filtering
+- Multiple - Multiple bars per category
+- Horizontal - Horizontal orientation
+- Stacked - Stacked bars
+- With Label - Data labels on bars
+- Custom Label - Formatted data labels
+- Mixed - Mixed positive/negative values
+- Active - Highlighted active bar
+- Negative - With negative values
+
+[View Bar Chart Examples →](?path=/docs/charts-bar--docs)
+
+### Line Charts
+
+Line charts show data points connected by straight line segments.
+
+**Variants:**
+
+- Default - Simple line chart
+- Interactive - With date range selector
+- Linear - Linear interpolation
+- Step - Step interpolation
+- Multiple - Multiple lines
+- With Dots - Visible data points
+- Custom Dots - Styled data points
+- Dots Colors - Color-coded dots
+- With Label - Data labels
+- Custom Label - Formatted labels
+
+[View Line Chart Examples →](?path=/docs/charts-line--docs)
+
+### Pie Charts
+
+Pie charts show proportions and percentages in a circular format.
+
+**Variants:**
+
+- Simple - Basic pie chart
+- Separator None - No separators between sections
+- Label Custom - Custom labels
+- With Legend - With legend component
+- Donut - Donut-style chart
+- Donut Active - Interactive donut
+- Donut Text - With centered text
+- Stacked - Multiple stacked pie rings
+- With Label List - Data labels on sections
+- Interactive - With hover states
+- With Tooltip - Custom tooltips
+
+[View Pie Chart Examples →](?path=/docs/charts-pie--docs)
+
+### Radar Charts
+
+Radar charts (spider charts) display multivariate data on axes starting from the same point.
+
+**Variants:**
+
+- Default - Basic radar chart
+- With Dots - Visible data points
+- Lines Only - Without fill
+- Custom Label - Custom axis labels
+- Grid Custom - Custom grid styling
+- Grid None - Without grid
+- Grid Circle - Circular grid
+- Grid Circle No Lines - Circular grid without radial lines
+- Grid Circle Fill - Filled circular grid
+- Grid Fill - Filled polygon grid
+- Multiple - Multiple data series
+- With Legend - With legend component
+
+[View Radar Chart Examples →](?path=/docs/charts-radar--docs)
+
+### Radial Charts
+
+Radial charts display data in a circular layout, often used for progress or comparison.
+
+**Variants:**
+
+- Simple - Basic radial chart
+- With Label - Segment labels
+- With Grid - Circular grid
+- With Text - Centered text
+- Custom Shape - Custom angle/shape
+- Stacked - Stacked radial bars
+
+[View Radial Chart Examples →](?path=/docs/charts-radial--docs)
+
+### Tooltip Charts
+
+Examples demonstrating various tooltip configurations and customizations.
+
+**Variants:**
+
+- Default - Default tooltip
+- Indicator Line - Line indicator style
+- Indicator None - No indicator
+- Label Custom - Custom label
+- Label Formatter - Formatted labels
+- Label None - No label
+- Formatter - Custom value formatting
+- Icons - With icons
+- Advanced - Complex custom formatting
+
+[View Tooltip Chart Examples →](?path=/docs/charts-tooltip--docs)
+
+## Chart Configuration
+
+All charts use a `ChartConfig` object to define colors, labels, and icons:
+
+```tsx
+const chartConfig = {
+  desktop: {
+    label: 'Desktop',
+    color: 'var(--chart-1)',
+    icon: MonitorIcon,
+  },
+  mobile: {
+    label: 'Mobile',
+    color: 'var(--chart-2)',
+    icon: SmartphoneIcon,
+  },
+} satisfies ChartConfig;
+```
+
+## Theming
+
+Charts support theming through CSS variables. Define your chart colors in your CSS:
+
+```css
+@layer base {
+  :root {
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.61 0.194 172.233);
+    --chart-4: oklch(0.765 0.151 70.08);
+    --chart-5: oklch(0.733 0.16 327.704);
+  }
+
+  .dark {
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.57 0.196 196.313);
+    --chart-4: oklch(0.708 0.18 81.339);
+    --chart-5: oklch(0.678 0.18 11.691);
+  }
+}
+```
+
+## Components
+
+### ChartContainer
+
+Wrapper component that provides context and responsive sizing for charts. Built on top of Recharts' `ResponsiveContainer` with enhanced props.
+
+**Basic Usage:**
+
+```tsx
+<ChartContainer config={chartConfig} className="max-h-[250px] w-full">
+  {/* Your Recharts components */}
+</ChartContainer>
+```
+
+**With Enhanced Props (Recharts v3):**
+
+```tsx
+<ChartContainer
+  config={chartConfig}
+  className="w-full"
+  height={250} // Fixed height
+  initialDimension={{ width: 320, height: 200 }} // Loading state dimensions
+  aspect={16 / 9} // Aspect ratio
+  debounce={300} // Debounce resize events (ms)
+  minHeight={200} // Minimum height
+  maxHeight={600} // Maximum height
+  onResize={(width, height) => {}} // Resize callback
+  innerResponsiveContainerStyle={{}} // Additional container styles
+>
+  {/* Your Recharts components */}
+</ChartContainer>
+```
+
+**Props:**
+
+- `config` (required): `ChartConfig` - Chart configuration with colors, labels, and icons
+- `className`: Custom CSS classes for the wrapper
+- `height`, `width`: Fixed dimensions (number or string)
+- `initialDimension`: Default dimensions during chart initialization
+- `aspect`: Aspect ratio for responsive sizing
+- `debounce`: Debounce time for resize events
+- `minHeight`, `maxHeight`, `minWidth`: Dimension constraints
+- `onResize`: Callback fired when chart resizes
+- `innerResponsiveContainerStyle`: Styles for the inner ResponsiveContainer
+
+### ChartTooltip & ChartTooltipContent
+
+Custom tooltip components with built-in styling and theming. Uses Recharts v3 types.
+
+**Basic Usage:**
+
+```tsx
+<ChartTooltip content={<ChartTooltipContent />} />
+```
+
+**With Advanced Options:**
+
+```tsx
+<ChartTooltip
+  content={
+    <ChartTooltipContent
+      indicator="line" // 'dot' | 'line' | 'dashed'
+      hideLabel={false} // Hide the label
+      hideIndicator={false} // Hide the indicator
+      labelFormatter={(value, payload) => `Custom: ${value}`}
+      formatter={(value, name) => [`${value} units`, name]}
+      nameKey="category" // Custom name key
+      labelKey="date" // Custom label key
+    />
+  }
+  cursor={false} // Hide cursor
+  defaultIndex={0} // Initial active item (v3)
+  active // Keep tooltip active (v3)
+/>
+```
+
+**Type Reference:**
+
+- Uses `ValueType` and `NameType` from `recharts/types/component/DefaultTooltipContent`
+- Extends `DefaultTooltipContentProps` from Recharts v3
+
+### ChartLegend & ChartLegendContent
+
+Custom legend components with automatic color and label mapping. Uses Recharts v3 types.
+
+**Basic Usage:**
+
+```tsx
+<ChartLegend content={<ChartLegendContent />} />
+```
+
+**With Advanced Options:**
+
+```tsx
+<ChartLegend
+  content={
+    <ChartLegendContent
+      hideIcon={false} // Hide legend icons
+      nameKey="category" // Custom name key for data mapping
+      verticalAlign="top" // 'top' | 'bottom'
+    />
+  }
+  verticalAlign="bottom"
+  align="center"
+/>
+```
+
+**Type Reference:**
+
+- Uses `DefaultLegendContentProps` from Recharts v3
+- Supports custom payload types with proper TypeScript inference
+
+## TypeScript Support
+
+All chart components are fully typed with TypeScript 5.x support.
+
+**Exported Types:**
+
+```typescript
+import type {
+  ChartConfig, // Chart configuration type
+  NameType, // Recharts v3 name type
+  ValueType, // Recharts v3 value type
+} from '@paalstack/react-ui';
+
+// Define your chart config with type safety
+const chartConfig = {
+  desktop: {
+    label: 'Desktop',
+    color: 'var(--chart-1)',
+    icon: MonitorIcon,
+  },
+  mobile: {
+    label: 'Mobile',
+    color: 'var(--chart-2)',
+  },
+} satisfies ChartConfig;
+```
+
+**Type-Safe Chart Data:**
+
+```typescript
+interface ChartDataPoint {
+  month: string;
+  desktop: number;
+  mobile: number;
+}
+
+const data: ChartDataPoint[] = [
+  { month: 'Jan', desktop: 186, mobile: 80 },
+  { month: 'Feb', desktop: 305, mobile: 200 },
+];
+```
+
+## Accessibility
+
+All charts include accessibility features:
+
+- Keyboard navigation support
+- Screen reader friendly labels
+- ARIA attributes
+- High contrast color schemes
+
+**Accessibility is enabled by default in Recharts v3.** The `accessibilityLayer` prop defaults to `true`.
+
+```tsx
+<AreaChart accessibilityLayer data={chartData}>
+  {/* ... */}
+</AreaChart>;
+
+{
+  /* To disable (not recommended): */
+}
+<AreaChart accessibilityLayer={false} data={chartData}>
+  {/* ... */}
+</AreaChart>;
+```
+
+## Best Practices
+
+1. **Set appropriate dimensions** - Use `height` prop or `className` with Tailwind utilities:
+
+   ```tsx
+   {
+     /* Option 1: Using height prop */
+   }
+   <ChartContainer config={config} height={250} className="w-full" />;
+
+   {
+     /* Option 2: Using Tailwind classes */
+   }
+   <ChartContainer config={config} className="max-h-[250px] min-h-[200px] w-full" />;
+   ```
+
+2. **Use initialDimension for loading states** - Prevents layout shift during chart initialization:
+
+   ```tsx
+   <ChartContainer config={config} initialDimension={{ width: 320, height: 200 }} />
+   ```
+
+3. **Optimize resize performance** - Use debounce for charts that resize frequently:
+
+   ```tsx
+   <ChartContainer config={config} debounce={300} />
+   ```
+
+4. **Use semantic data** - Provide meaningful labels and descriptions in your `ChartConfig`
+
+5. **Keep it simple** - Don't overcrowd charts with too much data
+
+6. **Test responsiveness** - Ensure charts work on all screen sizes using `minHeight`/`maxHeight`
+
+7. **Consider color blindness** - Use patterns, textures, or icons in addition to colors
+
+8. **Provide context** - Include titles, labels, and legends where appropriate
+
+9. **Leverage TypeScript** - Use `satisfies ChartConfig` for type-safe configuration
+
+## Resources
+
+- [Recharts v3 Documentation](https://recharts.github.io/)
+- [shadcn/ui Charts](https://ui.shadcn.com/charts)
+
+## Examples
+
+For detailed examples and interactive demos, visit the individual chart component pages linked above. Each page includes multiple variants with code examples you can copy and customize.

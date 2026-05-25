@@ -1,0 +1,696 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Overview/Providers" />
+
+# Providers
+
+A collection of **React Context Providers** that wrap your application to provide essential functionality like theming, internationalization, authentication, and notifications. These providers work seamlessly together and can be composed to create the ideal setup for your application.
+
+## Installation
+
+```bash
+pnpm add @paalstack/react-ui
+```
+
+## Available Providers
+
+### 🎨 ThemeProvider
+
+Provides theme management with dark/light mode support and local storage persistence for React applications.
+
+**Features:**
+
+- 🌓 Dark, light, and system theme modes
+- 💾 Automatic localStorage persistence
+- 🎯 Type-safe theme context
+- 🔄 Theme toggle functionality
+- 📱 System theme detection
+
+**Basic Usage:**
+
+```jsx
+import { ThemeProvider } from '@paalstack/react-ui';
+
+import { App } from './App';
+
+function Root() {
+  return (
+    <ThemeProvider defaultTheme="system" storageKey="app-theme">
+      <App />
+    </ThemeProvider>
+  );
+}
+```
+
+**Using the Theme Context:**
+
+```jsx
+import { useTheme } from '@paalstack/react-ui';
+
+function MyComponent() {
+  const { theme, setTheme, isDark, isLight, toggleTheme } = useTheme();
+
+  return (
+    <div>
+      <p>Current theme: {theme}</p>
+      <button onClick={toggleTheme}>Switch to {isDark ? 'Light' : 'Dark'} Mode</button>
+      <button onClick={() => setTheme('system')}>Use System Theme</button>
+    </div>
+  );
+}
+```
+
+**Props:**
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>-</td>
+      <td>Your application components</td>
+    </tr>
+    <tr>
+      <td>
+        <code>defaultTheme</code>
+      </td>
+      <td>
+        <code>'light' | 'dark' | 'system'</code>
+      </td>
+      <td>
+        <code>'light'</code>
+      </td>
+      <td>Initial theme</td>
+    </tr>
+    <tr>
+      <td>
+        <code>storageKey</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td></td>
+      <td>localStorage key for persistence</td>
+    </tr>
+    <tr>
+      <td>
+        <code>toasterProps</code>
+      </td>
+      <td>
+        <code>ToasterProps</code>
+      </td>
+      <td>-</td>
+      <td>Props for the toast notification system</td>
+    </tr>
+  </tbody>
+</table>
+
+**Context Values:**
+
+```typescript
+interface ThemeContext {
+  theme: 'light' | 'dark' | 'system';
+  setTheme: (theme: Theme) => void;
+  isDark: boolean;
+  isLight: boolean;
+  isSystem: boolean;
+  toggleTheme: () => void;
+}
+```
+
+**Documentation:** [ThemeProvider Stories](/docs/providers-themeprovider--docs)
+
+---
+
+### 🌙 NextThemeProvider
+
+Provides theme management specifically optimized for Next.js applications using `next-themes`.
+
+**Features:**
+
+- ⚡ Optimized for Next.js SSR/SSG
+- 🌓 Dark, light, and system theme modes
+- 💾 Automatic persistence
+- 🎯 No flash of unstyled content (FOUC)
+- 🔄 Smooth theme transitions
+
+**Basic Usage:**
+
+```jsx
+import { NextThemeProvider } from '@paalstack/react-ui';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <NextThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </NextThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+**Using the Theme Context:**
+
+```jsx
+'use client';
+
+import { useNextTheme } from '@paalstack/react-ui';
+
+function ThemeToggle() {
+  const { theme, setTheme, resolvedTheme } = useNextTheme();
+
+  return (
+    <div>
+      <p>Current theme: {resolvedTheme}</p>
+      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>Toggle Theme</button>
+    </div>
+  );
+}
+```
+
+**Props:**
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>-</td>
+      <td>Your application components</td>
+    </tr>
+    <tr>
+      <td>
+        <code>attribute</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>'class'</code>
+      </td>
+      <td>HTML attribute for theme (class, data-theme)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>defaultTheme</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>'system'</code>
+      </td>
+      <td>Initial theme</td>
+    </tr>
+    <tr>
+      <td>
+        <code>enableSystem</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>true</code>
+      </td>
+      <td>Enable system theme detection</td>
+    </tr>
+    <tr>
+      <td>
+        <code>storageKey</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>'theme'</code>
+      </td>
+      <td>localStorage key</td>
+    </tr>
+    <tr>
+      <td>
+        <code>disableTransitionOnChange</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>true</code>
+      </td>
+      <td>Disable transitions when changing theme</td>
+    </tr>
+    <tr>
+      <td>
+        <code>toastProps</code>
+      </td>
+      <td>
+        <code>ToasterProps</code>
+      </td>
+      <td>-</td>
+      <td>Props for the toast notification system</td>
+    </tr>
+  </tbody>
+</table>
+
+**Documentation:** [NextThemeProvider Stories](/docs/providers-nextthemeprovider--docs)
+
+---
+
+### 🌍 FormatIntlProvider
+
+Provides internationalization and formatting utilities for dates, numbers, currencies, and translations.
+
+**Features:**
+
+- 📅 Date and time formatting with timezone support
+- 💰 Currency formatting with exchange rates
+- 🔢 Number formatting
+- 🌐 Multi-locale support
+- 🗺️ Country-based format presets
+- 🔄 Dynamic locale switching
+
+**Basic Usage:**
+
+```jsx
+import { FormatIntlProvider } from '@paalstack/react-ui';
+
+function App() {
+  return (
+    <FormatIntlProvider countryBasedFormatKey="US" timeZone="America/New_York">
+      <YourApp />
+    </FormatIntlProvider>
+  );
+}
+```
+
+**Using the Context:**
+
+```jsx
+import { useFormatIntl } from '@paalstack/react-ui';
+
+function PriceDisplay() {
+  const { currencyIntl, dateIntl, numberIntl, t } = useFormatIntl();
+
+  const price = 1234.56;
+  const date = new Date();
+
+  return (
+    <div>
+      <p>Price: {currencyIntl.format(price)}</p>
+      <p>Date: {dateIntl.format(date, 'PP')}</p>
+      <p>Number: {numberIntl.format(12345.67)}</p>
+      <p>{t('welcome.message', { name: 'User' })}</p>
+    </div>
+  );
+}
+```
+
+**Props:**
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>-</td>
+      <td>Your application components</td>
+    </tr>
+    <tr>
+      <td>
+        <code>countryBasedFormatKey</code>
+      </td>
+      <td>
+        <code>CountryBasedFormatOptionKey</code>
+      </td>
+      <td>
+        <code>'LOCAL'</code>
+      </td>
+      <td>Country format preset</td>
+    </tr>
+    <tr>
+      <td>
+        <code>timeZone</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>IANA timezone identifier</td>
+    </tr>
+    <tr>
+      <td>
+        <code>dateFormat</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Custom date format</td>
+    </tr>
+    <tr>
+      <td>
+        <code>dateTimeFormat</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Custom datetime format</td>
+    </tr>
+    <tr>
+      <td>
+        <code>currencyExchange</code>
+      </td>
+      <td>
+        <code>CurrencyExchangeOptions</code>
+      </td>
+      <td>-</td>
+      <td>Currency exchange configuration</td>
+    </tr>
+    <tr>
+      <td>
+        <code>countryBasedFormatOptions</code>
+      </td>
+      <td>
+        <code>CountryBasedFormatOptions</code>
+      </td>
+      <td>-</td>
+      <td>Custom country format options</td>
+    </tr>
+  </tbody>
+</table>
+
+**Context Values:**
+
+```typescript
+interface FormatIntlContext {
+  dateIntl: DateIntl;
+  currencyIntl: CurrencyIntl;
+  numberIntl: NumberIntl;
+  t: (message: string, values?: Record<string, any>, locale?: string) => string;
+  countryBasedFormatKey: string;
+  setCountryBasedFormatKey: (key: string) => void;
+  timeZone: string;
+  setTimeZone: (tz: string) => void;
+  updateCurrencyExchange: (options: CurrencyExchangeOptions) => void;
+}
+```
+
+**Documentation:** [FormatIntlProvider Stories](/docs/providers-formatintlprovider--docs)
+
+---
+
+### 🔔 ToastProvider
+
+Provides a toast notification system for displaying temporary messages and alerts.
+
+**Features:**
+
+- ✨ Beautiful toast notifications
+- 🎨 Multiple variants (success, error, info, warning)
+- 🎯 Promise-based toasts
+- 📍 Customizable positioning
+- ⏱️ Auto-dismiss with custom duration
+- 🎭 Rich content support
+
+**Note:** ToastProvider is automatically included when you use `ThemeProvider` or `NextThemeProvider`. You typically don't need to use it directly unless you have specific requirements.
+
+**Standalone Usage:**
+
+```jsx
+import { ToastProvider } from '@paalstack/react-ui';
+
+function App() {
+  return (
+    <ToastProvider position="top-right" richColors closeButton>
+      <YourApp />
+    </ToastProvider>
+  );
+}
+```
+
+**Using Toasts:**
+
+```jsx
+import { toast } from '@paalstack/react-ui';
+
+function MyComponent() {
+  const handleSuccess = () => {
+    toast.success('Operation completed successfully!');
+  };
+
+  const handleError = () => {
+    toast.error('Something went wrong!');
+  };
+
+  const handlePromise = async () => {
+    const promise = fetch('/api/data');
+
+    toast.promise(promise, {
+      loading: 'Loading...',
+      success: 'Data loaded!',
+      error: 'Failed to load data',
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={handleSuccess}>Show Success</button>
+      <button onClick={handleError}>Show Error</button>
+      <button onClick={handlePromise}>Async Operation</button>
+    </div>
+  );
+}
+```
+
+**Toast Methods:**
+
+```jsx
+// Basic toasts
+toast('Default message');
+toast.success('Success message');
+toast.error('Error message');
+toast.warning('Warning message');
+toast.info('Info message');
+
+// With options
+toast('Message', {
+  duration: 5000,
+  position: 'top-center',
+  dismissible: true,
+});
+
+// Promise-based
+toast.promise(fetchData(), {
+  loading: 'Loading...',
+  success: (data) => `Loaded ${data.items.length} items`,
+  error: 'Failed to load',
+});
+
+// Custom content
+toast.custom((t) => (
+  <div>
+    <h3>Custom Toast</h3>
+    <button onClick={() => toast.dismiss(t)}>Close</button>
+  </div>
+));
+```
+
+**Props:**
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>position</code>
+      </td>
+      <td>
+        <code>'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'</code>
+      </td>
+      <td>
+        <code>'bottom-right'</code>
+      </td>
+      <td>Toast position</td>
+    </tr>
+    <tr>
+      <td>
+        <code>duration</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>4000</code>
+      </td>
+      <td>Auto-dismiss duration (ms)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>richColors</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>true</code>
+      </td>
+      <td>Use rich color variants</td>
+    </tr>
+    <tr>
+      <td>
+        <code>closeButton</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>true</code>
+      </td>
+      <td>Show close button</td>
+    </tr>
+    <tr>
+      <td>
+        <code>theme</code>
+      </td>
+      <td>
+        <code>'light' | 'dark'</code>
+      </td>
+      <td>-</td>
+      <td>Toast theme (auto-detected from parent provider)</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Composing Providers
+
+You can compose multiple providers together. The recommended order is:
+
+**For React Applications:**
+
+```jsx
+import { FormatIntlProvider, ThemeProvider } from '@paalstack/react-ui';
+
+function App() {
+  return (
+    <ThemeProvider defaultTheme="system">
+      <FormatIntlProvider countryBasedFormatKey="US">
+        <YourApp />
+      </FormatIntlProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+**For Next.js Applications:**
+
+```jsx
+import { FormatIntlProvider, NextThemeProvider } from '@paalstack/react-ui';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <NextThemeProvider>
+          <FormatIntlProvider countryBasedFormatKey="US">{children}</FormatIntlProvider>
+        </NextThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+## Best Practices
+
+### 1. Provider Order
+
+Place providers in the correct order based on dependencies:
+
+- Theme providers should be at the root
+- FormatIntl can wrap authentication
+- Authentication should wrap application-specific providers
+
+### 2. Performance
+
+Providers use React Context, which can cause re-renders. To optimize:
+
+- Place providers as high as needed, but not higher
+- Use `useMemo` for expensive computations in provider values
+- Split contexts if different parts of your app need different update frequencies
+
+### 3. Type Safety
+
+All providers are fully typed. Use TypeScript to get the best experience:
+
+```typescript
+import type { Theme } from '@paalstack/react-ui';
+
+const theme: Theme = 'dark'; // Type-safe
+```
+
+### 4. Testing
+
+When testing components that use providers, wrap them properly:
+
+```jsx
+import { ThemeProvider } from '@paalstack/react-ui';
+import { render } from '@testing-library/react';
+
+const wrapper = ({ children }) => <ThemeProvider>{children}</ThemeProvider>;
+
+render(<MyComponent />, { wrapper });
+```
+
+## Related Documentation
+
+- [Getting Started](/docs/overview-getting-started--docs)
+- [Components](/docs/components-accordion--docs)
+- [Hooks](/docs/overview-hooks--docs)
+- [Icons](/docs/overview-icons--docs)

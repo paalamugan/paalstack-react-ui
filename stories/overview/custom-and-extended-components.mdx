@@ -1,0 +1,2600 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Overview/Custom & Extended Components" />
+
+# Custom & Extended Components
+
+This document provides a complete reference of all components in this library that either **extend shadcn/ui beyond its defaults** or are **fully custom components with no shadcn/ui equivalent**.
+
+---
+
+## Part 1: shadcn-Based Components with Extended Functionality
+
+These components exist in shadcn/ui but have been significantly enhanced in this library with additional variants, props, and behaviors.
+
+---
+
+### `Button`
+
+**shadcn variants:** `default`, `destructive`, `outline`, `secondary`, `ghost`, `link`
+
+#### Extra Variants (not in shadcn)
+
+| Variant   | Behavior                                                                      |
+| --------- | ----------------------------------------------------------------------------- |
+| `solid`   | Filled solid background, fully themeable via the `color` prop                 |
+| `soft`    | Light tinted background with colored text (e.g. `bg-danger-soft text-danger`) |
+| `surface` | Transparent with a colored border; fills with color on hover                  |
+
+#### `color` Prop (not in shadcn)
+
+Works across all variants — `solid`, `soft`, `surface`, `outline`, `ghost`, `link`:
+
+- **Design tokens:** `primary`, `secondary`, `tertiary`, `destructive`, `info`, `danger`, `success`, `warning`, `muted`, `accent`
+- **Raw Tailwind palette:** `gray`, `red`, `orange`, `amber`, `yellow`, `lime`, `green`, `emerald`, `teal`, `cyan`, `sky`, `blue`, `indigo`, `violet`, `purple`, `fuchsia`, `pink`, `rose`
+
+```tsx
+<Button variant="solid" color="danger">Delete</Button>
+<Button variant="soft" color="success">Approve</Button>
+<Button variant="surface" color="info">Info</Button>
+<Button variant="outline" color="warning">Warning</Button>
+```
+
+#### Extra Props (not in shadcn)
+
+| Prop               | Type                                                  | Description                                             |
+| ------------------ | ----------------------------------------------------- | ------------------------------------------------------- |
+| `leftIcon`         | `ReactNode`                                           | Icon rendered left of label; hidden during loading      |
+| `rightIcon`        | `ReactNode`                                           | Icon rendered right of label; hidden during loading     |
+| `isLoading`        | `boolean`                                             | Disables button and shows a spinning icon               |
+| `loadingText`      | `string`                                              | Replaces label text when `isLoading` is true            |
+| `wrapperClassName` | `string`                                              | Class for the inner flex wrapper around label and icons |
+| `unstyled`         | `boolean`                                             | Strips all variant classes; applies only `className`    |
+| `label`            | `string`                                              | String shorthand for `children`                         |
+| `color`            | `AllColorVariant`                                     | Color from the full palette matrix                      |
+| `rounded`          | `none\|sm\|md\|lg\|xl\|2xl\|3xl\|full`                | Border radius control                                   |
+| `size`             | `xs\|sm\|md\|lg\|xl\|icon\|icon-xs\|icon-sm\|icon-lg` | Extended size system beyond shadcn                      |
+| `as` (polymorphic) | `ElementType`                                         | Render as `<a>`, `Link`, or any element                 |
+
+---
+
+### `Badge`
+
+**shadcn variants:** `default`, `secondary`, `destructive`, `outline`
+
+#### Extra Variants (not in shadcn)
+
+| Variant    | Color Token                            |
+| ---------- | -------------------------------------- |
+| `primary`  | `bg-primary text-primary-foreground`   |
+| `tertiary` | `bg-tertiary text-tertiary-foreground` |
+| `danger`   | `bg-danger text-danger-foreground`     |
+| `warning`  | `bg-warning text-warning-foreground`   |
+| `success`  | `bg-success text-success-foreground`   |
+| `info`     | `bg-info text-info-foreground`         |
+
+#### Extra Props (not in shadcn)
+
+| Prop    | Type         | Description                                |
+| ------- | ------------ | ------------------------------------------ |
+| `size`  | `sm\|md\|lg` | Size system — shadcn has no size for Badge |
+| `label` | `string`     | String shorthand for `children`            |
+
+```tsx
+<Badge variant="success" size="sm">Active</Badge>
+<Badge variant="danger" size="lg">Critical</Badge>
+<Badge variant="info">Informational</Badge>
+```
+
+---
+
+### `Checkbox`
+
+**shadcn behavior:** Single primary color when checked.
+
+#### Extra `variant` Prop (not in shadcn)
+
+`primary`, `secondary`, `tertiary`, `destructive`, `info`, `success`, `warning`, `danger`, `muted`, `accent`
+
+#### Extra Props (not in shadcn)
+
+| Prop             | Type      | Description                                   |
+| ---------------- | --------- | --------------------------------------------- |
+| `indeterminate`  | `boolean` | Shows a minus icon instead of a checkmark     |
+| `isInvalid`      | `boolean` | Applies danger border/background styling      |
+| `errorMessage`   | `string`  | Renders `ErrorMessage` below the checkbox     |
+| `swapRight`      | `boolean` | Moves checkbox to the right of its label      |
+| `labelClassName` | `string`  | Styles the label separately from the checkbox |
+| `rootClassName`  | `string`  | Styles the outer wrapper container            |
+
+```tsx
+<Checkbox variant="success" label="Agree" />
+<Checkbox indeterminate label="Select all" />
+<Checkbox isInvalid errorMessage="This field is required" label="Accept terms" />
+```
+
+---
+
+### `Alert`
+
+**shadcn variants:** `default`, `destructive`
+
+#### Extra Styling Axes (not in shadcn)
+
+| Prop              | Options                                                                               |
+| ----------------- | ------------------------------------------------------------------------------------- |
+| `colorVariant`    | `default`, `primary`, `secondary`, `tertiary`, `info`, `success`, `warning`, `danger` |
+| `softBackground`  | `primary`, `secondary`, `tertiary`, `info`, `success`, `warning`, `danger`            |
+| `solidBackground` | `primary`, `secondary`, `tertiary`, `info`, `success`, `warning`, `danger`            |
+
+#### Extra Props (not in shadcn)
+
+| Prop            | Type         | Description                                          |
+| --------------- | ------------ | ---------------------------------------------------- |
+| `title`         | `ReactNode`  | Renders `AlertTitle` automatically                   |
+| `description`   | `ReactNode`  | Renders `AlertDescription` automatically             |
+| `icon`          | `ReactNode`  | Node inserted before title/description               |
+| `dismissible`   | `boolean`    | Adds a close button; hides the alert on click        |
+| `onDismiss`     | `() => void` | Callback fired when the alert is dismissed           |
+| `bodyClassName` | `string`     | Styles the flex wrapper around title and description |
+
+```tsx
+<Alert softBackground="warning" icon={<AlertIcon />} title="Warning" description="Check your inputs." dismissible />
+<Alert solidBackground="danger" title="Error" description="Something went wrong." />
+<Alert colorVariant="success" title="Success" description="Changes saved." />
+```
+
+---
+
+### `Input`
+
+**shadcn behavior:** Basic styled `<input>` element with no built-in label or validation.
+
+#### Extra Props (not in shadcn)
+
+| Prop             | Type                      | Description                                               |
+| ---------------- | ------------------------- | --------------------------------------------------------- |
+| `label`          | `ReactNode`               | Renders a `Label` above with auto `htmlFor` wiring        |
+| `labelProps`     | `LabelProps`              | Additional props forwarded to the `Label` component       |
+| `isInvalid`      | `boolean`                 | Applies danger ring/border/placeholder styling            |
+| `errorMessage`   | `string`                  | Renders `ErrorMessage` below the input                    |
+| `inline`         | `boolean`                 | Switches layout to `flex-row` (label left, input right)   |
+| `inputClassName` | `string`                  | Styles the `<input>` element separately from its wrapper  |
+| `onValueChange`  | `(value: string) => void` | Fires with raw string value (convenience over `onChange`) |
+
+```tsx
+<Input label="Email" type="email" required isInvalid errorMessage="Invalid email" />
+<Input label="Search" inline placeholder="Search..." onValueChange={setQuery} />
+```
+
+---
+
+### `Textarea`
+
+**shadcn behavior:** Basic styled `<textarea>` element.
+
+#### Extra Props (not in shadcn)
+
+| Prop               | Type                      | Description                                       |
+| ------------------ | ------------------------- | ------------------------------------------------- |
+| `label`            | `string`                  | Renders a `Label` above the textarea              |
+| `isInvalid`        | `boolean`                 | Applies danger ring/border/placeholder styling    |
+| `errorMessage`     | `string`                  | Renders `ErrorMessage` below                      |
+| `inline`           | `boolean`                 | Horizontal label + textarea layout                |
+| `wrapperClassName` | `string`                  | Styles the outer wrapper div                      |
+| `onValueChange`    | `(value: string) => void` | Convenience value handler                         |
+| `readOnly` styling | —                         | Auto applies `bg-muted/40` and removes focus ring |
+
+---
+
+### `Label`
+
+**shadcn behavior:** Basic accessible label wrapper.
+
+#### Extra Props (not in shadcn)
+
+| Prop        | Type        | Description                                          |
+| ----------- | ----------- | ---------------------------------------------------- |
+| `required`  | `boolean`   | Appends a red `*` asterisk to the label              |
+| `isInvalid` | `boolean`   | Applies `text-danger` styling                        |
+| `disabled`  | `boolean`   | Applies `opacity-70`                                 |
+| `text`      | `ReactNode` | Shorthand prop for label content (alt to `children`) |
+
+```tsx
+<Label htmlFor="name" required isInvalid>
+  Full Name
+</Label>
+```
+
+---
+
+### `Select`
+
+**shadcn:** Exposes raw Radix primitives only.
+
+#### Extended High-Level `Select` Component (not in shadcn)
+
+| Prop                  | Type             | Description                                                |
+| --------------------- | ---------------- | ---------------------------------------------------------- |
+| `options`             | `SelectOption[]` | Strings, numbers, or `OptionType` objects — no manual JSX  |
+| `label`               | `ReactNode`      | Renders a `Label` above the trigger                        |
+| `labelProps`          | `LabelProps`     | Forwarded to the `Label`                                   |
+| `isInvalid`           | `boolean`        | Applies danger styling to the trigger                      |
+| `errorMessage`        | `string`         | Renders `ErrorMessage` below                               |
+| `inline`              | `boolean`        | Horizontal label + trigger layout                          |
+| `triggerClassName`    | `string`         | Styles the trigger separately                              |
+| `contentClassName`    | `string`         | Styles the dropdown content                                |
+| `noOptionsMessage`    | `ReactNode`      | Custom empty state message                                 |
+| `onBlur`              | `() => void`     | Blur handler on the trigger                                |
+| Grouped options       | —                | `{ label, options[] }` objects auto-render `<SelectGroup>` |
+| Disabled options      | —                | `disabled: true` on any option object                      |
+| Custom `labelContent` | `ReactNode`      | Render arbitrary JSX inside an item                        |
+
+```tsx
+<Select
+  label="Country"
+  options={[{ value: 'us', label: 'United States', key: 'us' }]}
+  isInvalid={!country}
+  errorMessage="Please select a country"
+  required
+/>
+```
+
+---
+
+### `Avatar`
+
+**shadcn:** Requires manual composition of `AvatarRoot` + `AvatarImage` + `AvatarFallback`. No built-in badge, group, or size system.
+
+This project provides **two APIs**:
+
+- **Prop-based API:** Use `Avatar` with `src`, `fallback`, `badge`, `size`, and sub-component props (`imageProps`, `fallbackProps`, `badgeProps`) for single-component usage.
+- **Composition API:** Use `AvatarRoot`, `AvatarImage`, `AvatarFallback`, `AvatarBadge` for full control.
+
+#### `Avatar` Props (not in shadcn)
+
+| Prop            | Type                             | Description                                                 |
+| --------------- | -------------------------------- | ----------------------------------------------------------- |
+| `src`           | `string`                         | Image URL passed to `AvatarImage`                           |
+| `alt`           | `string`                         | Alt text passed to `AvatarImage`                            |
+| `fallback`      | `ReactNode`                      | Content for `AvatarFallback` — no manual composition needed |
+| `badge`         | `ReactNode`                      | Pass `true` for status dot, or `ReactNode` for custom badge |
+| `size`          | `'sm' \| 'default' \| 'lg'`      | Size variant controlling avatar dimensions                  |
+| `imageProps`    | `Omit<AvatarImage.Props, 'src'>` | Props forwarded to `AvatarImage`                            |
+| `fallbackProps` | `AvatarFallback.Props`           | Props forwarded to `AvatarFallback`                         |
+| `badgeProps`    | `AvatarBadge` props              | Props forwarded to `AvatarBadge`                            |
+
+```tsx
+{
+  /* Simple usage */
+}
+<Avatar src="/user.jpg" fallback="JD" />;
+
+{
+  /* With size and badge */
+}
+<Avatar src="/user.jpg" fallback="JD" size="lg" badge />;
+
+{
+  /* With custom badge color */
+}
+<Avatar src="/user.jpg" fallback="JD" badge badgeProps={{ className: 'bg-green-500' }} />;
+
+{
+  /* Custom fallback styling */
+}
+<Avatar fallback="AB" fallbackProps={{ className: 'bg-blue-500 text-white' }} />;
+```
+
+#### Extra Sub-Components (not in shadcn)
+
+| Component          | Purpose                                                                 |
+| ------------------ | ----------------------------------------------------------------------- |
+| `AvatarBadge`      | Status indicator dot positioned at bottom-right corner; size-responsive |
+| `AvatarGroup`      | Wraps avatars with overlapping `-space-x-2` layout and ring borders     |
+| `AvatarGroupCount` | Shows overflow count (e.g. `+5`) styled to match grouped avatar sizes   |
+| `AvatarGroupList`  | Props API for groups — accepts `items` array and `max` limit            |
+
+#### `AvatarGroupList` Props (not in shadcn)
+
+| Prop         | Type                     | Description                                        |
+| ------------ | ------------------------ | -------------------------------------------------- |
+| `items`      | `AvatarProps[]`          | Array of avatar configurations to render           |
+| `max`        | `number`                 | Maximum visible avatars; overflow shows `+N` count |
+| `countProps` | `AvatarGroupCount` props | Props forwarded to the overflow count indicator    |
+
+```tsx
+<AvatarGroupList
+  items={[
+    { src: '/user1.jpg', fallback: 'U1' },
+    { src: '/user2.jpg', fallback: 'U2' },
+    { src: '/user3.jpg', fallback: 'U3' },
+    { fallback: 'JD' },
+    { fallback: 'AB' },
+  ]}
+  max={3}
+/>
+```
+
+---
+
+### `Combobox`
+
+**shadcn:** A recipe/pattern, not a packaged component.
+
+#### Packaged `Combobox` Props (not in shadcn)
+
+| Prop                  | Type                             | Description                                           |
+| --------------------- | -------------------------------- | ----------------------------------------------------- |
+| `options`             | `(string\|number\|OptionType)[]` | Flexible option input                                 |
+| `label`               | `ReactNode`                      | Renders `Label` above                                 |
+| `isInvalid`           | `boolean`                        | Validation styling                                    |
+| `errorMessage`        | `string`                         | Renders `ErrorMessage` below                          |
+| `inline`              | `boolean`                        | Horizontal layout                                     |
+| `onClear`             | `() => void`                     | Fires when the inline clear button is clicked         |
+| `open`/`onOpenChange` | `boolean` / function             | Controlled open state                                 |
+| `triggerClassName`    | `string`                         | Style overrides for trigger                           |
+| `contentClassName`    | `string`                         | Style overrides for content panel                     |
+| `searchPlaceholder`   | `string`                         | Placeholder for the embedded search input             |
+| `emptyOptionMessage`  | `string`                         | Custom message when search yields no results          |
+| Auto clear button     | —                                | `XCircleIcon` appears inline when a value is selected |
+
+---
+
+### `DatePicker`
+
+**shadcn:** A recipe combining `Popover` + `Calendar`, not a packaged component.
+
+#### Packaged `DatePicker` Props (not in shadcn)
+
+| Prop                | Type                              | Description                                        |
+| ------------------- | --------------------------------- | -------------------------------------------------- |
+| `date`              | `Date\|string`                    | Accepts `Date` or ISO string (auto-converts)       |
+| `onDateChange`      | `(date: Date\|undefined) => void` | Value callback                                     |
+| `label`             | `string`                          | Renders `Label` above                              |
+| `isInvalid`         | `boolean`                         | Validation styling                                 |
+| `errorMessage`      | `string`                          | Renders `ErrorMessage` below                       |
+| `dateFormat`        | `string`                          | Custom `date-fns` format string (default `'PPP'`)  |
+| `presets`           | `{ label, value }[]`              | Days-offset quick-select via a dropdown            |
+| `presetPlaceholder` | `string`                          | Placeholder for the preset select                  |
+| `calendarProps`     | `PropsSingle`                     | Forwarded directly to the `Calendar` component     |
+| `disabled`          | `boolean`                         | Disables the trigger button                        |
+| `wrapperClassName`  | `string`                          | Styles the outer container                         |
+| Auto clear button   | —                                 | Inline `XCircleIcon` shown when a date is selected |
+
+---
+
+### `Pagination`
+
+**shadcn:** Simple prev/next link navigation only.
+
+#### Extended Full-Featured `Pagination` (not in shadcn)
+
+| Prop                                 | Type                     | Description                                            |
+| ------------------------------------ | ------------------------ | ------------------------------------------------------ |
+| `total`                              | `number`                 | Total number of items                                  |
+| `currentPage`                        | `number`                 | Controlled current page                                |
+| `pageSize`                           | `number`                 | Items per page (default `10`)                          |
+| `onPageChange`                       | `(page: number) => void` | Page change callback                                   |
+| `onPageSizeChange`                   | `(size: number) => void` | Page size change callback                              |
+| `showPageSizeOptions`                | `boolean`                | Renders a page-size dropdown                           |
+| `pageSizeOptions`                    | `number[]`               | Custom size options (default `[10, 20, 30, 40, 50]`)   |
+| `pageSizeText`                       | `ReactNode`              | Label beside the size dropdown                         |
+| `showTotalResults`                   | `boolean`                | Shows "Showing X to Y of Z rows"                       |
+| `showOnlyNextAndPrevious`            | `boolean`                | Strips to prev/next buttons only                       |
+| `showOnlyIfTotalGreaterThanPageSize` | `boolean`                | Auto-hides when all items fit on one page              |
+| `showSelectedRowsCount`              | `boolean`                | Shows "N of Z row(s) selected"                         |
+| `selectedRowsCount`                  | `number`                 | Count of currently selected rows                       |
+| `siblings` / `boundaries`            | `number`                 | Controls visible page numbers via `usePagination` hook |
+| First / Last buttons                 | —                        | Double-arrow buttons jump to first/last page           |
+
+---
+
+### `Spinner`
+
+**shadcn:** Added October 2025 — basic `Spinner` with no built-in size prop.
+
+#### Extended `size` Prop (not in shadcn)
+
+| Size | Class    |
+| ---- | -------- |
+| `xs` | `size-3` |
+| `sm` | `size-4` |
+| `md` | `size-5` |
+| `lg` | `size-6` |
+| `xl` | `size-8` |
+
+```tsx
+<Spinner size="xs" />
+<Spinner size="xl" className="text-primary" />
+```
+
+---
+
+### `Sonner`
+
+**shadcn:** Thin wrapper around the `sonner` library's `Toaster` component with styled icons and CSS custom properties.
+
+This project provides the same wrapper with project-specific icon set (`react-icons/lu`) and design-system CSS variable integration.
+
+#### Pre-Configured Behavior (matching shadcn)
+
+| Feature            | Detail                                                                       |
+| ------------------ | ---------------------------------------------------------------------------- |
+| Icons              | `LuCircleCheck`, `LuInfo`, `LuTriangleAlert`, `LuOctagonX`, `LuLoaderCircle` |
+| CSS Variables      | `--normal-bg`, `--normal-text`, `--normal-border`, `--border-radius`         |
+| Toast class        | `cn-toast` applied via `toastOptions.classNames.toast`                       |
+| All `ToasterProps` | Passed through from `sonner` — `theme`, `position`, `richColors`, etc.       |
+
+```tsx
+import { Sonner } from '@paalstack/react-components';
+import { toast } from 'sonner';
+
+{
+  /* In your layout */
+}
+<Sonner />;
+
+{
+  /* Trigger toasts anywhere */
+}
+toast('Default notification');
+toast.success('Operation completed!');
+toast.error('Something went wrong');
+toast.promise(fetchData(), {
+  loading: 'Loading...',
+  success: 'Done!',
+  error: 'Failed',
+});
+```
+
+---
+
+### `Empty`
+
+**shadcn:** Added October 2025 — ships `Empty`, `EmptyMedia`, `EmptyTitle`, `EmptyDescription`, `EmptyContent`.
+
+This project matches the same sub-component set and extends `EmptyMedia` with an `icon` variant (themed icon container with `bg-muted`, rounded, and `size-8`). It also provides **two APIs**:
+
+- **Compound API:** Use `EmptyRoot` with `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `EmptyDescription`, `EmptyContent` for full control over structure and composition.
+- **Prop-based API:** Use `Empty` with `media`, `title`, `description`, `content`, and optional `headerProps` / `mediaProps` / `titleProps` / `descriptionProps` / `contentProps` for a single-component usage.
+
+| Sub-component      | Purpose                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------- |
+| `Empty`            | Prop-based root — accepts `media`, `title`, `description`, `content` (and \*Props)    |
+| `EmptyRoot`        | Compound root wrapper — centers content with `flex flex-col items-center`             |
+| `EmptyHeader`      | Groups media + title + description together                                           |
+| `EmptyMedia`       | Media slot; `variant="default"` (transparent) or `variant="icon"` (muted bg, rounded) |
+| `EmptyTitle`       | Heading text — `font-semibold text-sm`                                                |
+| `EmptyDescription` | Muted helper text — `text-sm text-muted-foreground`                                   |
+| `EmptyContent`     | Action area (buttons, links) rendered below the header                                |
+
+**Compound API example:**
+
+```tsx
+<EmptyRoot>
+  <EmptyHeader>
+    <EmptyMedia variant="icon">
+      <InboxIcon className="size-8" />
+    </EmptyMedia>
+    <EmptyTitle>No Results</EmptyTitle>
+    <EmptyDescription>Try adjusting your search or filters.</EmptyDescription>
+  </EmptyHeader>
+  <EmptyContent>
+    <Button onClick={handleClearFilters}>Clear Filters</Button>
+  </EmptyContent>
+</EmptyRoot>
+```
+
+**Prop-based API example:**
+
+```tsx
+<Empty
+  media={<InboxIcon className="size-12" />}
+  mediaVariant="icon"
+  title="No Results"
+  description="Try adjusting your search or filters."
+  content={<Button onClick={handleClearFilters}>Clear Filters</Button>}
+/>
+```
+
+---
+
+### `Field`
+
+**shadcn:** Form field primitives (when present) are typically low-level. This project ships a full **Field** family: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `FieldContent`, plus `FieldSet`, `FieldLegend`, `FieldGroup`, `FieldSeparator`, `FieldTitle`.
+
+Two APIs are available:
+
+- **Compound API:** Use `FieldRoot` with `FieldLabel`, `FieldContent`, `FieldDescription`, `FieldError` and pass the control (e.g. `Input`, `Select`) as children for full control.
+- **Prop-based API:** Use `Field` with `label`, `description`, `error` / `errors` / `issues`, and pass the control as `children`; optional `labelProps`, `descriptionProps`, `errorProps`, `contentProps`. Supports `orientation="vertical" | "horizontal" | "responsive"`.
+
+| Sub-component      | Purpose                                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------------------- | -------- |
+| `Field`            | Prop-based root — accepts `label`, `description`, `error`/`errors`/`issues`, control as `children` |
+| `FieldRoot`        | Compound root — `role="group"`, orientation variants                                               |
+| `FieldLabel`       | Label (optionally `asChild` for Radix Slot)                                                        |
+| `FieldContent`     | Groups control + description in horizontal layout                                                  |
+| `FieldDescription` | Muted hint text                                                                                    |
+| `FieldError`       | Error message or list; accepts `errors` array or `issues` (e.g. Zod)                               |
+| `FieldSet`         | `<fieldset>` wrapper                                                                               |
+| `FieldLegend`      | `<legend>` with `variant="legend"                                                                  | "label"` |
+| `FieldGroup`       | Groups multiple fields                                                                             |
+| `FieldSeparator`   | Divider (optional text)                                                                            |
+| `FieldTitle`       | Title-style label                                                                                  |
+
+**Compound API example:**
+
+```tsx
+<FieldRoot>
+  <FieldLabel htmlFor="username">Username</FieldLabel>
+  <Input id="username" placeholder="Enter username" />
+  <FieldDescription>Choose a unique username for your account.</FieldDescription>
+</FieldRoot>
+```
+
+**Prop-based API example:**
+
+```tsx
+<Field label="Username" description="Choose a unique username for your account." labelProps={{ htmlFor: 'username' }}>
+  <Input id="username" placeholder="Enter username" />
+</Field>
+```
+
+Horizontal layout with description:
+
+```tsx
+<Field
+  orientation="horizontal"
+  label="Accept terms"
+  description="You must accept the terms to continue."
+  labelProps={{ htmlFor: 'terms' }}
+>
+  <Checkbox id="terms" />
+</Field>
+```
+
+---
+
+### `Item`
+
+**shadcn:** Added October 2025 — ships `Item`, `ItemMedia`, `ItemContent`, `ItemTitle`, `ItemDescription`, `ItemActions`, `ItemGroup`, `ItemSeparator`.
+
+This project extends with `variant`, `size`, `asChild`, and two extra sub-components: `ItemHeader` (section heading) and `ItemFooter` (metadata row). Two APIs are available:
+
+- **Compound API:** Use `ItemRoot` with `ItemMedia`, `ItemContent`, `ItemTitle`, `ItemDescription`, `ItemActions`, `ItemHeader`, `ItemFooter` for full control (e.g. `asChild`, custom order).
+- **Prop-based API:** Use `Item` with `header`, `media`, `mediaVariant`, `title`, `description`, `actions`, `footer`, and optional `*Props` for sub-components.
+
+| Prop      | Values                        | Description                                            |
+| --------- | ----------------------------- | ------------------------------------------------------ |
+| `variant` | `default`, `outline`, `muted` | Border and background treatment                        |
+| `size`    | `default`, `sm`, `xs`         | Padding and gap scale                                  |
+| `asChild` | `boolean`                     | Renders as child element (e.g. `<a>`) via Radix `Slot` |
+
+| Sub-component     | shadcn   | Purpose                                                                    |
+| ----------------- | -------- | -------------------------------------------------------------------------- |
+| `Item`            | ✓        | Prop-based root — accepts `media`, `title`, `description`, `actions`, etc. |
+| `ItemRoot`        | ✓        | Compound root wrapper with variant/size                                    |
+| `ItemMedia`       | ✓        | Media slot; `variant`: `default`, `icon`, `image`, `avatar`                |
+| `ItemContent`     | ✓        | Flex column for title + description                                        |
+| `ItemTitle`       | ✓        | Bold item label, line-clamped                                              |
+| `ItemDescription` | ✓        | Muted helper text, line-clamped                                            |
+| `ItemActions`     | ✓        | Right-aligned action buttons                                               |
+| `ItemGroup`       | ✓        | Groups multiple items                                                      |
+| `ItemSeparator`   | ✓        | Divider between items                                                      |
+| `ItemHeader`      | ✗ custom | Section heading row — uppercase, tracking-wide, muted                      |
+| `ItemFooter`      | ✗ custom | Metadata/timestamp row — small, muted                                      |
+
+**Compound API example:**
+
+```tsx
+<ItemGroup>
+  <ItemHeader>Recent Activity</ItemHeader>
+  <ItemRoot variant="outline">
+    <ItemMedia variant="icon">
+      <BellIcon />
+    </ItemMedia>
+    <ItemContent>
+      <ItemTitle>Security Alert</ItemTitle>
+      <ItemDescription>New login from unknown device detected.</ItemDescription>
+    </ItemContent>
+    <ItemActions>
+      <Button size="sm" variant="outline">
+        Dismiss
+      </Button>
+    </ItemActions>
+  </ItemRoot>
+  <ItemSeparator />
+  <ItemRoot asChild>
+    <a href="/settings">
+      <ItemMedia variant="icon">
+        <SettingsIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Account Settings</ItemTitle>
+      </ItemContent>
+    </a>
+  </ItemRoot>
+  <ItemFooter>Last updated 5 minutes ago</ItemFooter>
+</ItemGroup>
+```
+
+**Prop-based API example:**
+
+```tsx
+<Item
+  media={<BellIcon className="size-4" />}
+  mediaVariant="icon"
+  title="Security Alert"
+  description="New login from unknown device detected."
+  actions={
+    <Button size="sm" variant="outline">
+      Dismiss
+    </Button>
+  }
+/>
+```
+
+---
+
+### `Drawer`
+
+**Vaul:** Drawer (slide-out panel) built on [Vaul](https://vaul.emilkowal.ski/) by @emilkowalski.
+
+This project provides **two APIs**:
+
+- **Compound API:** Use `DrawerRoot` with `DrawerTrigger`, `DrawerContent`, `DrawerHeader`, `DrawerTitle`, `DrawerDescription`, `DrawerFooter`, and `DrawerClose` for full control.
+- **Prop-based API:** Use `Drawer` with `trigger`, `title`, `description`, `footer`, and `children` (body content); optional `contentProps`, `headerProps`, `footerProps`. Supports Vaul root props: `open`, `onOpenChange`, `direction` (`bottom` | `top` | `left` | `right`), etc.
+
+| Sub-component       | Purpose                                                                         |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `Drawer`            | Prop-based root — accepts `trigger`, `title`, `description`, `footer`, children |
+| `DrawerRoot`        | Compound root (Vaul Root) — `open`, `onOpenChange`, `direction`                 |
+| `DrawerTrigger`     | Opens the drawer; use `asChild` to wrap a button/link                           |
+| `DrawerContent`     | Panel content (portal + overlay)                                                |
+| `DrawerHeader`      | Header area for title/description                                               |
+| `DrawerTitle`       | Accessible title                                                                |
+| `DrawerDescription` | Optional description                                                            |
+| `DrawerFooter`      | Footer area (actions)                                                           |
+| `DrawerClose`       | Closes the drawer when clicked (wrap button/link)                               |
+
+**Compound API example:**
+
+```tsx
+<DrawerRoot>
+  <DrawerTrigger asChild>
+    <Button>Open</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>Submit</Button>
+      <DrawerClose asChild>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</DrawerRoot>
+```
+
+**Prop-based API example:**
+
+```tsx
+<Drawer
+  trigger={<Button>Open</Button>}
+  title="Are you sure?"
+  description="This action cannot be undone."
+  footer={
+    <>
+      <Button>Submit</Button>
+      <DrawerClose asChild>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </>
+  }
+>
+  <p>Optional body content</p>
+</Drawer>
+```
+
+---
+
+### `HoverCard`
+
+**Radix UI:** Hover card for previewing content on hover.
+
+This project provides **two APIs**:
+
+- **Compound API:** Use `HoverCardRoot` with `HoverCardTrigger` and `HoverCardContent` for full control over content.
+- **Prop-based API:** Use `HoverCard` with `trigger`, optional `title`, `description`, and `children` (content); optional `contentProps` (e.g. `className`). Supports root props: `open`, `onOpenChange`, `openDelay`, `closeDelay`, etc.
+
+| Sub-component      | Purpose                                                               |
+| ------------------ | --------------------------------------------------------------------- |
+| `HoverCard`        | Prop-based root — accepts `trigger`, `title`, `description`, children |
+| `HoverCardRoot`    | Compound root (Radix Root) — `open`, `onOpenChange`, delay props      |
+| `HoverCardTrigger` | Hover target; use `asChild` to wrap link/button                       |
+| `HoverCardContent` | Popover content (positioning, styling)                                |
+
+**Compound API example:**
+
+```tsx
+<HoverCardRoot>
+  <HoverCardTrigger asChild>
+    <Button variant="link">@username</Button>
+  </HoverCardTrigger>
+  <HoverCardContent className="w-80">
+    <h4 className="font-semibold">User Name</h4>
+    <p className="text-sm text-muted-foreground">Bio or description</p>
+  </HoverCardContent>
+</HoverCardRoot>
+```
+
+**Prop-based API example:**
+
+```tsx
+<HoverCard trigger={<Button variant="link">@johndoe</Button>} title="John Doe" description="Software Engineer @Company">
+  <p className="pt-1 text-xs text-muted-foreground">1.2k followers • 234 following</p>
+</HoverCard>
+```
+
+---
+
+### `InputGroup`
+
+**shadcn:** Added October 2025 as "Input Group" — ships `InputGroup` with button/icon slot support.
+
+This project ships a richer set of sub-components with explicit addon positioning (`align`: `inline-start`, `inline-end`, `block-start`, `block-end`) and an `InputGroupTextarea` variant. **Two APIs** are available:
+
+- **Compound API:** Use `InputGroupRoot` with `InputGroupInput`, `InputGroupAddon`, `InputGroupText`, `InputGroupButton`, `InputGroupTextarea` for full control.
+- **Prop-based API:** Use `InputGroup` with `inputProps` or `textareaProps`, `addonStart`, `addonEnd` (and optional `addonStartAlign` / `addonEndAlign`, `addonStartProps` / `addonEndProps`).
+
+| Sub-component        | Purpose                                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------------------- |
+| `InputGroup`         | Prop-based root — accepts `inputProps`/`textareaProps`, `addonStart`, `addonEnd`                |
+| `InputGroupRoot`     | Compound root — wrapper for disabled state and border radius                                    |
+| `InputGroupInput`    | Stripped `Input` for use inside the group                                                       |
+| `InputGroupAddon`    | Text/icon/button addon; `align`: `inline-start` \| `inline-end` \| `block-start` \| `block-end` |
+| `InputGroupButton`   | Button inside the group; sizes: `xs`, `sm`, `icon-xs`, `icon-sm`                                |
+| `InputGroupText`     | Static text label inside an addon                                                               |
+| `InputGroupTextarea` | Multi-line textarea variant — same border coordination as `InputGroupInput`                     |
+
+**Prop-based API example:**
+
+```tsx
+<InputGroup
+  inputProps={{ placeholder: 'Search...' }}
+  addonEnd={<SearchIcon />}
+/>
+
+<InputGroup
+  inputProps={{ placeholder: 'yoursite' }}
+  addonStart={<InputGroupText>https://</InputGroupText>}
+  addonEnd={<InputGroupText>.com</InputGroupText>}
+/>
+```
+
+**Compound API example:**
+
+```tsx
+<InputGroupRoot>
+  <InputGroupInput placeholder="Search..." />
+  <InputGroupAddon align="inline-end">
+    <SearchIcon />
+  </InputGroupAddon>
+</InputGroupRoot>;
+
+<InputGroupRoot>
+  <InputGroupInput placeholder="example.com" />
+  <InputGroupAddon align="inline-start">
+    <InputGroupText>https://</InputGroupText>
+  </InputGroupAddon>
+  <InputGroupAddon align="inline-end">
+    <InputGroupButton size="icon-xs" aria-label="Copy">
+      <CopyIcon />
+    </InputGroupButton>
+  </InputGroupAddon>
+</InputGroupRoot>;
+
+<InputGroupRoot>
+  <InputGroupAddon align="block-start">
+    <MessageIcon />
+  </InputGroupAddon>
+  <InputGroupTextarea placeholder="Type a message..." rows={3} />
+</InputGroupRoot>;
+```
+
+---
+
+### `RadioGroup`
+
+**shadcn:** Has `RadioGroup` + `RadioGroupItem` as low-level Radix UI primitives requiring manual composition.
+
+This project wraps them into a high-level API driven by an `options` array, with built-in color variants, validation, and layout control.
+
+| Prop                      | Type                                 | Description                                                                                                                             |
+| ------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `options`                 | `(string \| number \| OptionType)[]` | Accepts strings, numbers, or `{ label, value, key, disabled, labelContent }` objects                                                    |
+| `label`                   | `string`                             | Group label rendered above options                                                                                                      |
+| `inline`                  | `boolean`                            | Horizontal layout (`grid-flow-col`)                                                                                                     |
+| `swapRight`               | `boolean`                            | Radio button appears to the right of its label                                                                                          |
+| `variant`                 | `ColorVariant`                       | Color for all radio items: `primary`, `secondary`, `tertiary`, `destructive`, `info`, `success`, `warning`, `danger`, `muted`, `accent` |
+| `required`                | `boolean`                            | Marks the label as required                                                                                                             |
+| `isInvalid`               | `boolean`                            | Applies danger styling to items                                                                                                         |
+| `errorMessage`            | `string`                             | Renders `ErrorMessage` below the group                                                                                                  |
+| `labelClassName`          | `string`                             | Class applied to the group label                                                                                                        |
+| `value` / `onValueChange` | `string` / function                  | Controlled selection                                                                                                                    |
+
+Also exports `RadioGroupRoot` and `RadioGroupRootItem` for low-level composition.
+
+```tsx
+<RadioGroup
+  label="Shipping Method"
+  options={[
+    { value: 'standard', label: 'Standard — Free (5–7 days)', key: 'standard' },
+    { value: 'express', label: 'Express — $9.99 (2–3 days)', key: 'express' },
+    { value: 'overnight', label: 'Overnight — $24.99', key: 'overnight', disabled: true },
+  ]}
+  value={method}
+  onValueChange={setMethod}
+  required
+  isInvalid={!method}
+  errorMessage="Please select a shipping method"
+/>;
+
+{
+  /* Inline + colour variant */
+}
+<RadioGroup
+  label="Priority"
+  options={['Low', 'Medium', 'High']}
+  value={priority}
+  onValueChange={setPriority}
+  inline
+  variant="success"
+/>;
+```
+
+---
+
+### `NativeSelect`
+
+**shadcn:** Available as `native-select` (`npx shadcn@latest add native-select`) — ships `NativeSelect`, `NativeSelectOption`, `NativeSelectOptGroup`.
+
+This project adds a `size` prop and `wrapperClassName` on top of the base shadcn implementation.
+
+#### Extended Props (not in shadcn)
+
+| Prop               | Type                | Description                                                      |
+| ------------------ | ------------------- | ---------------------------------------------------------------- |
+| `size`             | `'default' \| 'sm'` | `default` = `h-8`; `sm` = `h-7` with tighter padding             |
+| `wrapperClassName` | `string`            | Class on the outer wrapper `div` that positions the chevron icon |
+
+```tsx
+{
+  /* Grouped options */
+}
+<NativeSelect aria-label="Department" defaultValue="eng">
+  <NativeSelectOptGroup label="Engineering">
+    <NativeSelectOption value="eng">Frontend</NativeSelectOption>
+    <NativeSelectOption value="be">Backend</NativeSelectOption>
+  </NativeSelectOptGroup>
+  <NativeSelectOptGroup label="Other">
+    <NativeSelectOption value="design">Design</NativeSelectOption>
+  </NativeSelectOptGroup>
+</NativeSelect>;
+
+{
+  /* Small size */
+}
+<NativeSelect size="sm" aria-label="Status">
+  <NativeSelectOption value="active">Active</NativeSelectOption>
+  <NativeSelectOption value="inactive">Inactive</NativeSelectOption>
+</NativeSelect>;
+```
+
+---
+
+### `Accordion`
+
+**shadcn:** Basic composition-only accordion.
+
+This project adds a **Props API** for declarative usage.
+
+| Prop    | Type                          | Description                            |
+| ------- | ----------------------------- | -------------------------------------- |
+| `items` | `{ value, title, content }[]` | Declarative item definitions           |
+| `type`  | `'single' \| 'multiple'`      | Single or multiple panels open at once |
+
+```tsx
+<Accordion
+  type="single"
+  items={[
+    { value: 'item-1', title: 'Section 1', content: <p>Content 1</p> },
+    { value: 'item-2', title: 'Section 2', content: <p>Content 2</p> },
+  ]}
+/>
+```
+
+---
+
+### `AlertDialog`
+
+**shadcn:** Composition-only alert dialog.
+
+This project adds a **Props API** and an `AlertDialogMedia` sub-component.
+
+| Prop                 | Type                  | Description                          |
+| -------------------- | --------------------- | ------------------------------------ |
+| `trigger`            | `ReactNode`           | Trigger element                      |
+| `header`             | `object \| ReactNode` | `{ title, description }` or raw node |
+| `icon`               | `ReactNode`           | Icon rendered in `AlertDialogMedia`  |
+| `size`               | `'default' \| 'sm'`   | Size variant                         |
+| `cancelButtonText`   | `string`              | Cancel button label                  |
+| `confirmButtonText`  | `string`              | Confirm button label                 |
+| `onCancel`           | `() => void`          | Cancel callback                      |
+| `onConfirm`          | `() => void`          | Confirm callback                     |
+| `cancelButtonProps`  | `ButtonProps`         | Props forwarded to cancel button     |
+| `confirmButtonProps` | `ButtonProps`         | Props forwarded to confirm button    |
+| `dialogContentProps` | `ContentProps`        | Props forwarded to dialog content    |
+
+#### Extra Sub-Components
+
+| Component          | Purpose                                  |
+| ------------------ | ---------------------------------------- |
+| `AlertDialogMedia` | Icon/media area above the dialog content |
+
+---
+
+### `Breadcrumb`
+
+**shadcn:** Composition-only breadcrumb.
+
+This project adds a **Props API** with collapsible items.
+
+| Prop        | Type                   | Description                                     |
+| ----------- | ---------------------- | ----------------------------------------------- |
+| `items`     | `BreadcrumbItemType[]` | `{ key, label, href, render, isCurrent }` array |
+| `separator` | `ReactNode`            | Custom separator between items                  |
+| `maxItems`  | `number`               | Collapse middle items when exceeding this count |
+
+```tsx
+<Breadcrumb
+  items={[
+    { key: 'home', label: 'Home', href: '/' },
+    { key: 'products', label: 'Products', href: '/products' },
+    { key: 'details', label: 'Details', isCurrent: true },
+  ]}
+  maxItems={3}
+/>
+```
+
+---
+
+### `Calendar`
+
+**shadcn:** Wraps `react-day-picker` with styled buttons.
+
+#### Extra Sub-Components / Props
+
+| Extension           | Description                                 |
+| ------------------- | ------------------------------------------- |
+| `CalendarDayButton` | Custom day cell component with `color` prop |
+| `buttonVariant`     | Variant for navigation buttons              |
+
+---
+
+### `Card`
+
+**shadcn:** Composition-only card with Header, Title, Description, Content, Footer.
+
+This project adds a **Props API** and `CardAction`.
+
+| Prop               | Type                  | Description                                 |
+| ------------------ | --------------------- | ------------------------------------------- |
+| `header`           | `object \| ReactNode` | `{ title, description, className }` or node |
+| `footer`           | `ReactNode`           | Footer content                              |
+| `action`           | `ReactNode`           | Action area (top-right)                     |
+| `size`             | `'default' \| 'sm'`   | Size variant                                |
+| `contentClassName` | `string`              | Class for content area                      |
+| `headerClassName`  | `string`              | Class for header area                       |
+| `footerClassName`  | `string`              | Class for footer area                       |
+
+#### Extra Sub-Components
+
+| Component    | Purpose                               |
+| ------------ | ------------------------------------- |
+| `CardAction` | Action area positioned in card header |
+
+---
+
+### `Carousel`
+
+**shadcn:** Composition-only carousel.
+
+This project adds a **Props API**.
+
+| Prop               | Type          | Description                         |
+| ------------------ | ------------- | ----------------------------------- |
+| `items`            | `ReactNode[]` | Array of items to render as slides  |
+| `showNavigation`   | `boolean`     | Show prev/next buttons              |
+| `contentClassName` | `string`      | Class for the carousel content area |
+| `itemClassName`    | `string`      | Class for each slide item           |
+| `previousProps`    | `object`      | Props forwarded to previous button  |
+| `nextProps`        | `object`      | Props forwarded to next button      |
+
+---
+
+### `Chart`
+
+**shadcn:** Basic Recharts wrapper with tooltip/legend content.
+
+#### Extended Props
+
+| Component             | Extra Props                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------------------- |
+| `ChartTooltipContent` | `hideLabel`, `hideIndicator`, `indicator` (`'line'\|'dot'\|'dashed'`), `nameKey`, `labelKey` |
+| `ChartLegendContent`  | `hideIcon`, `nameKey`                                                                        |
+
+---
+
+### `Collapsible`
+
+**shadcn:** Composition-only collapsible.
+
+This project adds a **Props API**.
+
+| Prop           | Type        | Description                      |
+| -------------- | ----------- | -------------------------------- |
+| `trigger`      | `ReactNode` | Trigger element                  |
+| `triggerProps` | `object`    | Props forwarded to trigger       |
+| `contentProps` | `object`    | Props forwarded to content panel |
+
+---
+
+### `Command`
+
+**shadcn:** Composition-only command palette.
+
+This project adds a **Props API** and `CommandDialog`.
+
+| Prop                 | Type             | Description                              |
+| -------------------- | ---------------- | ---------------------------------------- |
+| `groups`             | `CommandGroup[]` | Structured groups with heading and items |
+| `inputOptions`       | `object`         | Props for the search input               |
+| `emptyResultContent` | `ReactNode`      | Custom empty state content               |
+
+#### Extra Sub-Components
+
+| Component              | Purpose                                                    |
+| ---------------------- | ---------------------------------------------------------- |
+| `CommandDialog`        | Dialog-wrapped command palette with `title`, `description` |
+| `CommandNoResultFound` | Pre-styled empty results message                           |
+
+---
+
+### `ContextMenu`
+
+**shadcn:** Composition-only context menu.
+
+This project adds a **Props API** with structured items.
+
+| Prop               | Type                | Description                                                               |
+| ------------------ | ------------------- | ------------------------------------------------------------------------- |
+| `trigger`          | `ReactNode`         | Right-click target element                                                |
+| `items`            | `ContextMenuItem[]` | Supports `separator`, `label`, `checkbox`, `radio-group`, `submenu` types |
+| `triggerClassName` | `string`            | Class for trigger wrapper                                                 |
+| `contentClassName` | `string`            | Class for content panel                                                   |
+
+`ContextMenuItem` supports `variant` (`'default' \| 'destructive'`) and `inset`.
+
+---
+
+### `Dialog`
+
+**shadcn:** Composition-only dialog.
+
+This project adds a **Props API** and `showCloseButton`.
+
+| Prop               | Type                  | Description                                 |
+| ------------------ | --------------------- | ------------------------------------------- |
+| `trigger`          | `ReactNode`           | Trigger element                             |
+| `header`           | `object \| ReactNode` | `{ title, description, className }` or node |
+| `footer`           | `ReactNode`           | Footer content                              |
+| `triggerClassName` | `string`              | Class for trigger                           |
+| `contentClassName` | `string`              | Class for content                           |
+| `showCloseButton`  | `boolean`             | Show/hide close button (default `true`)     |
+| `onClose`          | `() => void`          | Close callback on `DialogContent`           |
+
+---
+
+### `DropdownMenu`
+
+**shadcn:** Composition-only dropdown menu.
+
+This project adds a **Props API** with structured items.
+
+| Prop               | Type                 | Description                                                       |
+| ------------------ | -------------------- | ----------------------------------------------------------------- |
+| `trigger`          | `ReactNode`          | Trigger element                                                   |
+| `title`            | `ReactNode`          | Label rendered above items                                        |
+| `items`            | `DropdownMenuItem[]` | Supports `separator`, `subItems`, `checkbox`, `radio-group` types |
+| `contentProps`     | `object`             | Props forwarded to content                                        |
+| `triggerClassName` | `string`             | Class for trigger wrapper                                         |
+
+`DropdownMenuItem` supports `variant` (`'default' \| 'destructive'`) and `inset`.
+
+---
+
+### `InputOTP`
+
+**shadcn:** Standard one-time password input.
+
+#### Extra Props
+
+| Prop                 | Type     | Description                       |
+| -------------------- | -------- | --------------------------------- |
+| `containerClassName` | `string` | Class for the outer OTP container |
+
+Also adds `has-aria-invalid` styling on `InputOTPGroup` for validation states.
+
+---
+
+### `Kbd`
+
+**shadcn:** Basic keyboard shortcut indicator.
+
+#### Extra Sub-Components
+
+| Component  | Purpose                                 |
+| ---------- | --------------------------------------- |
+| `KbdGroup` | Groups multiple `Kbd` elements together |
+
+---
+
+### `Menubar`
+
+**shadcn:** Composition-only menubar.
+
+This project adds a **Props API** with rich menu configuration.
+
+| Prop    | Type           | Description                                                                                            |
+| ------- | -------------- | ------------------------------------------------------------------------------------------------------ |
+| `menus` | `MenuConfig[]` | Each menu has `label` and `items` (supports shortcuts, submenus, checkboxes, radio groups, separators) |
+
+```tsx
+<Menubar
+  menus={[
+    {
+      label: 'File',
+      items: [
+        { label: 'New', shortcut: '⌘N', onClick: handleNew },
+        { type: 'separator' },
+        { label: 'Open', subMenus: [{ label: 'Recent' }] },
+      ],
+    },
+  ]}
+/>
+```
+
+---
+
+### `NavigationMenu`
+
+**shadcn:** Composition-only navigation menu.
+
+This project adds a **Props API** and `NavigationMenuListItem`.
+
+| Prop            | Type              | Description                                          |
+| --------------- | ----------------- | ---------------------------------------------------- |
+| `items`         | `NavItemConfig[]` | `type: 'link' \| 'dropdown'` with grid layout config |
+| `align`         | `string`          | Alignment of the navigation menu                     |
+| `listClassName` | `string`          | Class for the navigation list                        |
+
+#### Extra Sub-Components
+
+| Component                    | Purpose                                       |
+| ---------------------------- | --------------------------------------------- |
+| `NavigationMenuListItem`     | Title + description layout for dropdown items |
+| `navigationMenuTriggerStyle` | Helper function returning trigger class names |
+
+---
+
+### `Popover`
+
+**shadcn:** Composition-only popover.
+
+This project adds a **Props API**.
+
+| Prop               | Type        | Description                |
+| ------------------ | ----------- | -------------------------- |
+| `trigger`          | `ReactNode` | Trigger element            |
+| `content`          | `ReactNode` | Popover content            |
+| `triggerClassName` | `string`    | Class for trigger          |
+| `contentClassName` | `string`    | Class for content          |
+| `triggerProps`     | `object`    | Props forwarded to trigger |
+| `contentProps`     | `object`    | Props forwarded to content |
+
+#### Extra Sub-Components
+
+| Component       | Purpose                               |
+| --------------- | ------------------------------------- |
+| `PopoverHeader` | Header section inside popover content |
+
+---
+
+### `Progress`
+
+**shadcn:** Basic progress bar.
+
+This project adds a `variant` prop for color theming.
+
+| Variant     | Description                 |
+| ----------- | --------------------------- |
+| `default`   | Standard muted progress bar |
+| `primary`   | Primary color               |
+| `secondary` | Secondary color             |
+| `danger`    | Red danger color            |
+| `warning`   | Yellow warning color        |
+| `success`   | Green success color         |
+| `info`      | Blue info color             |
+| `dark`      | Dark color                  |
+| `accent`    | Accent color                |
+
+---
+
+### `Resizable`
+
+**shadcn:** Composition-only resizable panels.
+
+This project adds a **Props API**.
+
+| Prop         | Type            | Description                           |
+| ------------ | --------------- | ------------------------------------- |
+| `panels`     | `PanelConfig[]` | Array of panel configurations         |
+| `withHandle` | `boolean`       | Show drag handle on resize separators |
+
+```tsx
+<Resizable
+  panels={[
+    { children: <div>Left</div>, defaultSize: 50 },
+    { children: <div>Right</div>, defaultSize: 50 },
+  ]}
+  withHandle
+/>
+```
+
+---
+
+### `Sheet`
+
+**shadcn:** Composition-only sheet/side panel.
+
+This project adds a **Props API** and `showCloseButton`.
+
+| Prop              | Type                               | Description                             |
+| ----------------- | ---------------------------------- | --------------------------------------- |
+| `trigger`         | `ReactNode`                        | Trigger element                         |
+| `header`          | `object \| ReactNode`              | `{ title, description }` or raw node    |
+| `footer`          | `ReactNode`                        | Footer content                          |
+| `side`            | `'top'\|'right'\|'bottom'\|'left'` | Slide-in direction                      |
+| `showCloseButton` | `boolean`                          | Show/hide close button (default `true`) |
+
+---
+
+### `Slider`
+
+**shadcn:** Basic slider with no color system.
+
+This project adds a `variant` prop for color theming.
+
+| Prop      | Type           | Description                                                                       |
+| --------- | -------------- | --------------------------------------------------------------------------------- |
+| `variant` | `ColorVariant` | `primary`, `secondary`, `danger`, `warning`, `success`, `info`, `muted`, `accent` |
+
+```tsx
+<Slider variant="success" defaultValue={[50]} />
+<Slider variant="danger" defaultValue={[25, 75]} />
+```
+
+---
+
+### `Switch`
+
+**shadcn:** Basic toggle switch.
+
+This project adds a `size` prop.
+
+| Size      | Description          |
+| --------- | -------------------- |
+| `default` | Standard switch size |
+| `sm`      | Compact small switch |
+
+```tsx
+<Switch size="sm" />
+```
+
+---
+
+### `Tabs`
+
+**shadcn:** Composition-only tabs.
+
+This project adds a **Props API** and `variant`.
+
+| Prop               | Type                  | Description                       |
+| ------------------ | --------------------- | --------------------------------- |
+| `tabs`             | `TabConfig[]`         | `{ label, value, content }` array |
+| `variant`          | `'default' \| 'line'` | Visual style variant              |
+| `tabListClassName` | `string`              | Class for the tab list            |
+| `triggerClassName` | `string`              | Class for all tab triggers        |
+| `contentClassName` | `string`              | Class for all tab content panels  |
+
+```tsx
+<Tabs
+  defaultValue="account"
+  variant="line"
+  tabs={[
+    { value: 'account', label: 'Account', content: <AccountForm /> },
+    { value: 'password', label: 'Password', content: <PasswordForm /> },
+  ]}
+/>
+```
+
+---
+
+### `ToggleGroup`
+
+**shadcn:** Composition-only toggle group.
+
+This project adds a **Props API** with context-based styling, spacing, and label support.
+
+| Prop          | Type                         | Description                                    |
+| ------------- | ---------------------------- | ---------------------------------------------- |
+| `items`       | `ToggleGroupItemConfig[]`    | `{ value, content }` array                     |
+| `label`       | `ReactNode`                  | Label rendered above or beside the group       |
+| `inline`      | `boolean`                    | Places label beside the group                  |
+| `type`        | `'single' \| 'multiple'`     | Selection mode                                 |
+| `spacing`     | `number`                     | Gap between items (0 = connected)              |
+| `orientation` | `'horizontal' \| 'vertical'` | Layout direction                               |
+| `variant`     | `'default' \| 'outline'`     | Visual variant passed to all items via context |
+| `size`        | `'default' \| 'sm' \| 'lg'`  | Size passed to all items via context           |
+
+```tsx
+<ToggleGroup
+  type="single"
+  label="Alignment"
+  items={[
+    { value: 'left', content: <AlignLeftIcon /> },
+    { value: 'center', content: <AlignCenterIcon /> },
+    { value: 'right', content: <AlignRightIcon /> },
+  ]}
+/>
+```
+
+---
+
+### `Tooltip`
+
+**shadcn:** Composition-only tooltip.
+
+This project adds a **Props API** and `asPortal`.
+
+| Prop           | Type        | Description                         |
+| -------------- | ----------- | ----------------------------------- |
+| `trigger`      | `ReactNode` | Trigger element (or use `children`) |
+| `content`      | `ReactNode` | Tooltip content                     |
+| `side`         | `string`    | Placement side                      |
+| `align`        | `string`    | Placement alignment                 |
+| `triggerProps` | `object`    | Props forwarded to trigger          |
+| `contentProps` | `object`    | Props forwarded to content          |
+| `asPortal`     | `boolean`   | Render tooltip content in a portal  |
+
+```tsx
+<Tooltip content="Settings" side="bottom">
+  <Button variant="ghost">
+    <SettingsIcon />
+  </Button>
+</Tooltip>
+```
+
+---
+
+## Part 2: Fully Custom Components (No shadcn Equivalent)
+
+---
+
+### `ButtonGroup`
+
+A button group component with connected/separated layout and optional separators. No shadcn equivalent.
+
+| Prop          | Type                         | Description                    |
+| ------------- | ---------------------------- | ------------------------------ |
+| `items`       | `ButtonGroupItem[]`          | Array of button configurations |
+| `orientation` | `'horizontal' \| 'vertical'` | Layout direction               |
+
+#### Sub-Components
+
+| Component                | Purpose                        |
+| ------------------------ | ------------------------------ |
+| `ButtonGroupText`        | Text content inside the group  |
+| `ButtonGroupTextAsChild` | Polymorphic text content       |
+| `ButtonGroupSeparator`   | Visual separator between items |
+
+```tsx
+<ButtonGroup
+  items={[{ label: 'Copy', onClick: handleCopy }, { separator: true }, { label: 'Paste', onClick: handlePaste }]}
+/>
+```
+
+---
+
+### `CheckboxGroup`
+
+A managed group of `Checkbox` items with shared state. shadcn has no equivalent.
+
+| Prop                    | Type                             | Description                                       |
+| ----------------------- | -------------------------------- | ------------------------------------------------- |
+| `options`               | `(string\|number\|OptionType)[]` | Supports strings, numbers, or full option objects |
+| `selectedValues`        | `string[]`                       | Array of currently selected values                |
+| `onSelectedValueChange` | `(values: string[]) => void`     | Fires with updated selection array                |
+| `inline`                | `boolean`                        | Horizontal `grid-flow-col` layout                 |
+| `swapRight`             | `boolean`                        | Moves all checkboxes to the right of their labels |
+| `variant`               | `ColorVariant`                   | Color variant applied to all checkboxes           |
+| `isInvalid`             | `boolean`                        | Group-level invalid state                         |
+| `errorMessage`          | `string`                         | Renders `ErrorMessage` below the group            |
+| `label`                 | `ReactNode`                      | Group label above all items                       |
+| `labelClassName`        | `string`                         | Styles the group label                            |
+
+```tsx
+<CheckboxGroup
+  label="Interests"
+  options={['Reading', 'Sports', 'Music']}
+  selectedValues={selected}
+  onSelectedValueChange={setSelected}
+  inline
+  required
+/>
+```
+
+---
+
+### `DateRangePicker`
+
+Single-component date range selection. No equivalent in shadcn.
+
+| Prop                | Type                                    | Description                                                |
+| ------------------- | --------------------------------------- | ---------------------------------------------------------- |
+| `dateRange`         | `DateRange`                             | Controlled `{ from, to }` date range                       |
+| `onDateRangeChange` | `(range: DateRange\|undefined) => void` | Value callback                                             |
+| `presets`           | `{ label, from, to }[]`                 | Days-offset quick-select presets rendered in a dropdown    |
+| `numberOfMonths`    | `number`                                | Show 1 or 2 months in the calendar (default `2`)           |
+| `dateFormat`        | `string`                                | Custom `date-fns` format string (default `'MMM dd, yyyy'`) |
+| `isInvalid`         | `boolean`                               | Validation styling                                         |
+| `errorMessage`      | `string`                                | Renders `ErrorMessage` below                               |
+| `disabled`          | `boolean`                               | Disables the trigger                                       |
+| `calendarProps`     | `PropsRange`                            | Forwarded to `Calendar` (e.g., `disabled`, `fromDate`)     |
+| `wrapperClassName`  | `string`                                | Outer container class                                      |
+| Auto clear button   | —                                       | Inline `XCircleIcon` appears when a range is selected      |
+
+```tsx
+<DateRangePicker
+  label="Report Period"
+  dateRange={range}
+  onDateRangeChange={setRange}
+  numberOfMonths={2}
+  presets={[
+    { label: 'Last 7 days', from: -7, to: 0 },
+    { label: 'Last 30 days', from: -30, to: 0 },
+  ]}
+/>
+```
+
+---
+
+### `Error` Family
+
+React error boundaries and pre-built error page layouts.
+
+| Component                     | Purpose                                                                                                     |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `ErrorBoundary`               | Generic typed boundary wrapping `react-error-boundary`; accepts `FallbackComponent`, `resetKeys`, `onError` |
+| `ErrorRouterBoundary`         | Router-aware error boundary                                                                                 |
+| `ErrorRouterComponent`        | Error component rendered by the router                                                                      |
+| `ErrorLayout`                 | Shared base layout wrapper for all error pages                                                              |
+| `ErrorEmptyResponse`          | Empty / 204 response page                                                                                   |
+| `ErrorInternalResponse`       | Generic internal error page                                                                                 |
+| `ErrorInternalServer`         | 500 internal server error page                                                                              |
+| `ErrorInternalServerResponse` | Server-side response error variant                                                                          |
+| `ErrorNotFoundResponse`       | 404 not found page                                                                                          |
+
+```tsx
+<ErrorBoundary
+  FallbackComponent={({ error, resetErrorBoundary }) => (
+    <div>
+      <p>{error.message}</p>
+      <Button onClick={resetErrorBoundary}>Retry</Button>
+    </div>
+  )}
+  onError={(err) => logger.error(err)}
+  resetKeys={[userId]}
+>
+  <App />
+</ErrorBoundary>
+```
+
+---
+
+### `ErrorMessage`
+
+Standalone inline validation error text component used across all form components.
+
+| Prop      | Type     | Description                                |
+| --------- | -------- | ------------------------------------------ |
+| `message` | `string` | Error text rendered in `text-danger` color |
+
+---
+
+### `FileUpload`
+
+A complete composable file upload system with drag-and-drop, progress tracking, and validation. No shadcn equivalent.
+
+#### Sub-components & Hook
+
+| Component / Hook         | Description                                                                                                                                                                                                                                 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FileUpload`             | Root component; manages state via `useSyncExternalStore`; accepts `accept`, `maxFiles`, `maxSize`, `multiple`, `required`, `onUpload`, `onFileValidate`, `onFileReject`, `onFileAccept`, `onAccept`; controlled via `value`/`onValueChange` |
+| `FileUploadDropzone`     | Drag-drop zone with click, keyboard (Enter/Space), paste, and all drag events; `data-dragging`, `data-invalid`, `data-disabled` CSS data attributes                                                                                         |
+| `FileUploadTrigger`      | Opens native file picker; composes via `asChild`                                                                                                                                                                                            |
+| `FileUploadList`         | Animated list; `orientation: 'vertical' \| 'horizontal'`; auto-hides when empty                                                                                                                                                             |
+| `FileUploadItem`         | ARIA `listitem` with `aria-setsize` / `aria-posinset`; scoped context per file                                                                                                                                                              |
+| `FileUploadItemPreview`  | Auto image thumbnail (cached `ObjectURL`) or filetype icon; custom `render` prop with `fallback`                                                                                                                                            |
+| `FileUploadItemMetadata` | Filename + formatted size + error; `size: 'default' \| 'sm'`                                                                                                                                                                                |
+| `FileUploadItemProgress` | `variant: 'linear' \| 'circular' \| 'fill'` — animated progress bar, SVG ring, or clip-path fill                                                                                                                                            |
+| `FileUploadItemDelete`   | Removes single file and revokes its cached object URL                                                                                                                                                                                       |
+| `FileUploadClear`        | Removes all files; auto-hides when no files are present                                                                                                                                                                                     |
+| `useFileUpload` hook     | Subscribe to store state externally (e.g., file count, drag state)                                                                                                                                                                          |
+
+```tsx
+<FileUpload multiple accept="image/*" maxFiles={5} maxSize={5 * 1024 * 1024} onUpload={handleUpload}>
+  <FileUploadDropzone>
+    <p>Drag & drop files here or click to browse</p>
+    <FileUploadTrigger asChild>
+      <Button variant="outline" size="sm">
+        Browse Files
+      </Button>
+    </FileUploadTrigger>
+  </FileUploadDropzone>
+  <FileUploadList>
+    {files.map((file, i) => (
+      <FileUploadItem key={i} value={file}>
+        <FileUploadItemPreview />
+        <FileUploadItemMetadata />
+        <FileUploadItemProgress variant="linear" />
+        <FileUploadItemDelete />
+      </FileUploadItem>
+    ))}
+  </FileUploadList>
+  <FileUploadClear asChild>
+    <Button variant="ghost" size="sm">
+      Clear All
+    </Button>
+  </FileUploadClear>
+</FileUpload>
+```
+
+---
+
+### `IconButton`
+
+An icon-only button. More specialized than shadcn's `Button size="icon"`.
+
+| Prop               | Type          | Description                                               |
+| ------------------ | ------------- | --------------------------------------------------------- |
+| `icon`             | `ReactNode`   | Alternative to `children` for the icon                    |
+| `outline`          | `boolean`     | Adds `border border-border bg-transparent p-2`            |
+| `rounded`          | `string`      | Tailwind size token (`none`/`sm`/`md`/`lg`/`full`)        |
+| `disabled`         | `boolean`     | Applies `disabled:opacity-50 disabled:cursor-not-allowed` |
+| `as` (polymorphic) | `ElementType` | Render as `<a>`, `<button>`, etc.                         |
+
+```tsx
+<IconButton icon={<TrashIcon />} aria-label="Delete" />
+<IconButton icon={<EditIcon />} outline rounded="full" aria-label="Edit" />
+```
+
+---
+
+### `Loading`
+
+A spinning icon paired with optional inline text. Different from `Spinner` — wraps the icon inside a flex container.
+
+| Prop               | Type        | Description                                   |
+| ------------------ | ----------- | --------------------------------------------- |
+| `spin`             | `boolean`   | Toggles `animate-spin` (default `true`)       |
+| `content`          | `ReactNode` | Text or node rendered beside the spinner icon |
+| `wrapperClassName` | `string`    | Styles the outer flex container               |
+
+```tsx
+<Loading content="Saving changes..." />
+<Loading className="size-8 text-primary" content="Please wait..." />
+```
+
+---
+
+### `MultiSelect`
+
+Multi-value selection with badge chips. No shadcn equivalent.
+
+| Prop                    | Type                             | Description                                            |
+| ----------------------- | -------------------------------- | ------------------------------------------------------ |
+| `selectedValues`        | `string[]`                       | Array of currently selected values                     |
+| `onSelectedValueChange` | `(values: string[]) => void`     | Fires with updated selection array                     |
+| `options`               | `(string\|number\|OptionType)[]` | Flexible option input                                  |
+| Badge chips             | —                                | Each selected value is rendered as a removable `Badge` |
+| `inline`                | `boolean`                        | Horizontal label + trigger layout                      |
+| `isInvalid`             | `boolean`                        | Validation styling                                     |
+| `errorMessage`          | `string`                         | Renders `ErrorMessage` below                           |
+| `open`/`onOpenChange`   | `boolean` / function             | Controlled open state                                  |
+| `triggerClassName`      | `string`                         | Style override for trigger                             |
+| `contentClassName`      | `string`                         | Style override for content panel                       |
+
+```tsx
+<MultiSelect
+  label="Skills"
+  options={['JavaScript', 'TypeScript', 'React', 'Node.js']}
+  selectedValues={skills}
+  onSelectedValueChange={setSkills}
+  placeholder="Select skills"
+  required
+  isInvalid={skills.length === 0}
+  errorMessage="Select at least one skill"
+/>
+```
+
+---
+
+### `NativeCheckbox`
+
+A native `<input type="checkbox">` with custom CSS styling. No Radix UI dependency — lighter weight than `Checkbox`.
+
+| Prop               | Type                         | Description                                             |
+| ------------------ | ---------------------------- | ------------------------------------------------------- |
+| `onCheckedChange`  | `(checked: boolean) => void` | Convenience handler (avoids working with `ChangeEvent`) |
+| `swapRight`        | `boolean`                    | Checkbox appears to the right of its label              |
+| `isInvalid`        | `boolean`                    | Applies danger border/text styling                      |
+| `errorMessage`     | `string`                     | Renders `ErrorMessage` below                            |
+| `wrapperClassName` | `string`                     | Styles the outer flex container                         |
+
+> **Tip:** Use `Checkbox` for advanced features like indeterminate state and color variants. Use `NativeCheckbox` for lightweight, Radix-free scenarios.
+
+---
+
+### `NativeCheckboxGroup`
+
+Group manager for `NativeCheckbox` items. Identical API to `CheckboxGroup` but uses native inputs instead of Radix UI.
+
+---
+
+### `NativeRadio`
+
+A native `<input type="radio">` with custom CSS styling. No Radix UI dependency.
+
+| Prop               | Type                         | Description                             |
+| ------------------ | ---------------------------- | --------------------------------------- |
+| `onCheckedChange`  | `(checked: boolean) => void` | Convenience checked handler             |
+| `swapRight`        | `boolean`                    | Radio appears to the right of its label |
+| `isInvalid`        | `boolean`                    | Applies danger styling                  |
+| `errorMessage`     | `string`                     | Renders `ErrorMessage` below            |
+| `wrapperClassName` | `string`                     | Outer container styling                 |
+
+> **Tip:** Use `NativeRadioGroup` for easier management of multiple radio options.
+
+---
+
+### `NativeRadioGroup`
+
+Group manager for `NativeRadio` items with shared `name`, controlled value state, and group-level validation.
+
+---
+
+### `NumberInput`
+
+A numeric input with built-in type constraints. No shadcn equivalent.
+
+| Prop                            | Type                      | Description                                     |
+| ------------------------------- | ------------------------- | ----------------------------------------------- |
+| `isPositiveInteger`             | `boolean`                 | Blocks non-integer input; minimum value is 1    |
+| `isPositiveFloat`               | `boolean`                 | Allows decimal numbers only                     |
+| `positiveIntegerStartsWithZero` | `boolean`                 | Allows leading-zero integers (e.g., `01`, `02`) |
+| `positiveFloatStartsWithZero`   | `boolean`                 | Allows leading-zero floats (e.g., `0.5`)        |
+| `value`                         | `string\|number\|null`    | Controlled value                                |
+| `defaultValue`                  | `string\|number\|null`    | Uncontrolled default value                      |
+| `onValueChange`                 | `(value: number) => void` | Fires with `number` type (not raw string)       |
+
+```tsx
+<NumberInput label="Quantity" value={qty} onValueChange={setQty} isPositiveInteger min={1} max={99} />
+<NumberInput label="Price ($)" value={price} onValueChange={setPrice} isPositiveFloat placeholder="0.00" />
+```
+
+---
+
+### `SimpleTable`
+
+A declarative, pre-configured table with built-in pagination. shadcn's `Table` is presentational only.
+
+| Prop                      | Type              | Description                                                                                                                                                 |
+| ------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `columns`                 | `Column[]`        | `{ accessorKey, title, render, renderHeader, className, rowCellClassName, rowEmptyValue }`                                                                  |
+| `rows`                    | `TRow[]`          | Generic typed row data array                                                                                                                                |
+| `primaryKey`              | `string`          | Key used for row identity                                                                                                                                   |
+| `enablePagination`        | `boolean`         | Toggles built-in `Pagination`                                                                                                                               |
+| `paginationProps`         | `PaginationProps` | Forwarded to the internal `Pagination` component                                                                                                            |
+| `emptyTableContent`       | `ReactNode`       | Custom empty-state content (default: `"No data available"`)                                                                                                 |
+| `CustomTableRowComponent` | `ComponentType`   | Fully override the `<tr>` render component                                                                                                                  |
+| `rowClassName`            | `string`          | Class applied to every row                                                                                                                                  |
+| `rowCellClassName`        | `string`          | Class applied to every body cell                                                                                                                            |
+| `columnClassName`         | `string`          | Class applied to every header cell                                                                                                                          |
+| `theadClassName`          | `string`          | Class for the `<thead>` section                                                                                                                             |
+| `tbodyClassName`          | `string`          | Class for the `<tbody>` section                                                                                                                             |
+| Nested data access        | —                 | Dot-notation `accessorKey` (e.g., `"user.name"`) for nested objects                                                                                         |
+| Granular element props    | —                 | `tableHeaderProps`, `tableBodyProps`, `tableRowProps`, `tableCellProps`, `tableCaptionProps`, `tableHeadProps`, `tableHeaderRowProps`, `tableEmptyRowProps` |
+
+```tsx
+const columns = [
+  { accessorKey: 'name', title: 'Name' },
+  { accessorKey: 'status', title: 'Status', render: ({ value }) => <Badge variant={value}>{value}</Badge> },
+  { accessorKey: 'user.email', title: 'Email' }, // nested data access
+];
+
+<SimpleTable
+  primaryKey="id"
+  columns={columns}
+  rows={data}
+  enablePagination
+  paginationProps={{ pageSize: 20, onPageChange: setPage }}
+  emptyTableContent={
+    <Empty>
+      <EmptyTitle>No records</EmptyTitle>
+    </Empty>
+  }
+/>;
+```
+
+---
+
+### `DataTable`
+
+A fully featured data table powered by **TanStack Table (react-table v8)**. No shadcn equivalent — shadcn ships a recipe only, whereas `DataTable` is a packaged component.
+
+| Prop                      | Type                                 | Description                                                                                                                                                                                                            |
+| ------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `columns`                 | `DataTableColumnDef<TRow, TValue>[]` | TanStack `ColumnDef` array (typed alias)                                                                                                                                                                               |
+| `rows`                    | `TRow[]`                             | Generic typed data array                                                                                                                                                                                               |
+| `enableSelectableTable`   | `boolean`                            | Adds a checkbox column for row selection                                                                                                                                                                               |
+| `search`                  | `DataTableSearchFilterColumn`        | Column key(s) + placeholder for the search input; `accessorKey` accepts a `string` or `string[]` for multi-column search                                                                                               |
+| `facetFilterColumns`      | `DataTableFacetFilterColumn[]`       | Facet filter dropdowns — each entry has `accessorKey`, `title`, and `options[]`                                                                                                                                        |
+| `showTableConfigure`      | `boolean`                            | Renders a column visibility toggle (show/hide columns)                                                                                                                                                                 |
+| `showPagination`          | `boolean`                            | Toggles the built-in pagination row (default `true`)                                                                                                                                                                   |
+| `paginationProps`         | `PaginationProps`                    | Forwarded to the internal `Pagination` component — `pageSize`, `pageSizeOptions`, `showTotalResults`, etc.                                                                                                             |
+| `noResultsMessage`        | `ReactNode`                          | Custom empty-state content (default `"No results."`)                                                                                                                                                                   |
+| `toolbarLeftSideContent`  | `ReactNode`                          | Extra content injected on the left side of the toolbar                                                                                                                                                                 |
+| `toolbarRightSideContent` | `ReactNode`                          | Extra content injected on the right side of the toolbar                                                                                                                                                                |
+| `sorting`                 | `SortingState`                       | Controlled sort state                                                                                                                                                                                                  |
+| `onSortingChange`         | `(state) => void`                    | Sort state change callback                                                                                                                                                                                             |
+| `globalFilter`            | `string`                             | Controlled global search string                                                                                                                                                                                        |
+| `globalFilterFn`          | `FilterFnOption<TRow>`               | Custom global filter function; built-in optimised multi-column search included                                                                                                                                         |
+| `getCellClassName`        | `(cell) => string`                   | Dynamic class per body cell                                                                                                                                                                                            |
+| `getHeadClassName`        | `(header) => string`                 | Dynamic class per header cell                                                                                                                                                                                          |
+| `getRowClassName`         | `(row) => string`                    | Dynamic class per row                                                                                                                                                                                                  |
+| `setTable`                | `(table) => void`                    | Exposes the TanStack `Table` instance for external control                                                                                                                                                             |
+| `dataTableToolbarRef`     | `Ref<DataTableToolbarHandle>`        | Ref to programmatically control the toolbar                                                                                                                                                                            |
+| Granular element props    | —                                    | `tableProps`, `tableHeadProps`, `tableHeadRowProps`, `tableHeadCellProps`, `tableBodyProps`, `tableRowProps`, `tableCellProps` — all forwarded to the underlying `Table` sub-components with typed `onClick` callbacks |
+
+#### Sub-components exported from `DataTable`
+
+| Component                | Purpose                                                      |
+| ------------------------ | ------------------------------------------------------------ |
+| `DataTableColumnHeader`  | Sortable column header button with asc/desc/hide dropdown    |
+| `DataTableToolbar`       | Search input + facet filters + column configure button       |
+| `DataTableFacetedFilter` | Individual facet filter popover with multi-select checkboxes |
+| `DataTablePagination`    | Pagination bar wired to the table instance                   |
+| `DataTableViewOptions`   | Column visibility toggle dropdown                            |
+| `DataTableRowActions`    | Pre-built row actions dropdown (label + onClick per item)    |
+
+```tsx
+const columns: DataTableColumnDef<User>[] = [
+  {
+    accessorKey: 'name',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => <Badge variant={row.original.status}>{row.original.status}</Badge>,
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => (
+      <DataTableRowActions
+        row={row}
+        actions={[
+          { label: 'Edit', value: 'edit', onClick: (val, e) => handleEdit(row.original) },
+          { label: 'Delete', value: 'delete', onClick: () => handleDelete(row.original.id) },
+        ]}
+      />
+    ),
+  },
+];
+
+<DataTable
+  columns={columns}
+  rows={users}
+  enableSelectableTable
+  search={{ accessorKey: ['name', 'email'], placeholder: 'Search users...' }}
+  facetFilterColumns={[
+    { accessorKey: 'status', title: 'Status', options: statusOptions },
+    { accessorKey: 'role', title: 'Role', options: roleOptions },
+  ]}
+  showTableConfigure
+  paginationProps={{ pageSize: 20, showTotalResults: true, pageSizeOptions: [10, 20, 50] }}
+  toolbarRightSideContent={<Button onClick={handleExport}>Export</Button>}
+  getRowClassName={(row) => cn(row.original.priority === 'high' && 'bg-danger/5')}
+/>;
+```
+
+---
+
+### `Form`
+
+A declarative form engine built on **react-hook-form**. Fields are driven by a `fields` array with 14 built-in field types — no JSX per field needed. No shadcn equivalent.
+
+#### `FormProps`
+
+| Prop                  | Type                                            | Description                                                    |
+| --------------------- | ----------------------------------------------- | -------------------------------------------------------------- |
+| `form`                | `UseFormReturn<TData>`                          | The `react-hook-form` instance (from `useForm()`)              |
+| `fields`              | `FormFieldItem<TData>[]`                        | Array of field descriptors — see field types below             |
+| `onSubmit`            | `SubmitHandler<TData>`                          | Called with validated form values on success                   |
+| `onSubmitError`       | `SubmitErrorHandler<TData>`                     | Called with validation errors if submit fails                  |
+| `submitText`          | `ReactNode`                                     | Label on the submit button (default `"Submit"`)                |
+| `resetText`           | `ReactNode`                                     | Label on the reset button (default `"Reset"`)                  |
+| `hideSubmitButton`    | `boolean`                                       | Hides the default submit button                                |
+| `hideResetButton`     | `boolean`                                       | Hides the default reset button                                 |
+| `SubmitButton`        | `ComponentType<{ isSubmitting, onFormSubmit }>` | Custom submit button component                                 |
+| `ResetButton`         | `ComponentType<{ onFormReset }>`                | Custom reset button component                                  |
+| `submitButtonVariant` | `ButtonProps['variant']`                        | Variant for the auto-rendered submit button                    |
+| `submitButtonColor`   | `ButtonProps['color']`                          | Color for the auto-rendered submit button                      |
+| `submitButtonProps`   | `ButtonProps`                                   | Additional props forwarded to the submit button                |
+| `resetButtonProps`    | `ButtonProps`                                   | Additional props forwarded to the reset button                 |
+| `isSubmitting`        | `boolean`                                       | External submitting state (overrides `formState.isSubmitting`) |
+| `isResetting`         | `boolean`                                       | Disables the reset button while resetting                      |
+| `onReset`             | `() => void`                                    | Callback fired after the form is reset                         |
+| `inline`              | `boolean`                                       | Applies inline layout to all fields                            |
+| `actionClassName`     | `string`                                        | Class for the submit/reset button wrapper                      |
+| `className`           | `string`                                        | Class on the `<form>` element                                  |
+| `id`                  | `string`                                        | `id` attribute on the `<form>` element                         |
+| `formRef`             | `MutableRefObject<HTMLFormElement>`             | Ref to the underlying `<form>` element                         |
+| `noValidate`          | `boolean`                                       | Disables browser native validation (default `true`)            |
+| `children`            | `ReactNode`                                     | Rendered after the fields, before the action buttons           |
+
+#### Common Field Props (all field types)
+
+| Prop                 | Type                | Description                                       |
+| -------------------- | ------------------- | ------------------------------------------------- |
+| `name`               | `Path<TData>`       | Field name — must match the schema key            |
+| `type`               | `FormFieldTypeEnum` | One of the 14 built-in types (see table below)    |
+| `label`              | `ReactNode`         | Field label                                       |
+| `labelDescription`   | `ReactNode`         | Small description shown beside the label          |
+| `description`        | `ReactNode`         | Helper text shown below the field                 |
+| `required`           | `boolean`           | Marks the field required (adds asterisk to label) |
+| `placeholder`        | `string`            | Input placeholder                                 |
+| `disabled`           | `boolean`           | Disables the field                                |
+| `inline`             | `boolean`           | Horizontal label + control layout for this field  |
+| `className`          | `string`            | Wrapper class                                     |
+| `formItemClassName`  | `string`            | Class on the form item container                  |
+| `formLabelClassName` | `string`            | Class on the label                                |
+| `hideErrorMessage`   | `boolean`           | Suppresses the auto-rendered error message        |
+
+#### Built-in Field Types
+
+| Type                  | `type` string             | Key extra props                                                                      |
+| --------------------- | ------------------------- | ------------------------------------------------------------------------------------ |
+| Text input            | `'input'`                 | `inputType` (HTML `type`), `inputProps`, `autoComplete`                              |
+| Numeric input         | `'number'`                | `numberInputProps` (min/max/step/etc.)                                               |
+| Textarea              | `'textarea'`              | `textareaProps`                                                                      |
+| Select                | `'select'`                | `options`, `triggerClassName`, `contentClassName`, `selectProps`                     |
+| Checkbox              | `'checkbox'`              | `variant`, `checkboxProps`                                                           |
+| Native checkbox       | `'native-checkbox'`       | `nativeCheckboxProps`                                                                |
+| Multi-select          | `'multi-select'`          | `options`, `triggerClassName`, `contentClassName`, `multiSelectProps`                |
+| Radio group           | `'radio-group'`           | `options`, `radioInline`, `swapRight`, `variant`, `radioGroupProps`                  |
+| Native radio group    | `'native-radio-group'`    | `options`, `radioInline`, `swapRight`, `nativeRadioGroupProps`                       |
+| Checkbox group        | `'checkbox-group'`        | `options`, `checkboxInline`, `swapRight`, `variant`, `checkboxGroupProps`            |
+| Native checkbox group | `'native-checkbox-group'` | `options`, `checkboxInline`, `swapRight`, `nativeCheckboxGroupProps`                 |
+| Combobox              | `'combobox'`              | `options`, `comboboxProps`                                                           |
+| Date picker           | `'date-picker'`           | `datePickerProps`                                                                    |
+| Date range picker     | `'date-range-picker'`     | `dateRangePickerProps`                                                               |
+| Custom                | `'custom'`                | `render: ({ field }) => ReactNode` — full access to react-hook-form's `field` object |
+
+```tsx
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+const schema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  role: z.string(),
+  skills: z.array(z.string()),
+  bio: z.string().optional(),
+  startDate: z.date().optional(),
+});
+
+const form = useForm({ resolver: zodResolver(schema) });
+
+<Form
+  form={form}
+  onSubmit={(data) => console.log(data)}
+  fields={[
+    { name: 'name', label: 'Name', type: 'input', required: true },
+    { name: 'email', label: 'Email', type: 'input', inputType: 'email', required: true },
+    { name: 'role', label: 'Role', type: 'select', options: roleOptions },
+    { name: 'skills', label: 'Skills', type: 'multi-select', options: skillOptions },
+    { name: 'bio', label: 'Bio', type: 'textarea' },
+    { name: 'startDate', label: 'Start Date', type: 'date-picker' },
+    {
+      name: 'avatar',
+      label: 'Avatar URL',
+      type: 'custom',
+      render: ({ field }) => <Input {...field} placeholder="https://..." />,
+    },
+  ]}
+  submitText="Save"
+  submitButtonColor="success"
+  hideResetButton
+/>;
+```
+
+---
+
+### `Toast` (Custom Toaster)
+
+A fully custom toast notification system built without the `sonner` library. Includes a custom `Observer` pattern for state management, custom swipe-to-dismiss, stacking, and rich notification types.
+
+> **Note:** This is separate from the `Sonner` component. Use `Sonner` if you want the `sonner` library integration. Use `Toast`/`ToastProvider` for the fully custom implementation.
+
+#### `ToastProvider` Props
+
+| Prop            | Type                                                                                              | Description                            |
+| --------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| `position`      | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right' \| 'top-center' \| 'bottom-center'` | Toast position on screen               |
+| `theme`         | `'light' \| 'dark' \| 'system'`                                                                   | Theme mode                             |
+| `richColors`    | `boolean`                                                                                         | Color-coded backgrounds per toast type |
+| `closeButton`   | `boolean`                                                                                         | Shows close button on each toast       |
+| `expand`        | `boolean`                                                                                         | Expand all toasts on hover             |
+| `duration`      | `number`                                                                                          | Default toast duration in milliseconds |
+| `gap`           | `number`                                                                                          | Gap between stacked toasts             |
+| `visibleToasts` | `number`                                                                                          | Maximum visible toasts                 |
+| `offset`        | `string \| number`                                                                                | Distance from viewport edge            |
+| `dir`           | `'rtl' \| 'ltr' \| 'auto'`                                                                        | Text direction                         |
+| `loadingIcon`   | `ReactNode`                                                                                       | Custom loading spinner                 |
+
+#### `toast` API
+
+| Method             | Description                                           |
+| ------------------ | ----------------------------------------------------- |
+| `toast(msg)`       | Default notification                                  |
+| `toast.success`    | Success notification with check icon                  |
+| `toast.error`      | Error notification with X icon                        |
+| `toast.warning`    | Warning notification with triangle icon               |
+| `toast.info`       | Info notification with info icon                      |
+| `toast.loading`    | Loading notification with spinner                     |
+| `toast.promise`    | Promise-based toast with loading/success/error states |
+| `toast.custom`     | Fully custom JSX toast                                |
+| `toast.show`       | Headless toast with custom styling                    |
+| `toast.dismiss`    | Programmatically dismiss a toast                      |
+| `toast.getHistory` | Get all toasts (including dismissed)                  |
+| `toast.getToasts`  | Get only active (non-dismissed) toasts                |
+
+```tsx
+import { toast, ToastProvider } from '@paalstack/react-providers/ToastProvider';
+
+{
+  /* In layout */
+}
+<ToastProvider>
+  <App />
+</ToastProvider>;
+
+{
+  /* Trigger toasts */
+}
+toast.success('Saved!');
+toast.error('Something went wrong');
+toast.promise(fetchData(), {
+  loading: 'Loading...',
+  success: (data) => `Loaded ${data.name}`,
+  error: 'Failed to load',
+});
+```
+
+---
+
+## Summary
+
+### shadcn-Based Components with Extensions
+
+> _(Oct 2025)_ = added in the shadcn October 2025 release
+
+| Component      | shadcn Added        | Key Extensions vs. shadcn                                                                                                         |
+| -------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `Button`       | Original            | `solid`, `soft`, `surface` variants; 25-color `color` system; `leftIcon`, `rightIcon`, `isLoading`, `unstyled`, extended `size`   |
+| `Badge`        | Original            | `danger`, `warning`, `success`, `info`, `tertiary` variants; `size` system                                                        |
+| `Checkbox`     | Original            | 10 color variants; `indeterminate` state; `isInvalid`, `errorMessage`, `swapRight`                                                |
+| `Alert`        | Original            | 3-axis styling (`colorVariant`, `softBackground`, `solidBackground`); `icon`, `dismissible`                                       |
+| `Input`        | Original            | Built-in `label`, `isInvalid`, `errorMessage`, `inline`, `onValueChange`                                                          |
+| `Textarea`     | Original            | Built-in `label`, `isInvalid`, `errorMessage`, `inline`, `onValueChange`                                                          |
+| `Label`        | Original            | `required` asterisk, `isInvalid`, `disabled`, `text` shorthand                                                                    |
+| `Select`       | Original            | High-level `options` API, grouped options, `label`, validation                                                                    |
+| `Avatar`       | Original            | `src`, `fallback`, `badge`, `size`, sub-component props; `AvatarBadge`, `AvatarGroup`, `AvatarGroupList` with `max` overflow      |
+| `Sonner`       | Original            | Pre-configured `sonner` wrapper with project icons and CSS variable integration                                                   |
+| `Combobox`     | Original            | `options` array API, `label`, `onClear`, form validation integration                                                              |
+| `DatePicker`   | Original _(recipe)_ | Packaged component with `presets`, `dateFormat`, clear button, validation                                                         |
+| `Pagination`   | Original            | Full engine: page size, total results, first/last nav, row count                                                                  |
+| `RadioGroup`   | Original            | `options` array API, 10 color `variant`s, `inline`, `swapRight`, `isInvalid`, `errorMessage`                                      |
+| `Spinner`      | Oct 2025            | `xs`/`sm`/`md`/`lg`/`xl` typed `size` prop                                                                                        |
+| `Empty`        | Oct 2025            | Prop-based `Empty` + compound `EmptyRoot`; `EmptyMedia.variant="icon"`; `EmptyHeader`, etc.                                       |
+| `Field`        | —                   | Prop-based `Field` (label, description, error, children) + compound `FieldRoot`; `FieldLabel`, `FieldContent`, `FieldError`, etc. |
+| `Item`         | Oct 2025            | Prop-based `Item` + compound `ItemRoot`; `variant`, `size`, `asChild`; `ItemHeader`, `ItemFooter`                                 |
+| `Drawer`       | Vaul                | Prop-based `Drawer` (trigger, title, description, footer) + compound `DrawerRoot`; `direction`, `DrawerClose`                     |
+| `HoverCard`    | Radix UI            | Prop-based `HoverCard` (trigger, title, description) + compound `HoverCardRoot`; `open`, `onOpenChange`, delays                   |
+| `InputGroup`   | Oct 2025            | Prop-based `InputGroup` (inputProps, addonStart, addonEnd) + compound `InputGroupRoot`; addon `align`, `InputGroupTextarea`       |
+| `NativeSelect` | Oct 2025\*          | `size` prop (`default`/`sm`); `wrapperClassName`                                                                                  |
+
+> \* `NativeSelect` was added to shadcn alongside the Oct 2025 release batch.
+
+### Fully Custom Components (No shadcn Equivalent)
+
+| Component             | Core Purpose                                                                             |
+| --------------------- | ---------------------------------------------------------------------------------------- |
+| `CheckboxGroup`       | Managed group of `Checkbox` items with shared value state                                |
+| `DateRangePicker`     | Start/end date range selection with presets                                              |
+| `Error` family        | Error boundaries + pre-built 404/500/empty error pages (9 components)                    |
+| `ErrorMessage`        | Inline validation error text with `text-danger` styling                                  |
+| `FileUpload`          | Full file upload system with drag-drop and progress (10 sub-components + hook)           |
+| `IconButton`          | Icon-only button with `outline`, `rounded`, polymorphic `as`                             |
+| `Loading`             | Spinner + optional inline text in a flex container                                       |
+| `MultiSelect`         | Multi-value dropdown with removable badge chips                                          |
+| `NativeCheckbox`      | Lightweight native HTML checkbox (no Radix UI)                                           |
+| `NativeCheckboxGroup` | Group manager for `NativeCheckbox` items                                                 |
+| `NativeRadio`         | Lightweight native HTML radio button (no Radix UI)                                       |
+| `NativeRadioGroup`    | Group manager for `NativeRadio` items                                                    |
+| `NumberInput`         | Numeric input with positive integer/float constraints                                    |
+| `SimpleTable`         | Declarative table with column definitions and built-in pagination                        |
+| `DataTable`           | Full TanStack Table: sorting, filtering, facets, column visibility, row selection        |
+| `Form`                | Declarative form engine: 14 field types, `react-hook-form` integration                   |
+| `Toast`               | Custom toast notification system with Observer pattern, swipe-to-dismiss, promise toasts |
+
+---
+
+## Part 3: Layout Components
+
+All layout primitives live in `@paalstack/react-ui` (exported from the `packages/layouts` package). Every layout component is **polymorphic** — it accepts an `as` prop to render as any HTML element — and extends `BoxProps` which provides `bg`, `textColor`, `borderColor`, and `fontSize` shorthand props on top of all standard HTML attributes.
+
+---
+
+### `Box`
+
+The foundational primitive that every other layout component builds on.
+
+| Prop            | Type            | Description                                                                              |
+| --------------- | --------------- | ---------------------------------------------------------------------------------------- |
+| `as`            | `ElementType`   | Render as any HTML element (`div`, `section`, `article`, `button`, etc.) — default `div` |
+| `bg`            | `TailwindColor` | Background color shorthand                                                               |
+| `textColor`     | `TailwindColor` | Text color shorthand                                                                     |
+| `borderColor`   | `TailwindColor` | Border color shorthand                                                                   |
+| `fontSize`      | `TailwindSize`  | Font size shorthand                                                                      |
+| `withComponent` | `(as) => Box`   | Factory method to create a pre-bound element variant                                     |
+
+```tsx
+<Box>Default div</Box>
+<Box as="section" bg="blue" textColor="white" className="p-4 rounded-lg">Section</Box>
+<Box as="button" onClick={handleClick}>Button</Box>
+
+// Create pre-bound element variants
+const BoxButton = Box.withComponent('button');
+```
+
+---
+
+### `Flex`
+
+A `display: flex` container. The most flexible layout primitive for custom flex arrangements.
+
+| Property       | Value                                      |
+| -------------- | ------------------------------------------ |
+| Default styles | `flex`                                     |
+| Alignment      | None — controlled entirely via `className` |
+
+```tsx
+<Flex className="gap-4 items-center justify-between">
+  <span>Left</span>
+  <span>Right</span>
+</Flex>
+
+<Flex className="flex-col gap-2">
+  <div>Top</div>
+  <div>Bottom</div>
+</Flex>
+
+<Flex as="nav" className="gap-6 p-4">
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+</Flex>
+```
+
+---
+
+### `Stack`
+
+A directional flex container with a `direction` prop. Default is vertical (`flex-col`).
+
+| Prop        | Type                | Default    | Description                               |
+| ----------- | ------------------- | ---------- | ----------------------------------------- |
+| `direction` | `'row' \| 'column'` | `'column'` | Stack children vertically or horizontally |
+
+| Property       | Value           |
+| -------------- | --------------- |
+| Default styles | `flex flex-col` |
+
+```tsx
+<Stack className="gap-4">
+  <Input label="Name" />
+  <Input label="Email" />
+  <Button>Submit</Button>
+</Stack>
+
+<Stack direction="row" className="gap-6">
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+</Stack>
+```
+
+> **Tip:** Use `VStack` for an explicit vertical-only stack or `HStack` for explicit horizontal + vertically-centered layouts.
+
+---
+
+### `VStack`
+
+A vertical flex column where items **stretch to full width**. Best for forms, lists, and sidebar navigation.
+
+| Property       | Value                               |
+| -------------- | ----------------------------------- |
+| Default styles | `flex flex-col items-stretch gap-2` |
+
+```tsx
+<VStack className="gap-4">
+  <Input label="First Name" />
+  <Input label="Last Name" />
+  <Button className="w-full">Submit</Button>
+</VStack>
+
+<VStack as="nav" className="gap-1">
+  <a className="p-2 hover:bg-gray-100 rounded">Dashboard</a>
+  <a className="p-2 hover:bg-gray-100 rounded">Settings</a>
+</VStack>
+```
+
+---
+
+### `HStack`
+
+A horizontal flex row where items are **vertically centered**. Best for nav bars, button groups, and icon + text pairs.
+
+| Property       | Value                              |
+| -------------- | ---------------------------------- |
+| Default styles | `flex flex-row items-center gap-2` |
+
+```tsx
+<HStack className="gap-4 p-4">
+  <Logo />
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+</HStack>
+
+<HStack className="gap-3">
+  <Avatar src="/user.jpg" fallback="JD" />
+  <div>
+    <Text className="font-medium">John Doe</Text>
+    <Text className="text-sm text-gray-500">john@example.com</Text>
+  </div>
+</HStack>
+```
+
+---
+
+### `Center`
+
+A flex container that centers children **both horizontally and vertically**.
+
+| Property       | Value                              |
+| -------------- | ---------------------------------- |
+| Default styles | `flex items-center justify-center` |
+
+```tsx
+<Center className="min-h-[400px]">
+  <Spinner size="xl" />
+</Center>
+
+<Center className="h-screen">
+  <div>Centered page content</div>
+</Center>
+
+<Center className="size-12 rounded-full bg-primary text-primary-foreground">
+  JD
+</Center>
+```
+
+---
+
+### `Grid`
+
+A `display: grid` container for CSS grid layouts. Pair with `GridItem` for spanning control.
+
+| Property       | Value  |
+| -------------- | ------ |
+| Default styles | `grid` |
+
+#### `GridItem`
+
+An individual cell inside `Grid` — accepts `col-span-*`, `row-span-*`, `col-start-*` classes.
+
+```tsx
+<Grid className="grid-cols-3 gap-4">
+  <GridItem>Item 1</GridItem>
+  <GridItem>Item 2</GridItem>
+  <GridItem>Item 3</GridItem>
+</Grid>;
+
+{
+  /* Responsive grid */
+}
+<Grid className="grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+  {cards.map((card) => (
+    <GridItem key={card.id}>{card.content}</GridItem>
+  ))}
+</Grid>;
+
+{
+  /* Dashboard layout with column spanning */
+}
+<Grid className="grid-cols-12 gap-4">
+  <GridItem className="col-span-12 md:col-span-8">Main content</GridItem>
+  <GridItem className="col-span-12 md:col-span-4">Sidebar</GridItem>
+</Grid>;
+
+{
+  /* Auto-fit responsive grid */
+}
+<Grid className="grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
+  <div>Card 1</div>
+  <div>Card 2</div>
+</Grid>;
+```
+
+---
+
+### `Wrap`
+
+A flex container with `flex-wrap: wrap` — children wrap to the next line when space runs out. Pair with `WrapItem` for individual wrapped items.
+
+| Property       | Value                  |
+| -------------- | ---------------------- |
+| Default styles | `flex flex-wrap gap-2` |
+
+#### `WrapItem`
+
+An individual item inside `Wrap`. Items won't shrink (`flex-none`) and align to `items-start`.
+
+| Property       | Value                        |
+| -------------- | ---------------------------- |
+| Default styles | `flex flex-none items-start` |
+
+```tsx
+<Wrap className="gap-2">
+  {tags.map(tag => (
+    <Badge key={tag} variant="outline">{tag}</Badge>
+  ))}
+</Wrap>
+
+<Wrap className="gap-2">
+  <Button>Action 1</Button>
+  <Button>Action 2</Button>
+  <Button>Action 3</Button>
+</Wrap>
+```
+
+---
+
+### `Container`
+
+A responsive max-width container that centers page content using Tailwind's `container` utility.
+
+| Property       | Value                                                     |
+| -------------- | --------------------------------------------------------- |
+| Default styles | `container` (Tailwind responsive max-width + auto margin) |
+
+```tsx
+<Container className="px-4 py-8">
+  <h1>Page Title</h1>
+  <p>Page content</p>
+</Container>;
+
+{
+  /* Narrow container for articles */
+}
+<Container className="mx-auto max-w-2xl px-4">Blog post content</Container>;
+```
+
+---
+
+### `Paper`
+
+A surface container with background color, shadow elevation, and an optional border. Ideal for cards and panels.
+
+| Prop         | Type                                                      | Default   | Description                 |
+| ------------ | --------------------------------------------------------- | --------- | --------------------------- |
+| `shadow`     | `default \| sm \| md \| lg \| xl \| 2xl \| inner \| none` | `default` | Shadow elevation level      |
+| `withBorder` | `boolean`                                                 | `false`   | Adds `border border-border` |
+
+```tsx
+<Paper className="p-6 rounded-lg">Basic paper</Paper>
+<Paper shadow="lg" withBorder className="p-6 rounded-xl">Elevated card</Paper>
+<Paper shadow="none" withBorder className="p-4">Border only</Paper>
+<Paper shadow="inner" className="p-6">Inset shadow</Paper>
+```
+
+---
+
+### `Portal`
+
+Renders children into a different part of the DOM tree via `React.createPortal`. SSR-safe via `useIsomorphicEffect`. The created portal node is automatically cleaned up on unmount.
+
+| Prop     | Type                    | Default         | Description                                         |
+| -------- | ----------------------- | --------------- | --------------------------------------------------- |
+| `target` | `HTMLElement \| string` | `document.body` | CSS selector string or direct DOM element reference |
+
+```tsx
+{
+  /* Default — renders to document.body */
+}
+<Portal>
+  <div className="fixed inset-0 z-50 bg-black/50">Modal content</div>
+</Portal>;
+
+{
+  /* Target a specific container */
+}
+<Portal target="#modal-root">
+  <div>Rendered inside #modal-root</div>
+</Portal>;
+
+{
+  /* Target a DOM element ref */
+}
+<Portal target={containerRef.current}>
+  <div>Content</div>
+</Portal>;
+```
+
+---
+
+### `Text`
+
+A polymorphic text component. Default element is `<p>`. Inherits all `BoxProps`.
+
+| Property   | Value |
+| ---------- | ----- |
+| Default as | `p`   |
+
+```tsx
+<Text>Paragraph text</Text>
+<Text as="span">Inline text</Text>
+<Text as="label" htmlFor="input">Input label</Text>
+<Text as="small" className="text-sm text-gray-500">Helper text</Text>
+<Text textColor="blue" fontSize="lg">Colored large text</Text>
+<Text className="truncate max-w-xs">Truncated long text...</Text>
+```
+
+---
+
+### `Heading`
+
+A semantic heading component (`h1`–`h6`) that automatically applies size styling based on the heading level.
+
+| `as` level | Auto-applied styles       |
+| ---------- | ------------------------- |
+| `h1`       | `text-3xl font-bold`      |
+| `h2`       | `text-2xl font-bold`      |
+| `h3`       | `text-xl font-semibold`   |
+| `h4`       | `text-lg font-semibold`   |
+| `h5`       | `text-base font-semibold` |
+| `h6`       | `text-sm font-semibold`   |
+
+```tsx
+<Heading>Page Title (h1 by default)</Heading>
+<Heading as="h2">Section Title</Heading>
+<Heading as="h3" className="text-primary">Custom styled h3</Heading>
+```
+
+---
+
+### `Typography` System
+
+A complete set of pre-styled typographic primitives for rich content and documentation pages. All components are also grouped under the `Typography` namespace object for convenient import.
+
+#### Individual Components
+
+| Component              | Element      | Default styles                                                                | Use case                               |
+| ---------------------- | ------------ | ----------------------------------------------------------------------------- | -------------------------------------- |
+| `TypographyH1`         | `h1`         | `text-4xl font-extrabold tracking-tight text-center text-balance lg:text-5xl` | Page / hero titles                     |
+| `TypographyH2`         | `h2`         | `text-3xl font-semibold tracking-tight border-b pb-2 first:mt-0`              | Major section headings                 |
+| `TypographyH3`         | `h3`         | `text-2xl font-semibold tracking-tight`                                       | Subsection headings                    |
+| `TypographyH4`         | `h4`         | `text-xl font-semibold tracking-tight`                                        | Minor headings, sidebar titles         |
+| `TypographyH5`         | `h5`         | `text-lg font-semibold tracking-tight`                                        | Small subsection labels                |
+| `TypographyH6`         | `h6`         | `text-base font-semibold tracking-tight`                                      | Smallest section labels                |
+| `TypographyP`          | `p`          | `leading-7 [&:not(:first-child)]:mt-6`                                        | Body paragraphs with auto-spacing      |
+| `TypographyLead`       | `p`          | `text-xl text-muted-foreground`                                               | Large intro / subtitle text            |
+| `TypographyLarge`      | `div`        | `text-lg font-semibold`                                                       | Callouts, stats, key metrics           |
+| `TypographySmall`      | `small`      | `text-sm leading-none font-medium`                                            | Fine print, captions, disclaimers      |
+| `TypographyMuted`      | `p`          | `text-sm text-muted-foreground`                                               | Secondary / helper text                |
+| `TypographySubtle`     | `p`          | `text-sm text-muted-foreground`                                               | Subtle secondary text (alias of Muted) |
+| `TypographyStrong`     | `strong`     | `font-semibold`                                                               | Inline bold emphasis                   |
+| `TypographyCode`       | `code`       | `rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm`                  | Inline code snippets                   |
+| `TypographyBlockQuote` | `blockquote` | `mt-6 border-l-2 pl-6 italic`                                                 | Quotes, testimonials                   |
+| `TypographyUL`         | `ul`         | `m-4 list-disc [&>li]:mt-2` — `unstyled` prop removes defaults                | Bulleted lists                         |
+| `TypographyOL`         | `ol`         | `m-4 list-decimal [&>li]:mt-2` — `unstyled` prop removes defaults             | Numbered / step lists                  |
+| `TypographyLI`         | `li`         | Standard list item                                                            | Items inside UL / OL                   |
+| `TypographyTable`      | `table`      | `w-full`                                                                      | Simple prose-style tables              |
+| `TypographyTHead`      | `thead`      | —                                                                             | Table header section                   |
+| `TypographyTBody`      | `tbody`      | —                                                                             | Table body section                     |
+| `TypographyTR`         | `tr`         | Alternating row background, border-t                                          | Table row                              |
+| `TypographyTH`         | `th`         | `border px-4 py-2 text-left font-bold`                                        | Table header cell                      |
+| `TypographyTD`         | `td`         | `border px-4 py-2 text-left`                                                  | Table data cell                        |
+
+#### `Typography` Namespace Object
+
+All components are also accessible via the grouped `Typography` object:
+
+```tsx
+import { Typography } from '@paalstack/react-ui';
+
+// Full article layout
+<article className="mx-auto max-w-3xl">
+  <Typography.H1>Understanding TypeScript</Typography.H1>
+  <Typography.Lead>A comprehensive guide for modern web development.</Typography.Lead>
+  <Typography.Muted>By John Doe • 10 min read</Typography.Muted>
+
+  <Typography.H2>Introduction</Typography.H2>
+  <Typography.P>
+    TypeScript is a <Typography.Strong>typed superset</Typography.Strong> of JavaScript. Install it with{' '}
+    <Typography.Code>npm install -g typescript</Typography.Code>.
+  </Typography.P>
+
+  <Typography.BlockQuote>"TypeScript is JavaScript with syntax for types."</Typography.BlockQuote>
+
+  <Typography.H3>Key Benefits</Typography.H3>
+  <Typography.UL>
+    <Typography.LI>Type safety</Typography.LI>
+    <Typography.LI>Better IDE support</Typography.LI>
+    <Typography.LI>Enhanced refactoring</Typography.LI>
+  </Typography.UL>
+
+  <Typography.Small>Last updated: January 2026</Typography.Small>
+</article>;
+
+// Destructured usage
+const { H1, H2, P, Code, UL, LI, Strong } = Typography;
+```
+
+---
+
+## Layout Components — Quick Reference
+
+| Component   | Default Element | CSS Applied                         | Best For                                   |
+| ----------- | --------------- | ----------------------------------- | ------------------------------------------ |
+| `Box`       | `div`           | none                                | Base primitive; polymorphic wrapper        |
+| `Flex`      | `div`           | `flex`                              | Custom flex layouts                        |
+| `Stack`     | `div`           | `flex flex-col`                     | Directional stacking with `direction` prop |
+| `VStack`    | `div`           | `flex flex-col items-stretch gap-2` | Forms, lists, vertical nav                 |
+| `HStack`    | `div`           | `flex flex-row items-center gap-2`  | Nav bars, button groups, icon+text         |
+| `Center`    | `div`           | `flex items-center justify-center`  | Loading states, empty states, icons        |
+| `Grid`      | `div`           | `grid`                              | CSS grid layouts                           |
+| `GridItem`  | `div`           | none                                | Grid cells with span control               |
+| `Wrap`      | `div`           | `flex flex-wrap gap-2`              | Tags, badge lists, wrapping button groups  |
+| `WrapItem`  | `div`           | `flex flex-none items-start`        | Individual items inside `Wrap`             |
+| `Container` | `div`           | `container`                         | Page content with responsive max-width     |
+| `Paper`     | `div`           | `bg-background shadow-sm`           | Cards, panels, elevated surfaces           |
+| `Portal`    | —               | renders to `document.body`          | Modals, tooltips, overlays                 |
+| `Text`      | `p`             | none                                | Body text, inline text, polymorphic text   |
+| `Heading`   | `h1`            | auto size by level                  | Semantic headings `h1`–`h6`                |
+
+---
+
+## Component Quick Reference
+
+### Extended shadcn Components
+
+> _(Oct 2025)_ = component added to shadcn in October 2025
+
+| Component        | shadcn Added        | Key Custom Extensions                                                                              |
+| ---------------- | ------------------- | -------------------------------------------------------------------------------------------------- |
+| `Accordion`      | Original            | Props API with `items` array, `type` (`single`/`multiple`)                                         |
+| `Alert`          | Original            | `colorVariant`, `softBackground`, `solidBackground`; `dismissible`; icon slot                      |
+| `AlertDialog`    | Original            | Props API with `trigger`, `header`, `icon`, `size`; `AlertDialogMedia` sub-component               |
+| `Avatar`         | Original            | `src`, `fallback`, `badge`, `size`; `AvatarBadge`, `AvatarGroup`, `AvatarGroupList` with `max`     |
+| `Badge`          | Original            | `soft`, `solid`, `surface` variants; `color` system                                                |
+| `Breadcrumb`     | Original            | Props API with `items`, `maxItems`, custom `separator`                                             |
+| `Button`         | Original            | `soft`, `solid`, `surface` variants; 25-color `color` prop; `isLoading`; extended `size`           |
+| `Calendar`       | Original            | `CalendarDayButton` with `color`; `buttonVariant` for nav buttons                                  |
+| `Card`           | Original            | Props API with `header`, `footer`, `action`, `size`; `CardAction` sub-component                    |
+| `Carousel`       | Original            | Props API with `items`, `showNavigation`, `contentClassName`, `itemClassName`                      |
+| `Chart`          | Original            | Extended `ChartTooltipContent` (`hideLabel`, `indicator`) and `ChartLegendContent` (`hideIcon`)    |
+| `Checkbox`       | Original            | 10 color variants; `isInvalid`, `errorMessage`, `swapRight`, `indeterminate`                       |
+| `Collapsible`    | Original            | Props API with `trigger`, `triggerProps`, `contentProps`                                           |
+| `Combobox`       | Original _(recipe)_ | Packaged component: `options` array, `onClear`, form validation                                    |
+| `Command`        | Original            | Props API with `groups`; `CommandDialog` (title/description); `CommandNoResultFound`               |
+| `ContextMenu`    | Original            | Props API with `trigger`, `items` (separator/label/checkbox/radio-group/submenu); `variant`        |
+| `DatePicker`     | Original _(recipe)_ | Packaged component: `presets`, `dateFormat`, clear button, validation                              |
+| `Dialog`         | Original            | Props API with `trigger`, `header`, `footer`; `showCloseButton`, `onClose`                         |
+| `Drawer`         | Vaul                | Prop-based `Drawer` + compound `DrawerRoot`; trigger, title, description, footer; direction        |
+| `DropdownMenu`   | Original            | Props API with `trigger`, `items` (submenus/checkbox/radio-group); `title`, `variant`              |
+| `Empty`          | Oct 2025            | Prop-based `Empty` + compound `EmptyRoot`; `EmptyMedia.variant="icon"`; `EmptyHeader`, etc.        |
+| `Field`          | —                   | Prop-based `Field` + compound `FieldRoot`; label, description, error, orientation                  |
+| `HoverCard`      | Radix UI            | Prop-based `HoverCard` + compound `HoverCardRoot`; trigger, title, description                     |
+| `Input`          | Original            | Built-in `label`, `isInvalid`, `errorMessage`, `inline`, `onValueChange`                           |
+| `InputGroup`     | Oct 2025            | Prop-based `InputGroup` + compound `InputGroupRoot`; addon align, InputGroupTextarea               |
+| `InputOTP`       | Original            | `containerClassName`; `has-aria-invalid` validation styling on `InputOTPGroup`                     |
+| `Item`           | Oct 2025            | Prop-based `Item` + compound `ItemRoot`; `variant`, `size`, `asChild`; `ItemHeader`, `ItemFooter`  |
+| `Kbd`            | Original            | `KbdGroup` sub-component for grouping multiple keyboard shortcuts                                  |
+| `Label`          | Original            | `required` asterisk, `isInvalid`, `disabled`, `text` shorthand                                     |
+| `Menubar`        | Original            | Props API with `menus` (shortcuts, submenus, checkboxes, radio groups, separators)                 |
+| `NativeSelect`   | Oct 2025\*          | `size` prop (`default`/`sm`); `wrapperClassName`                                                   |
+| `NavigationMenu` | Original            | Props API with `items` (`link`/`dropdown`); `NavigationMenuListItem`; `navigationMenuTriggerStyle` |
+| `Pagination`     | Original            | Full engine: page size, total results, first/last nav, row count                                   |
+| `Popover`        | Original            | Props API with `trigger`, `content`; `PopoverHeader` sub-component                                 |
+| `Progress`       | Original            | `variant` prop (9 colors: primary, secondary, danger, warning, success, info, dark, accent)        |
+| `RadioGroup`     | Original            | `options` array API, 10 color variants, `inline`, `swapRight`, `isInvalid`, `errorMessage`         |
+| `Resizable`      | Original            | Props API with `panels` array; `withHandle` on `ResizableHandle`                                   |
+| `Select`         | Original            | High-level `options` API, grouped options, `label`, validation                                     |
+| `Sheet`          | Original            | Props API with `trigger`, `header`, `footer`, `side`; `showCloseButton`                            |
+| `Slider`         | Original            | `variant` prop (ColorVariant: primary, danger, warning, success, info, muted, accent)              |
+| `Sonner`         | Original            | Pre-configured `sonner` wrapper with project icons and CSS variable integration                    |
+| `Spinner`        | Oct 2025            | `xs`/`sm`/`md`/`lg`/`xl` typed `size` prop                                                         |
+| `Switch`         | Original            | `size` prop (`default`/`sm`)                                                                       |
+| `Tabs`           | Original            | Props API with `tabs` array; `variant` (`default`/`line`); styling className props                 |
+| `Textarea`       | Original            | Built-in `label`, `isInvalid`, `errorMessage`, `inline`, `onValueChange`                           |
+| `ToggleGroup`    | Original            | Props API with `items`, `label`, `inline`, `spacing`, `orientation`; context-based styling         |
+| `Tooltip`        | Original            | Props API with `trigger`, `content`; `asPortal`; `side`, `align` positioning                       |
+
+### Fully Custom Components
+
+| Component                                | Purpose                                                                                  |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ButtonGroup`                            | Connected/separated button group with separators and orientation                         |
+| `CheckboxGroup`                          | Managed group of `Checkbox` items with shared state                                      |
+| `DataTable`                              | TanStack Table: sorting, filtering, facets, pagination, column visibility, row selection |
+| `DateRangePicker`                        | Start/end date range selection with presets                                              |
+| `Error` family                           | Error boundaries + pre-built 404/500/empty pages (9 components)                          |
+| `ErrorMessage`                           | Inline validation error text                                                             |
+| `FileUpload`                             | Drag-drop upload with progress tracking (10 sub-components)                              |
+| `Form`                                   | Declarative form engine: 14 field types, react-hook-form integration                     |
+| `IconButton`                             | Icon-only button with `outline`, `rounded`, polymorphic `as`                             |
+| `Loading`                                | Spinner + optional inline text in a flex container                                       |
+| `MultiSelect`                            | Multi-value dropdown with removable badge chips                                          |
+| `NativeCheckbox` / `NativeCheckboxGroup` | Lightweight native HTML checkbox (no Radix UI)                                           |
+| `NativeRadio` / `NativeRadioGroup`       | Lightweight native HTML radio button (no Radix UI)                                       |
+| `NumberInput`                            | Numeric input with positive integer/float constraints                                    |
+| `SimpleTable`                            | Declarative table with column defs + built-in pagination                                 |
+| `Toast`                                  | Custom toast system with Observer pattern, swipe-to-dismiss, promise toasts              |

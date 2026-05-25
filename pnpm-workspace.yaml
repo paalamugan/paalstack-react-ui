@@ -1,0 +1,9 @@
+packages:
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - es5-ext
+  - esbuild
+  - storybook-addon-react-router-v6
+  - unrs-resolver

@@ -1,0 +1,58 @@
+ol[dir='ltr'] .toast-headless-close {
+  --toast-headless-close-start: unset;
+  --toast-headless-close-end: 6px;
+}
+
+ol[dir='rtl'] .toast-headless-close {
+  --toast-headless-close-start: 6px;
+  --toast-headless-close-end: unset;
+}
+
+.toast-headless {
+  padding: 16px;
+  width: var(--width);
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: var(--gray1);
+  border: 1px solid var(--gray4);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.toast-headless .toast-headless-title {
+  font-size: 14px;
+  color: var(--gray12);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.toast-headless .toast-headless-description {
+  color: var(--gray12);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.toast-headless-close {
+  position: absolute;
+  cursor: pointer;
+  top: 6px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: var(--toast-headless-close-start);
+  right: var(--toast-headless-close-end);
+  color: var(--gray10);
+  padding: 0;
+  background: transparent;
+  border: none;
+  transition: color 200ms;
+}
+
+.toast-headless-close:hover {
+  color: var(--gray12);
+}

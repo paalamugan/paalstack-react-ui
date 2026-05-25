@@ -1,0 +1,87 @@
+{
+  "name": "@paalstack/react-shared",
+  "version": "1.0.0",
+  "description": "React UI Shared",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "author": {
+    "name": "Paalamugan Samayamuthu",
+    "email": "paalamugan@users.noreply.github.com"
+  },
+  "scripts": {
+    "build": "npm run type-check && npm run lint && npm run clean && npm run tsup",
+    "lint": "eslint ./src --ext ts,tsx --config ../../.eslintrc.cjs --report-unused-disable-directives --max-warnings 0 --cache",
+    "lint:fix": "npm run lint -- --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx}\" --cache",
+    "tsup": "tsup",
+    "tsup:watch": "tsup --watch",
+    "prepublishOnly": "npm run tsup",
+    "clean": "rimraf dist",
+    "test": "jest --passWithNoTests"
+  },
+  "dependencies": {
+    "axios": "^1.15.2",
+    "cheerio": "^1.1.2",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
+    "tailwind-merge": "^3.4.0",
+    "intl-messageformat": "^11.1.1"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.x",
+    "react-dom": ">=18.2.x",
+    "tailwindcss": ">=4.x"
+  },
+  "engines": {
+    "node": ">=20.12.x"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./constants": {
+      "types": "./dist/constants/index.d.ts",
+      "import": "./dist/constants/index.js",
+      "require": "./dist/constants/index.cjs"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.js",
+      "require": "./dist/types/index.cjs"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js",
+      "require": "./dist/utils/index.cjs"
+    },
+    "./lib": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.js",
+      "require": "./dist/lib/index.cjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paalamugan/paalstack-react-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/paalamugan/paalstack-react-ui/issues"
+  },
+  "homepage": "https://github.com/paalamugan/paalstack-react-ui#readme",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "tsconfig.json"
+  ],
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1"
+  }
+}

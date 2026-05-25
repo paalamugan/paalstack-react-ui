@@ -1,0 +1,871 @@
+import { IconContext } from '@paalstack/react-icons';
+import { Meta } from '@storybook/blocks';
+
+import { BiCog, BiHeart, BiHome, BiStar, BiUser } from '@/icons/bi';
+import { FaCog, FaHeart, FaHome, FaStar, FaUser } from '@/icons/fa';
+import { HiCog, HiHeart, HiHome, HiStar, HiUser } from '@/icons/hi2';
+import { LuHeart, LuHouse, LuSearch, LuSettings, LuStar } from '@/icons/lu';
+import { MdFavorite, MdHome, MdPerson, MdSearch, MdSettings } from '@/icons/md';
+import { RxFace, RxGear, RxHome, RxPerson, RxRocket } from '@/icons/rx';
+
+<Meta title="Overview/Icons" />
+
+# Icon Library
+
+A comprehensive collection of **31 icon packs** with thousands of icons powered by [react-icons](https://www.npmjs.com/package/react-icons). Choose from popular icon libraries like Radix, Lucide, Material Design, Heroicons, Font Awesome, and many more.
+
+---
+
+## 📦 Installation
+
+```bash
+npm install @paalstack/react-icons
+```
+
+---
+
+## 🚀 Quick Start
+
+Import icons from any pack and use them as React components:
+
+```tsx
+// Import from different icon packs
+import { Fa6User } from '@paalstack/react-icons/fa6'; // Font Awesome 6
+
+import { HiHeart } from '@paalstack/react-icons/hi2'; // Heroicons 2
+import { LuStar } from '@paalstack/react-icons/lu'; // Lucide Icons
+import { MdFavorite } from '@paalstack/react-icons/md'; // Material Design
+import { RxHome } from '@paalstack/react-icons/rx'; // Radix Icons
+
+function MyComponent() {
+  return (
+    <div>
+      <RxHome />
+      <LuStar />
+      <MdFavorite />
+    </div>
+  );
+}
+```
+
+---
+
+## 🎨 Customization Examples
+
+### Using Tailwind CSS Classes
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    alignItems: 'center',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <RxHome className="size-4" />
+  <RxHome className="size-6" />
+  <RxHome className="size-8" />
+  <RxHome className="size-12" />
+</div>
+
+```tsx
+<RxHome className="size-4" />  {/* 16px */}
+<RxHome className="size-6" />  {/* 24px */}
+<RxHome className="size-8" />  {/* 32px */}
+<RxHome className="size-12" /> {/* 48px */}
+```
+
+### Using Size Prop
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    alignItems: 'center',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <LuStar size={16} />
+  <LuStar size={24} />
+  <LuStar size={32} />
+  <LuStar size={48} />
+</div>
+
+```tsx
+<LuStar size={16} />
+<LuStar size={24} />
+<LuStar size={32} />
+<LuStar size={48} />
+```
+
+### Using Colors
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    alignItems: 'center',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <LuHeart className="size-8 text-red-500" />
+  <LuHeart className="size-8 text-blue-500" />
+  <LuHeart className="size-8 text-green-500" />
+  <LuHeart className="size-8" color="#ff6b6b" />
+  <LuHeart className="size-8" style={{ color: '#4ecdc4' }} />
+</div>
+
+```tsx
+<LuHeart className="text-red-500" />
+<LuHeart className="text-blue-500" />
+<LuHeart color="#ff6b6b" />
+<LuHeart style={{ color: '#4ecdc4' }} />
+```
+
+### Using IconContext Provider
+
+Apply default props to all icons within a context:
+
+<IconContext.Provider value={{ color: 'blue', size: '1.5em', className: 'icon-group' }}>
+  <div
+    style={{
+      display: 'flex',
+      gap: '1rem',
+      padding: '1rem',
+      background: '#f8f9fa',
+      borderRadius: '8px',
+      marginBottom: '1rem',
+    }}
+  >
+    <RxHome />
+    <RxRocket />
+    <RxGear />
+    <RxPerson />
+  </div>
+</IconContext.Provider>
+
+```tsx
+import { IconContext } from '@paalstack/react-icons';
+import { RxGear, RxHome, RxPerson, RxRocket } from '@paalstack/react-icons/rx';
+
+function MyComponent() {
+  return (
+    <IconContext.Provider value={{ color: 'blue', size: '1.5em', className: 'icon-group' }}>
+      <div>
+        <RxHome />
+        <RxRocket />
+        <RxGear />
+        <RxPerson />
+      </div>
+    </IconContext.Provider>
+  );
+}
+```
+
+#### IconContext Options
+
+<div style={{ overflowX: 'auto', marginTop: '1rem' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
+    <thead>
+      <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+        <th style={{ textAlign: 'left', padding: '0.75rem', fontWeight: '600' }}>Key</th>
+        <th style={{ textAlign: 'left', padding: '0.75rem', fontWeight: '600' }}>Default</th>
+        <th style={{ textAlign: 'left', padding: '0.75rem', fontWeight: '600' }}>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>color</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>
+          <code>undefined</code> (inherit)
+        </td>
+        <td style={{ padding: '0.75rem' }}>Sets color for all icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>size</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>
+          <code>1em</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>Sets size for all icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>className</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>
+          <code>undefined</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>Adds class to all icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>style</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>
+          <code>undefined</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>Can overwrite size and color</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>attr</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>
+          <code>undefined</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>Overwritten by other attributes</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '0.75rem' }}>
+          <code>title</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>
+          <code>undefined</code>
+        </td>
+        <td style={{ padding: '0.75rem' }}>Icon description for accessibility</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+**Note:** Individual icon props will override the context values.
+
+<div style={{ display: 'flex', gap: '2rem', marginTop: '1rem' }}>
+  <div>
+    <p style={{ marginBottom: '0.5rem', fontWeight: '600' }}>Context: red, 2em</p>
+    <IconContext.Provider value={{ color: 'red', size: '2em' }}>
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <LuHouse />
+        <LuStar />
+        <LuHeart />
+      </div>
+    </IconContext.Provider>
+  </div>
+  <div>
+    <p style={{ marginBottom: '0.5rem', fontWeight: '600' }}>Override with blue</p>
+    <IconContext.Provider value={{ color: 'red', size: '2em' }}>
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <LuHouse />
+        <LuStar color="blue" />
+        <LuHeart />
+      </div>
+    </IconContext.Provider>
+  </div>
+</div>
+
+```tsx
+// Context provides default red color
+<IconContext.Provider value={{ color: 'red', size: '2em' }}>
+  <LuHouse />
+  <LuStar color="blue" /> {/* Override with blue */}
+  <LuHeart />
+</IconContext.Provider>
+```
+
+---
+
+## 📚 Available Icon Packs
+
+We provide **31 different icon libraries** to choose from. Here are some of the most popular:
+
+### Radix Icons (rx)
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <RxHome className="size-6" />
+  <RxFace className="size-6" />
+  <RxRocket className="size-6" />
+  <RxGear className="size-6" />
+  <RxPerson className="size-6" />
+</div>
+
+```tsx
+import { RxFace, RxHome, RxRocket } from '@paalstack/react-icons/rx';
+```
+
+### Lucide Icons (lu)
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <LuHouse className="size-6" />
+  <LuHeart className="size-6" />
+  <LuStar className="size-6" />
+  <LuSearch className="size-6" />
+  <LuSettings className="size-6" />
+</div>
+
+```tsx
+import { LuHeart, LuHouse, LuStar } from '@paalstack/react-icons/lu';
+```
+
+### Material Design (md)
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <MdHome className="size-6" />
+  <MdFavorite className="size-6" />
+  <MdSearch className="size-6" />
+  <MdSettings className="size-6" />
+  <MdPerson className="size-6" />
+</div>
+
+```tsx
+import { MdFavorite, MdHome, MdSearch } from '@paalstack/react-icons/md';
+```
+
+### Heroicons 2 (hi2)
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <HiHome className="size-6" />
+  <HiHeart className="size-6" />
+  <HiStar className="size-6" />
+  <HiUser className="size-6" />
+  <HiCog className="size-6" />
+</div>
+
+```tsx
+import { HiHeart, HiHome, HiStar } from '@paalstack/react-icons/hi2';
+```
+
+### Font Awesome 6 (fa6)
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <FaHome className="size-6" />
+  <FaHeart className="size-6" />
+  <FaStar className="size-6" />
+  <FaUser className="size-6" />
+  <FaCog className="size-6" />
+</div>
+
+```tsx
+import { FaHeart, FaHome, FaStar } from '@paalstack/react-icons/fa6';
+```
+
+### BoxIcons (bi)
+
+<div
+  style={{
+    display: 'flex',
+    gap: '1rem',
+    padding: '1rem',
+    background: '#f8f9fa',
+    borderRadius: '8px',
+    marginBottom: '1rem',
+  }}
+>
+  <BiHome className="size-6" />
+  <BiHeart className="size-6" />
+  <BiStar className="size-6" />
+  <BiUser className="size-6" />
+  <BiCog className="size-6" />
+</div>
+
+```tsx
+import { BiHeart, BiHome, BiStar } from '@paalstack/react-icons/bi';
+```
+
+---
+
+## 📖 Complete Icon Pack List
+
+<div style={{ overflowX: 'auto', marginTop: '1rem' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
+    <thead>
+      <tr style={{ borderBottom: '2px solid #e5e7eb', background: '#f9fafb' }}>
+        <th style={{ textAlign: 'left', padding: '0.75rem', fontWeight: '600' }}>Package</th>
+        <th style={{ textAlign: 'left', padding: '0.75rem', fontWeight: '600' }}>Name</th>
+        <th style={{ textAlign: 'left', padding: '0.75rem', fontWeight: '600' }}>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>rx</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Radix Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Crisp icon set from Radix UI</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>lu</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Lucide Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Beautiful & consistent icon toolkit</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>md</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Material Design</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Material Design icons by Google</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>hi2</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Heroicons 2</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Updated Heroicons from Tailwind CSS</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>fa6</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Font Awesome 6</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Latest version of Font Awesome</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>bi</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>BoxIcons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Simple open source icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>bs</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Bootstrap Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Official Bootstrap icon library</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>fi</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Feather Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Beautiful open source icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>ai</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Ant Design</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>High-quality icons from Ant Design</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>io5</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Ionicons 5</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Latest Ionicons for apps and web</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>tb</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Tabler Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Over 4000 pixel-perfect icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>ri</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Remix Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Open source neutral-style icon system</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>pi</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Phosphor Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Flexible icon family for interfaces</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>cg</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>css.gg</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Pure CSS, SVG & Figma UI icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>ci</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Circum Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Consistent open source icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>di</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Devicons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Icons for programming languages</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>fa</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Font Awesome</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>The web's most popular icon set</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>fc</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Flat Color Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Colorful flat design icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>gi</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Game Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Thousands of free game icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>go</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Github Octicons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>GitHub's icon font</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>gr</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Grommet Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Icons from Grommet design system</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>hi</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Heroicons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Hand-crafted SVG icons from Tailwind</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>im</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>IcoMoon Free</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Free vector icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>io</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Ionicons 4</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Premium designed icons for apps</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>lia</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Line Awesome</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Modern line icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>si</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Simple Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>SVG icons for popular brands</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>sl</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Simple Line Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Simple and minimal line icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>tfi</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Themify Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Complete set of icons for web design</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>ti</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Typicons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Free-to-use vector icons</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+        <td style={{ padding: '0.75rem' }}>
+          <code>vsc</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>VS Code Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>Icons from Visual Studio Code</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '0.75rem' }}>
+          <code>wi</code>
+        </td>
+        <td style={{ padding: '0.75rem', fontWeight: '500' }}>Weather Icons</td>
+        <td style={{ padding: '0.75rem', color: '#6b7280' }}>222 weather themed icons</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+---
+
+## ⚙️ Available Props
+
+All icons accept the following props:
+
+```typescript
+interface IconBaseProps {
+  color?: string; // Icon color (any CSS color)
+  size?: string | number; // Icon size (in pixels or CSS value)
+  className?: string; // CSS classes
+  style?: React.CSSProperties; // Inline styles
+  attr?: React.SVGAttributes<SVGElement>; // SVG attributes
+  title?: string; // Accessibility title
+}
+```
+
+### Individual Icon Props
+
+```tsx
+<RxHome size={32} color="blue" className="my-icon" title="Home Icon" style={{ cursor: 'pointer' }} />
+```
+
+### Using IconContext (Global Props)
+
+Set default props for multiple icons using `IconContext.Provider`:
+
+```tsx
+import { IconContext } from '@paalstack/react-icons';
+
+// All icons inherit these props
+<IconContext.Provider
+  value={{
+    color: 'blue',
+    size: '1.5em',
+    className: 'global-icon-class',
+  }}
+>
+  <RxHome /> {/* blue, 1.5em */}
+  <RxGear /> {/* blue, 1.5em */}
+  <RxPerson color="red" /> {/* red, 1.5em - individual prop overrides context */}
+</IconContext.Provider>;
+```
+
+**Priority:** Individual props > Context props > Default values
+
+---
+
+## 💡 Best Practices
+
+<div style={{ background: '#d4edda', padding: '1rem', borderRadius: '8px', marginBottom: '1rem' }}>
+
+✓ **Tree-shaking**: Import only the icons you need to keep bundle size small
+
+✓ **Consistency**: Stick to one or two icon packs for a consistent design
+
+✓ **Accessibility**: Use the `title` prop for screen readers
+
+✓ **Performance**: Use Tailwind CSS classes for better performance
+
+✓ **Sizing**: Prefer className over inline styles for better caching
+
+✓ **Context**: Use `IconContext` for consistent styling across icon groups
+
+</div>
+
+### Common Use Cases for IconContext
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '1rem',
+    marginTop: '1rem',
+  }}
+>
+  <div style={{ padding: '1rem', background: '#f8f9fa', borderRadius: '8px' }}>
+    <h4 style={{ margin: '0 0 0.5rem 0' }}>Navigation Bar</h4>
+    <IconContext.Provider value={{ size: '1.25rem', className: 'nav-icon' }}>
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <RxHome />
+        <RxGear />
+        <RxPerson />
+      </div>
+    </IconContext.Provider>
+    <pre
+      style={{ fontSize: '0.75rem', marginTop: '0.5rem', background: 'white', padding: '0.5rem', borderRadius: '4px' }}
+    >
+      size: 1.25rem
+    </pre>
+  </div>
+
+<div style={{ padding: '1rem', background: '#f8f9fa', borderRadius: '8px' }}>
+  <h4 style={{ margin: '0 0 0.5rem 0' }}>Status Icons</h4>
+  <IconContext.Provider value={{ size: '2rem' }}>
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <MdHome style={{ color: 'green' }} />
+      <MdSearch style={{ color: 'blue' }} />
+      <MdSettings style={{ color: 'orange' }} />
+    </div>
+  </IconContext.Provider>
+  <pre
+    style={{ fontSize: '0.75rem', marginTop: '0.5rem', background: 'white', padding: '0.5rem', borderRadius: '4px' }}
+  >
+    size: 2rem
+  </pre>
+</div>
+
+  <div style={{ padding: '1rem', background: '#f8f9fa', borderRadius: '8px' }}>
+    <h4 style={{ margin: '0 0 0.5rem 0' }}>Social Links</h4>
+    <IconContext.Provider value={{ size: '1.5rem', color: '#666' }}>
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <FaHome />
+        <FaStar />
+        <FaUser />
+      </div>
+    </IconContext.Provider>
+    <pre
+      style={{ fontSize: '0.75rem', marginTop: '0.5rem', background: 'white', padding: '0.5rem', borderRadius: '4px' }}
+    >
+      size: 1.5rem, color: #666
+    </pre>
+  </div>
+</div>
+
+---
+
+## 🔗 Quick Links
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
+  <a href="?path=/story/icons-overview--quick-start">📚 Quick Start Guide</a>
+  <a href="?path=/story/icons-overview--icons-overview">🎨 Browse All Icon Packs</a>
+  <a href="?path=/story/icons-radix-icons--usage">📖 Radix Icons Usage</a>
+  <a href="?path=/story/icons-lucide-icons--usage">📖 Lucide Icons Usage</a>
+  <a href="?path=/story/icons-material-design-icons--usage">📖 Material Design Usage</a>
+  <a href="https://www.npmjs.com/package/react-icons" target="_blank">
+    🌐 react-icons Documentation
+  </a>
+</div>
+
+---
+
+## 🎯 Use Cases
+
+### Navigation Icons
+
+```tsx
+import { RxGear, RxHome, RxPerson } from '@paalstack/react-icons/rx';
+
+<nav>
+  <RxHome className="size-6" />
+  <RxGear className="size-6" />
+  <RxPerson className="size-6" />
+</nav>;
+```
+
+### Social Media Icons
+
+```tsx
+import { FaGithub, FaLinkedin, FaTwitter } from '@paalstack/react-icons/fa6';
+
+<div>
+  <FaGithub className="size-6" />
+  <FaTwitter className="size-6" />
+  <FaLinkedin className="size-6" />
+</div>;
+```
+
+### Action Buttons
+
+```tsx
+import { LuDownload, LuSearch, LuSettings } from '@paalstack/react-icons/lu';
+
+<button>
+  <LuSearch className="size-5" />
+  Search
+</button>;
+```
+
+### Status Indicators
+
+```tsx
+import { MdCheckCircle, MdError, MdWarning } from '@paalstack/react-icons/md';
+
+<div>
+  <MdCheckCircle className="text-green-500" />
+  <MdError className="text-red-500" />
+  <MdWarning className="text-yellow-500" />
+</div>;
+```
+
+---
+
+## 🌟 Featured Collections
+
+Explore our curated collections of the most popular icons:
+
+- **[All Icon Packs](?path=/story/icons-overview--icons-overview)** - Browse all 31 icon libraries
+- **[Radix Icons](?path=/story/icons-radix-icons--radix-icons)** - 318+ crisp, consistent icons
+- **[Lucide Icons](?path=/story/icons-lucide-icons--lucide-icons)** - 1000+ beautiful icons
+- **[Material Design](?path=/story/icons-material-design-icons--material-design-icons)** - 4000+ Google icons
+- **[Heroicons 2](?path=/story/icons-heroicons-2--heroicons-2)** - Hand-crafted by Tailwind team
+- **[Font Awesome 6](?path=/story/icons-font-awesome-6--font-awesome-6)** - 2000+ popular icons
+
+---
+
+<div style={{ background: '#e7f3ff', padding: '1.5rem', borderRadius: '8px', marginTop: '2rem' }}>
+
+## 📚 Need Help?
+
+- Check out individual icon pack stories for detailed usage examples
+- Visit the [react-icons documentation](https://www.npmjs.com/package/react-icons) for more information
+- Each icon pack has its own "Usage" story with interactive examples
+
+</div>

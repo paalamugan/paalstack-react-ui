@@ -1,0 +1,254 @@
+{
+  "name": "@paalstack/react-icons",
+  "version": "1.0.0",
+  "description": "React UI icons",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "author": {
+    "name": "Paalamugan Samayamuthu",
+    "email": "paalamugan@users.noreply.github.com"
+  },
+  "scripts": {
+    "build": "npm run type-check && npm run lint && npm run clean && npm run tsup",
+    "lint": "eslint ./src --ext ts,tsx --config ../../.eslintrc.cjs --report-unused-disable-directives --max-warnings 0 --cache",
+    "lint:fix": "npm run lint -- --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx}\" --cache",
+    "tsup": "tsup",
+    "tsup:watch": "tsup --watch",
+    "prepublishOnly": "npm run tsup",
+    "clean": "rimraf dist",
+    "test": "jest --passWithNoTests"
+  },
+  "dependencies": {
+    "react-icons": "^5.6.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./lib": {
+      "types": "./dist/lib/index.d.ts",
+      "require": "./dist/lib/index.cjs",
+      "import": "./dist/lib/index.js",
+      "default": "./dist/lib/index.js"
+    },
+    "./ci": {
+      "types": "./dist/ci/index.d.ts",
+      "require": "./dist/ci/index.cjs",
+      "import": "./dist/ci/index.js",
+      "default": "./dist/ci/index.js"
+    },
+    "./fa": {
+      "types": "./dist/fa/index.d.ts",
+      "require": "./dist/fa/index.cjs",
+      "import": "./dist/fa/index.js",
+      "default": "./dist/fa/index.js"
+    },
+    "./fa6": {
+      "types": "./dist/fa6/index.d.ts",
+      "require": "./dist/fa6/index.cjs",
+      "import": "./dist/fa6/index.js",
+      "default": "./dist/fa6/index.js"
+    },
+    "./io": {
+      "types": "./dist/io/index.d.ts",
+      "require": "./dist/io/index.cjs",
+      "import": "./dist/io/index.js",
+      "default": "./dist/io/index.js"
+    },
+    "./io5": {
+      "types": "./dist/io5/index.d.ts",
+      "require": "./dist/io5/index.cjs",
+      "import": "./dist/io5/index.js",
+      "default": "./dist/io5/index.js"
+    },
+    "./md": {
+      "types": "./dist/md/index.d.ts",
+      "require": "./dist/md/index.cjs",
+      "import": "./dist/md/index.js",
+      "default": "./dist/md/index.js"
+    },
+    "./ti": {
+      "types": "./dist/ti/index.d.ts",
+      "require": "./dist/ti/index.cjs",
+      "import": "./dist/ti/index.js",
+      "default": "./dist/ti/index.js"
+    },
+    "./go": {
+      "types": "./dist/go/index.d.ts",
+      "require": "./dist/go/index.cjs",
+      "import": "./dist/go/index.js",
+      "default": "./dist/go/index.js"
+    },
+    "./fi": {
+      "types": "./dist/fi/index.d.ts",
+      "require": "./dist/fi/index.cjs",
+      "import": "./dist/fi/index.js",
+      "default": "./dist/fi/index.js"
+    },
+    "./lu": {
+      "types": "./dist/lu/index.d.ts",
+      "require": "./dist/lu/index.cjs",
+      "import": "./dist/lu/index.js",
+      "default": "./dist/lu/index.js"
+    },
+    "./gi": {
+      "types": "./dist/gi/index.d.ts",
+      "require": "./dist/gi/index.cjs",
+      "import": "./dist/gi/index.js",
+      "default": "./dist/gi/index.js"
+    },
+    "./wi": {
+      "types": "./dist/wi/index.d.ts",
+      "require": "./dist/wi/index.cjs",
+      "import": "./dist/wi/index.js",
+      "default": "./dist/wi/index.js"
+    },
+    "./di": {
+      "types": "./dist/di/index.d.ts",
+      "require": "./dist/di/index.cjs",
+      "import": "./dist/di/index.js",
+      "default": "./dist/di/index.js"
+    },
+    "./ai": {
+      "types": "./dist/ai/index.d.ts",
+      "require": "./dist/ai/index.cjs",
+      "import": "./dist/ai/index.js",
+      "default": "./dist/ai/index.js"
+    },
+    "./bs": {
+      "types": "./dist/bs/index.d.ts",
+      "require": "./dist/bs/index.cjs",
+      "import": "./dist/bs/index.js",
+      "default": "./dist/bs/index.js"
+    },
+    "./ri": {
+      "types": "./dist/ri/index.d.ts",
+      "require": "./dist/ri/index.cjs",
+      "import": "./dist/ri/index.js",
+      "default": "./dist/ri/index.js"
+    },
+    "./fc": {
+      "types": "./dist/fc/index.d.ts",
+      "require": "./dist/fc/index.cjs",
+      "import": "./dist/fc/index.js",
+      "default": "./dist/fc/index.js"
+    },
+    "./gr": {
+      "types": "./dist/gr/index.d.ts",
+      "require": "./dist/gr/index.cjs",
+      "import": "./dist/gr/index.js",
+      "default": "./dist/gr/index.js"
+    },
+    "./hi": {
+      "types": "./dist/hi/index.d.ts",
+      "require": "./dist/hi/index.cjs",
+      "import": "./dist/hi/index.js",
+      "default": "./dist/hi/index.js"
+    },
+    "./hi2": {
+      "types": "./dist/hi2/index.d.ts",
+      "require": "./dist/hi2/index.cjs",
+      "import": "./dist/hi2/index.js",
+      "default": "./dist/hi2/index.js"
+    },
+    "./si": {
+      "types": "./dist/si/index.d.ts",
+      "require": "./dist/si/index.cjs",
+      "import": "./dist/si/index.js",
+      "default": "./dist/si/index.js"
+    },
+    "./sl": {
+      "types": "./dist/sl/index.d.ts",
+      "require": "./dist/sl/index.cjs",
+      "import": "./dist/sl/index.js",
+      "default": "./dist/sl/index.js"
+    },
+    "./im": {
+      "types": "./dist/im/index.d.ts",
+      "require": "./dist/im/index.cjs",
+      "import": "./dist/im/index.js",
+      "default": "./dist/im/index.js"
+    },
+    "./bi": {
+      "types": "./dist/bi/index.d.ts",
+      "require": "./dist/bi/index.cjs",
+      "import": "./dist/bi/index.js",
+      "default": "./dist/bi/index.js"
+    },
+    "./cg": {
+      "types": "./dist/cg/index.d.ts",
+      "require": "./dist/cg/index.cjs",
+      "import": "./dist/cg/index.js",
+      "default": "./dist/cg/index.js"
+    },
+    "./vsc": {
+      "types": "./dist/vsc/index.d.ts",
+      "require": "./dist/vsc/index.cjs",
+      "import": "./dist/vsc/index.js",
+      "default": "./dist/vsc/index.js"
+    },
+    "./tb": {
+      "types": "./dist/tb/index.d.ts",
+      "require": "./dist/tb/index.cjs",
+      "import": "./dist/tb/index.js",
+      "default": "./dist/tb/index.js"
+    },
+    "./tfi": {
+      "types": "./dist/tfi/index.d.ts",
+      "require": "./dist/tfi/index.cjs",
+      "import": "./dist/tfi/index.js",
+      "default": "./dist/tfi/index.js"
+    },
+    "./rx": {
+      "types": "./dist/rx/index.d.ts",
+      "require": "./dist/rx/index.cjs",
+      "import": "./dist/rx/index.js",
+      "default": "./dist/rx/index.js"
+    },
+    "./pi": {
+      "types": "./dist/pi/index.d.ts",
+      "require": "./dist/pi/index.cjs",
+      "import": "./dist/pi/index.js",
+      "default": "./dist/pi/index.js"
+    },
+    "./lia": {
+      "types": "./dist/lia/index.d.ts",
+      "require": "./dist/lia/index.cjs",
+      "import": "./dist/lia/index.js",
+      "default": "./dist/lia/index.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paalamugan/paalstack-react-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/paalamugan/paalstack-react-ui/issues"
+  },
+  "homepage": "https://github.com/paalamugan/paalstack-react-ui#readme",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "tsconfig.json"
+  ],
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1"
+  }
+}

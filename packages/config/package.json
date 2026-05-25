@@ -1,0 +1,66 @@
+{
+  "name": "@paalstack/react-config",
+  "version": "1.0.0",
+  "description": "React UI config",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": {
+    "name": "Paalamugan Samayamuthu",
+    "email": "paalamugan@users.noreply.github.com"
+  },
+  "scripts": {
+    "build": "npm run type-check && npm run clean && npm run tsup",
+    "lint": "eslint ./src --ext ts,tsx --config ../../.eslintrc.cjs --report-unused-disable-directives --max-warnings 0 --cache",
+    "lint:fix": "npm run lint -- --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx}\" --cache",
+    "tsup": "tsup",
+    "tsup:watch": "tsup --watch",
+    "prepublishOnly": "npm run tsup",
+    "clean": "rimraf dist",
+    "publish:locally": "npx yalc publish",
+    "test": "jest --passWithNoTests"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./prettier": {
+      "types": "./dist/prettier.config.d.ts",
+      "import": "./dist/prettier.config.js",
+      "require": "./dist/prettier.config.cjs"
+    },
+    "./eslint": {
+      "types": "./dist/eslint.config.d.ts",
+      "import": "./dist/eslint.config.js",
+      "require": "./dist/eslint.config.cjs"
+    },
+    "./eslint-vite": {
+      "types": "./dist/eslint-vite.config.d.ts",
+      "import": "./dist/eslint-vite.config.js",
+      "require": "./dist/eslint-vite.config.cjs"
+    }
+  },
+  "engines": {
+    "node": ">=20.12.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paalamugan/paalstack-react-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/paalamugan/paalstack-react-ui/issues"
+  },
+  "homepage": "https://github.com/paalamugan/paalstack-react-ui#readme",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "tsconfig.json",
+    "README.md"
+  ]
+}

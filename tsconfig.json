@@ -1,0 +1,20 @@
+{
+  "extends": ["./tsconfig.build.json"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["./packages/components/src/*"],
+      "@/hooks/*": ["./packages/hooks/src/*"],
+      "@/layouts/*": ["./packages/layouts/src/*"],
+      "@/providers/*": ["./packages/providers/src/*"],
+      "@/shared/*": ["./packages/shared/src/*"],
+      "@/test-utils/*": ["./packages/test-utils/src/*"],
+      "@/icons/*": ["./packages/icons/src/*"],
+      "@/config/*": ["./packages/config/src/*"],
+      "@/ui/*": ["./packages/ui/src/*"]
+    },
+    "types": ["node", "jest", "@testing-library/jest-dom"]
+  },
+  "include": ["stories/**/*", "packages/**/*", "@types", ".storybook/**/*"],
+  "exclude": ["node_modules", "dist", "build", "coverage", "storybook-static"]
+}

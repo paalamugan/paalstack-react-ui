@@ -1,0 +1,971 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Overview/Layouts" />
+
+# Layouts
+
+A powerful collection of **14+ layout components** for building flexible and responsive user interfaces. These components provide a foundation for structuring your application with CSS Flexbox, CSS Grid, semantic HTML, and comprehensive Typography components.
+
+## Installation
+
+Install the required packages:
+
+```bash
+pnpm add @paalstack/react-ui @paalstack/react-icons @paalstack/react-hooks
+```
+
+For detailed setup instructions including Tailwind CSS v4 configuration, see the [Getting Started](/docs/overview-getting-started--docs) guide.
+
+## Quick Start
+
+```jsx
+import { Box, Container, Flex, HStack, Stack, ThemeProvider, VStack } from '@paalstack/react-ui';
+
+function MyApp() {
+  return (
+    <ThemeProvider>
+      <Container className="px-4">
+        <Stack className="gap-6">
+          <HStack className="justify-between">
+            <Box>Logo</Box>
+            <Box>Navigation</Box>
+          </HStack>
+          <Flex className="items-center justify-between">
+            <VStack>
+              <Box>Title</Box>
+              <Box>Description</Box>
+            </VStack>
+            <Box>Action</Box>
+          </Flex>
+        </Stack>
+      </Container>
+    </ThemeProvider>
+  );
+}
+```
+
+## Layout Components
+
+### 📦 Box
+
+The foundation of all layout components. A polymorphic component that can render as any HTML element.
+
+**[View Documentation](/docs/layouts-box--docs)**
+
+```jsx
+import { Box } from '@paalstack/react-ui';
+
+// Render as different elements
+<Box as="section" className="p-4">Content</Box>
+<Box as="article" className="bg-white rounded-lg">Article</Box>
+<Box as="header" className="border-b">Header</Box>
+```
+
+**Key Features:**
+
+- 🔄 Polymorphic - renders as any HTML element via `as` prop
+- 🎨 Full Tailwind CSS support via `className`
+- 🎯 Special style props: `bg`, `textColor`, `borderColor`, `fontSize`
+- 📝 TypeScript support with proper element types
+- ♿ Semantic HTML
+- 📚 Comprehensive JSDoc examples in source code
+
+**Special Props:**
+
+- `bg` - Background color variant (gray, red, blue, green, yellow, etc.)
+- `textColor` - Text color variant (primary, secondary, muted, etc.)
+- `borderColor` - Border color variant
+- `fontSize` - Font size variant (xs, sm, base, lg, xl, etc.)
+
+---
+
+### 🔲 Container
+
+A responsive container that centers content and applies max-width constraints using Tailwind's `container` class.
+
+**[View Documentation](/docs/layouts-container--docs)**
+
+```jsx
+import { Container } from '@paalstack/react-ui';
+
+<Container className="px-4">
+  <h1>Centered Content</h1>
+  <p>This content is centered with max-width constraints</p>
+</Container>;
+```
+
+**Key Features:**
+
+- 📏 Uses Tailwind's responsive container breakpoints
+- 📱 Responsive by default
+- 🎯 Auto-centering with `mx-auto`
+- 🔧 Add horizontal padding via `className` (e.g., `className="px-4"`)
+
+---
+
+### 🔀 Flex
+
+Flexbox container for flexible layouts. A simple Box with `display: flex` applied.
+
+**[View Documentation](/docs/layouts-flex--docs)**
+
+```jsx
+import { Flex } from '@paalstack/react-ui';
+
+<Flex className="flex-row items-center justify-between gap-4">
+  <Box>Item 1</Box>
+  <Box>Item 2</Box>
+  <Box>Item 3</Box>
+</Flex>;
+```
+
+**Key Features:**
+
+- 📦 Box component with `display: flex`
+- ↔️ Direction control via Tailwind classes (`flex-row`, `flex-col`)
+- 📍 Alignment via Tailwind classes (`items-center`, `justify-between`)
+- 📏 Gap support via Tailwind classes (`gap-4`)
+- 🔄 Wrap control via `flex-wrap`
+
+---
+
+### 📚 Stack
+
+Vertical or horizontal stack layout with consistent spacing.
+
+**[View Documentation](/docs/layouts-stack--docs)**
+
+```jsx
+import { Stack } from '@paalstack/react-ui';
+
+<Stack className="gap-4">
+  <Box>Item 1</Box>
+  <Box>Item 2</Box>
+  <Box>Item 3</Box>
+</Stack>
+
+<Stack direction="row" className="gap-4">
+  <Box>Horizontal 1</Box>
+  <Box>Horizontal 2</Box>
+</Stack>
+```
+
+**Key Features:**
+
+- 📐 Vertical layout by default (`flex-col`)
+- 📏 Default gap of `gap-2` (0.5rem)
+- ↔️ Optional `direction` prop ('row' | 'column')
+- 🎯 Override gap via `className`
+
+---
+
+### ⬇️ VStack
+
+Vertical stack - flex column layout with vertical alignment.
+
+**[View Documentation](/docs/layouts-vstack--docs)**
+
+```jsx
+import { VStack } from '@paalstack/react-ui';
+
+<VStack className="items-center gap-6">
+  <Heading>Title</Heading>
+  <Text>Description</Text>
+  <Button>Action</Button>
+</VStack>;
+```
+
+**Key Features:**
+
+- ⬇️ Vertical layout (`flex flex-col`)
+- 📏 Default gap of `gap-2` (0.5rem)
+- 🎯 Default stretch alignment (`items-stretch`)
+- 🔄 Polymorphic component
+
+---
+
+### ➡️ HStack
+
+Horizontal stack - flex row layout with vertical centering.
+
+**[View Documentation](/docs/layouts-hstack--docs)**
+
+```jsx
+import { HStack } from '@paalstack/react-ui';
+
+<HStack className="gap-3">
+  <Avatar />
+  <Box>
+    <Text className="font-bold">John Doe</Text>
+    <Text className="text-sm text-muted-foreground">Admin</Text>
+  </Box>
+</HStack>;
+```
+
+**Key Features:**
+
+- ➡️ Horizontal layout (`flex flex-row`)
+- 📏 Default gap of `gap-2` (0.5rem)
+- 🎯 Default center alignment (`items-center`)
+- 🔄 Polymorphic component
+
+---
+
+### 🎯 Center
+
+Centers children both horizontally and vertically.
+
+**[View Documentation](/docs/layouts-center--docs)**
+
+```jsx
+import { Center } from '@paalstack/react-ui';
+
+<Center className="h-screen">
+  <Box>
+    <Heading>404</Heading>
+    <Text>Page not found</Text>
+  </Box>
+</Center>;
+```
+
+**Key Features:**
+
+- 🎯 Centers content horizontally and vertically
+- 📦 Based on Flexbox
+- 🎨 Customizable with className
+- 🔄 Polymorphic component
+
+---
+
+### 🌐 Grid
+
+CSS Grid container for advanced grid layouts. Use Tailwind grid utilities for configuration.
+
+**[View Documentation](/docs/layouts-grid--docs)**
+
+```jsx
+import { Grid } from '@paalstack/react-ui';
+
+<Grid className="grid-cols-3 gap-4">
+  <GridItem className="bg-gray-100 p-4">Item 1</GridItem>
+  <GridItem className="bg-gray-100 p-4">Item 2</GridItem>
+  <GridItem className="bg-gray-100 p-4">Item 3</GridItem>
+  <GridItem className="bg-gray-100 p-4">Item 4</GridItem>
+  <GridItem className="bg-gray-100 p-4">Item 5</GridItem>
+  <GridItem className="bg-gray-100 p-4">Item 6</GridItem>
+</Grid>;
+```
+
+**Key Features:**
+
+- 📊 Box with `display: grid`
+- 🔢 Column and row control via Tailwind classes
+- 📏 Gap support via `gap-*` utilities
+- 📱 Responsive grid patterns (`grid-cols-1 md:grid-cols-3`)
+
+**Common Tailwind Classes:**
+
+- `grid-cols-{n}` - Number of columns
+- `grid-rows-{n}` - Number of rows
+- `gap-{size}` - Gap between items
+- `col-span-{n}` - Column span for grid items
+
+**Companion Component:**
+
+- `GridItem` - Optional wrapper for grid items (just a Box)
+
+---
+
+### 🎁 Wrap
+
+Wraps children with automatic wrapping when space runs out using `flex-wrap`.
+
+**[View Documentation](/docs/layouts-wrap--docs)**
+
+```jsx
+import { Wrap } from '@paalstack/react-ui';
+
+<Wrap className="gap-2">
+  <Badge>React</Badge>
+  <Badge>TypeScript</Badge>
+  <Badge>Tailwind</Badge>
+  <Badge>Next.js</Badge>
+  <Badge>Vite</Badge>
+</Wrap>;
+```
+
+**Key Features:**
+
+- 🔄 Automatic wrapping (`flex flex-wrap`)
+- 📏 Default gap of `gap-2` (0.5rem)
+- 📱 Responsive by nature
+- 🎯 Perfect for tags/badges
+
+**Companion Component:**
+
+- `WrapItem` - Individual wrapper for flex items
+
+---
+
+### 📄 Paper
+
+Card-like container with elevation (shadow) and optional border.
+
+**[View Documentation](/docs/layouts-paper--docs)**
+
+```jsx
+import { Paper } from '@paalstack/react-ui';
+
+<Paper shadow="md" withBorder className="p-6">
+  <Heading>Card Title</Heading>
+  <Text>Card content goes here</Text>
+</Paper>;
+```
+
+**Key Features:**
+
+- 🎴 Card-like appearance with background/foreground colors
+- 🌑 Shadow variants (sm, md, lg, xl, 2xl, inner, none)
+- 🖼️ Optional border via `withBorder` prop
+- 🎨 No default padding - add via `className`
+
+**Props:**
+
+- `shadow` - Shadow size ('default' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'inner' | 'none')
+- `withBorder` - Adds border (boolean)
+
+---
+
+### 🚪 Portal
+
+Renders children into a DOM node outside the parent hierarchy using React's `createPortal`.
+
+**[View Documentation](/docs/layouts-portal--docs)**
+
+```jsx
+import { Portal } from '@paalstack/react-ui';
+
+// Renders to document.body by default
+<Portal>
+  <div className="fixed inset-0 bg-black/50">
+    <div className="modal">Modal content</div>
+  </div>
+</Portal>
+
+// Render to specific target
+<Portal target="#modal-root">
+  <div>Modal content</div>
+</Portal>
+```
+
+**Key Features:**
+
+- 🚪 Renders outside parent DOM hierarchy
+- 🎯 Perfect for modals, tooltips, dropdowns
+- 🔧 Custom target support via `target` prop (string selector or HTMLElement)
+- ⚡ Auto-cleanup on unmount
+- 🌐 SSR-safe with isomorphic effects
+
+**Props:**
+
+- `target` - Element or selector to render into (defaults to `document.body`)
+
+---
+
+### ✍️ Typography Components
+
+Comprehensive text components with semantic HTML, consistent styling, and extensive JSDoc examples.
+
+#### Heading
+
+**[View Documentation](/docs/layouts-heading--docs)**
+
+A versatile heading component that renders semantic h1-h6 elements with automatic sizing.
+
+```jsx
+import { Heading } from '@paalstack/react-ui';
+
+<Heading as="h1">Page Title</Heading>
+<Heading as="h2">Section Title</Heading>
+<Heading as="h3">Subsection Title</Heading>
+
+// Custom styling
+<Heading as="h1" className="text-gradient">Gradient Title</Heading>
+```
+
+**Key Features:**
+
+- 📝 Semantic HTML (h1-h6) via `as` prop
+- 📏 Automatic sizing based on heading level
+- 🎨 Preset font weights (bold for h1-h2, semibold for h3-h6)
+- ♿ Accessible heading hierarchy
+- 📚 7+ usage examples in JSDoc
+
+**Default Styles:**
+
+- `h1` - `text-3xl font-bold`
+- `h2` - `text-2xl font-bold`
+- `h3` - `text-xl font-semibold`
+- `h4` - `text-lg font-semibold`
+- `h5` - `text-base font-semibold`
+- `h6` - `text-sm font-semibold`
+
+#### Text
+
+**[View Documentation](/docs/layouts-text--docs)**
+
+Flexible text component that defaults to paragraph but can render as any element.
+
+```jsx
+import { Text } from '@paalstack/react-ui';
+
+<Text className="text-lg font-bold">Bold text</Text>
+<Text className="text-muted-foreground">Muted text</Text>
+<Text as="span">Inline text</Text>
+<Text as="label" htmlFor="input">Form label</Text>
+```
+
+**Key Features:**
+
+- 📝 Defaults to `<p>` tag, customizable via `as` prop
+- 📏 No default styling - full control via `className`
+- 🎨 Full Tailwind utility support
+- 🎯 Polymorphic component (render as any element)
+- 📚 9+ usage examples in JSDoc
+
+#### Typography - Comprehensive Text Components
+
+**[View Documentation](/docs/layouts-typography--docs)**
+
+A complete collection of typography components for rich text content, articles, documentation, and more.
+
+```jsx
+// Individual imports
+import { H1, H2, H3, P, Code, Lead, BlockQuote, Small, Strong } from '@paalstack/react-ui';
+
+<H1>Main Page Title</H1>
+<Lead>Introduction paragraph with larger text</Lead>
+<H2>Section Title</H2>
+<P>Regular paragraph text with <Strong>important</Strong> content.</P>
+<P>Use <Code>inline code</Code> for code references.</P>
+<BlockQuote>"A memorable quote"</BlockQuote>
+<Small>Fine print or metadata</Small>
+
+// Or use the Typography object
+import { Typography } from '@paalstack/react-ui';
+
+<Typography.H1>Title</Typography.H1>
+<Typography.P>Paragraph</Typography.P>
+<Typography.Code>code</Typography.Code>
+```
+
+**Key Features:**
+
+- 📝 Individual semantic components (20+ components)
+- 🎨 Predefined styles following design system
+- 📏 Consistent typography scale
+- ♿ Semantic HTML with proper tags
+- 📚 Extensive JSDoc examples for every component
+- 🎯 Can be imported individually or via Typography object
+
+**Heading Components:**
+
+- `H1` - Largest heading with centered text, extrabold weight (text-4xl/5xl)
+- `H2` - Section heading with bottom border (text-3xl)
+- `H3` - Subsection heading (text-2xl)
+- `H4` - Minor heading (text-xl)
+- `H5` - Smaller heading (text-lg)
+- `H6` - Smallest heading (text-base)
+
+**Text Components:**
+
+- `P` - Paragraph with automatic spacing
+- `Lead` - Large introductory text (text-xl)
+- `Large` - Large semibold text (text-lg)
+- `Small` - Small text for fine print (text-sm)
+- `Muted` - Muted secondary text
+- `Subtle` - Subtle text with reduced emphasis
+- `Strong` - Bold/emphasized text
+
+**Code & Quotes:**
+
+- `Code` - Inline code with monospace font and background
+- `BlockQuote` - Styled blockquote with left border and italic text
+
+**Lists:**
+
+- `UL` - Unordered list with disc bullets
+- `OL` - Ordered list with decimal numbering
+- `LI` - List item component
+
+**Table Components:**
+
+- `TableLayout` - Semantic table container
+- `THead` - Table header
+- `TBody` - Table body
+- `TR` - Table row
+- `TH` - Table header cell
+- `TD` - Table data cell
+
+**Typography Object:**
+
+Import all typography components via a single object:
+
+```jsx
+import { Typography } from '@paalstack/react-ui';
+
+// Destructure what you need
+const { H1, H2, P, Code, UL, LI } = Typography;
+
+// Or use dot notation
+<Typography.H1>Title</Typography.H1>
+<Typography.P>Text</Typography.P>
+```
+
+**Example: Complete Article**
+
+```jsx
+import { Typography } from '@paalstack/react-ui';
+
+<article className="mx-auto max-w-3xl">
+  <Typography.H1>Understanding React Hooks</Typography.H1>
+  <Typography.Lead>A comprehensive guide to React Hooks for modern development.</Typography.Lead>
+  <Typography.Muted>By John Doe • 10 min read</Typography.Muted>
+
+  <Typography.H2>Introduction</Typography.H2>
+  <Typography.P>
+    React Hooks revolutionized how we write <Typography.Strong>functional components</Typography.Strong>.
+  </Typography.P>
+
+  <Typography.BlockQuote>
+    "Hooks let you use state and other React features without writing a class."
+  </Typography.BlockQuote>
+
+  <Typography.H3>Key Benefits</Typography.H3>
+  <Typography.UL>
+    <Typography.LI>Reusable stateful logic</Typography.LI>
+    <Typography.LI>Simpler component hierarchy</Typography.LI>
+    <Typography.LI>Better code organization</Typography.LI>
+  </Typography.UL>
+
+  <Typography.P>
+    Use <Typography.Code>useState</Typography.Code> to add state to components.
+  </Typography.P>
+
+  <Typography.Small>Last updated: January 2026</Typography.Small>
+</article>;
+```
+
+---
+
+## Typography Patterns
+
+### Blog Post Layout
+
+```jsx
+import { Container, Typography, VStack } from '@paalstack/react-ui';
+
+<Container className="max-w-4xl px-4 py-12">
+  <VStack className="gap-8">
+    <VStack className="gap-4">
+      <Typography.H1>The Future of Web Development</Typography.H1>
+      <Typography.Lead>Exploring the latest trends and technologies shaping modern web applications.</Typography.Lead>
+      <Typography.Muted>Published on January 15, 2026 • 8 min read</Typography.Muted>
+    </VStack>
+
+    <Typography.P>The web development landscape continues to evolve at a rapid pace...</Typography.P>
+
+    <Typography.H2>Key Trends</Typography.H2>
+    <Typography.UL>
+      <Typography.LI>Server-side rendering renaissance</Typography.LI>
+      <Typography.LI>Edge computing adoption</Typography.LI>
+      <Typography.LI>Type-safe development</Typography.LI>
+    </Typography.UL>
+
+    <Typography.BlockQuote>"The best way to predict the future is to invent it." - Alan Kay</Typography.BlockQuote>
+  </VStack>
+</Container>;
+```
+
+### Documentation Page
+
+```jsx
+import { Code, H1, H2, H3, LI, P, UL } from '@paalstack/react-ui';
+
+<article>
+  <H1>API Reference</H1>
+  <P>Complete guide to using our API endpoints.</P>
+
+  <H2>Authentication</H2>
+  <P>
+    All requests require an API key passed via the <Code>Authorization</Code> header.
+  </P>
+
+  <H3>Getting Your API Key</H3>
+  <UL>
+    <LI>Log in to your dashboard</LI>
+    <LI>Navigate to Settings</LI>
+    <LI>Click "Generate New Key"</LI>
+  </UL>
+
+  <Code>Authorization: Bearer YOUR_API_KEY</Code>
+</article>;
+```
+
+### Landing Page Hero
+
+```jsx
+import { Button, Center, Container, H1, HStack, Lead } from '@paalstack/react-ui';
+
+<Center className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+  <Container className="px-4">
+    <VStack className="items-center gap-8 text-center">
+      <H1 className="max-w-4xl">Build Better Apps, Ship Faster</H1>
+      <Lead className="max-w-2xl">
+        The complete toolkit for modern web development with 60+ components, 20,000+ icons, and comprehensive
+        documentation.
+      </Lead>
+      <HStack className="gap-4">
+        <Button size="lg">Get Started</Button>
+        <Button size="lg" variant="outline">
+          View Docs
+        </Button>
+      </HStack>
+    </VStack>
+  </Container>
+</Center>;
+```
+
+## Layout Patterns
+
+### Responsive Grid
+
+```jsx
+<Grid className="grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+  <Card>Item 3</Card>
+</Grid>
+```
+
+### Sidebar Layout
+
+```jsx
+<Flex className="min-h-screen">
+  <Box as="aside" className="w-64 bg-gray-100">
+    Sidebar
+  </Box>
+  <Box className="flex-1">
+    <Container>Main content</Container>
+  </Box>
+</Flex>
+```
+
+### Header + Content + Footer
+
+```jsx
+<Flex className="min-h-screen flex-col">
+  <Box as="header" className="border-b">
+    <Container className="px-4">Header</Container>
+  </Box>
+  <Box as="main" className="flex-1">
+    <Container className="px-4">Content</Container>
+  </Box>
+  <Box as="footer" className="border-t">
+    <Container className="px-4">Footer</Container>
+  </Box>
+</Flex>
+```
+
+### Centered Modal
+
+```jsx
+<Portal>
+  <Center className="fixed inset-0 bg-black/50">
+    <Paper className="w-full max-w-md">
+      <Heading>Modal Title</Heading>
+      <Text>Modal content</Text>
+    </Paper>
+  </Center>
+</Portal>
+```
+
+### Dashboard Layout
+
+```jsx
+<Box className="min-h-screen bg-gray-50">
+  <Container className="px-4">
+    <Grid className="grid-cols-12 gap-6">
+      {/* Sidebar */}
+      <GridItem className="col-span-3">
+        <VStack className="gap-4">
+          <Paper className="p-4">Navigation</Paper>
+        </VStack>
+      </GridItem>
+      {/* Main Content */}
+      <GridItem className="col-span-9">
+        <Stack className="gap-6">
+          <Paper className="p-6">Dashboard Stats</Paper>
+          <Paper className="p-6">Recent Activity</Paper>
+        </Stack>
+      </GridItem>
+    </Grid>
+  </Container>
+</Box>
+```
+
+## Common Props
+
+Most layout components share these common props inherited from Box:
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>as</code>
+      </td>
+      <td>
+        <code>ElementType</code>
+      </td>
+      <td>Render as different HTML element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>Tailwind CSS classes for styling</td>
+    </tr>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>Child components</td>
+    </tr>
+    <tr>
+      <td>
+        <code>bg</code>
+      </td>
+      <td>
+        <code>BoxColorVariant</code>
+      </td>
+      <td>Background color shorthand (Box only)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>textColor</code>
+      </td>
+      <td>
+        <code>BoxColorVariant</code>
+      </td>
+      <td>Text color shorthand (Box only)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>borderColor</code>
+      </td>
+      <td>
+        <code>BoxColorVariant</code>
+      </td>
+      <td>Border color shorthand (Box only)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>fontSize</code>
+      </td>
+      <td>
+        <code>FontSizeVariant</code>
+      </td>
+      <td>Font size shorthand (Box only)</td>
+    </tr>
+  </tbody>
+</table>
+
+**Note:** Most styling is done via the `className` prop using Tailwind utilities. The special Box props (`bg`, `textColor`, etc.) provide shortcuts for common color variants.
+
+## Component Documentation
+
+### Comprehensive JSDoc Examples
+
+Every layout component includes extensive JSDoc documentation in the source code with:
+
+- 📝 **5-10+ @example blocks** per component showing different use cases
+- 💡 **@tip sections** highlighting best practices
+- 🎯 **Real-world scenarios** (forms, navigation, layouts, articles)
+- 🔧 **Props demonstrations** with actual values
+- 🎨 **Styling patterns** with Tailwind classes
+- ⚡ **Integration examples** with other components
+
+**Components with Full JSDoc Examples:**
+
+All 14+ layout components have comprehensive documentation:
+
+- Box, Container, Flex, Grid, Text
+- Heading, Center, Stack, HStack, VStack
+- Wrap, Paper, Portal
+- Typography (H1-H6, P, BlockQuote, Code, Lead, Large, Small, Muted, Subtle, Strong, UL, OL, LI, TableLayout, etc.)
+
+**Example from Component Source:**
+
+```tsx
+/**
+ * H1 Component
+ *
+ * The largest and most prominent heading element for page titles.
+ *
+ * @example
+ * // Basic usage
+ * <H1>Welcome to Our Platform</H1>
+ *
+ * @example
+ * // Landing page hero
+ * <H1>Build Modern Web Applications</H1>
+ *
+ * @tip Centered by default with text-balance
+ * @tip Responsive: text-4xl on mobile, text-5xl on large screens
+ */
+```
+
+These examples help developers and AI agents understand exactly how to use each component in real-world scenarios.
+
+## Best Practices
+
+### 1. Use Semantic HTML
+
+Leverage the `as` prop for semantic markup:
+
+```jsx
+<Box as="main">Main content</Box>
+<Box as="aside">Sidebar</Box>
+<Box as="article">Blog post</Box>
+```
+
+### 2. Consistent Spacing
+
+Use Tailwind's spacing scale consistently via `className`:
+
+```jsx
+<Stack className="gap-4">
+  {' '}
+  {/* 1rem = 16px */}
+  <Box className="p-4">
+    <VStack className="gap-2">
+      {' '}
+      {/* 0.5rem = 8px */}
+      ...
+    </VStack>
+  </Box>
+</Stack>
+```
+
+**Default Gaps:**
+
+- `Stack`, `VStack`, `HStack`, `Wrap` - `gap-2` (0.5rem) by default
+- Override via `className="gap-{size}"`
+
+### 3. Responsive Design
+
+Combine layout components with Tailwind responsive utilities:
+
+```jsx
+<Stack className="gap-4 md:flex-row">
+  <Box className="w-full md:w-1/3">Sidebar</Box>
+  <Box className="w-full md:w-2/3">Content</Box>
+</Stack>
+```
+
+**Note:** Stack is `flex-col` by default, so you only need to add `md:flex-row` for responsive horizontal layout.
+
+### 4. Composition Over Props
+
+Compose components for complex layouts:
+
+```jsx
+<Container className="px-4">
+  <Stack className="gap-8">
+    <Paper className="p-6">
+      <VStack className="gap-4">
+        <Heading>Title</Heading>
+        <Wrap className="gap-2">
+          <Badge>Tag 1</Badge>
+          <Badge>Tag 2</Badge>
+        </Wrap>
+      </VStack>
+    </Paper>
+  </Stack>
+</Container>
+```
+
+## TypeScript Support
+
+All layout components are fully typed with excellent IDE integration:
+
+```tsx
+// Typography component types
+import type { BoxProps, FlexProps, GridProps, H1Props, PProps, StackProps, TypographyProps } from '@paalstack/react-ui';
+
+// Custom polymorphic component
+const CustomBox: React.FC<BoxProps<'section'>> = (props) => {
+  return <Box as="section" {...props} />;
+};
+
+// Using specific element types
+const CustomHeading: React.FC<BoxProps<'h1'>> = (props) => {
+  return <Box as="h1" className="text-4xl font-bold" {...props} />;
+};
+
+const CustomTitle: React.FC<H1Props> = (props) => {
+  return <H1 {...props} />;
+};
+```
+
+## Layout Component Summary
+
+| Component      | Purpose                   | Default Display | Default Gap |
+| -------------- | ------------------------- | --------------- | ----------- |
+| **Box**        | Foundation component      | block           | -           |
+| **Container**  | Responsive container      | block           | -           |
+| **Flex**       | Flexbox container         | flex            | -           |
+| **Grid**       | CSS Grid container        | grid            | -           |
+| **Stack**      | Vertical/horizontal stack | flex (column)   | gap-2       |
+| **VStack**     | Vertical stack            | flex (column)   | gap-2       |
+| **HStack**     | Horizontal stack          | flex (row)      | gap-2       |
+| **Wrap**       | Wrapping flex container   | flex (wrap)     | gap-2       |
+| **Center**     | Center content            | flex            | -           |
+| **Paper**      | Card-like container       | block           | -           |
+| **Portal**     | Render outside hierarchy  | -               | -           |
+| **Heading**    | Semantic headings         | block           | -           |
+| **Text**       | Text/paragraph            | block/inline    | -           |
+| **Typography** | 20+ text components       | varies          | -           |
+
+## Related Documentation
+
+### Setup & Configuration
+
+- 📚 [Getting Started](/docs/overview-getting-started--docs) - Installation and setup guide
+- 🎨 [Colors](/docs/overview-colors--docs) - Color system and theming
+- 🔧 [Providers](/docs/overview-providers--docs) - ThemeProvider and context providers
+
+### Component Libraries
+
+- 📦 [Components](/docs/overview-components--docs) - 60+ UI components
+- 🎯 [Icons](/docs/overview-icons--docs) - 31 icon libraries with 20,000+ icons
+- 🪝 [Hooks](/docs/overview-hooks--docs) - Custom React hooks
+
+### Resources
+
+- 📖 [Tailwind CSS v4](https://tailwindcss.com/) - Styling framework
+- 🎨 [CSS Flexbox Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) - Flexbox reference
+- 📐 [CSS Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/) - Grid reference

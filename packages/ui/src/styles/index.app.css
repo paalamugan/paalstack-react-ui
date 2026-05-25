@@ -1,0 +1,25 @@
+/* Scoped build — all Tailwind utilities are nested under `.app` so they only
+   apply inside elements with that class.  Theme, preflight, and custom CSS
+   remain global; only the generated utility layer is wrapped. */
+@layer theme, base, components, utilities;
+
+@source '../../../';
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tw-animate-css';
+
+@import './fonts.css';
+
+@import './theme.css';
+@import './base.css';
+@import './utilities.css';
+
+@layer utilities {
+  .app,
+  [data-base-ui-portal] {
+    @tailwind utilities;
+  }
+}
+
+@import './toast.css';

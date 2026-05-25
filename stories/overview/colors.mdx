@@ -1,0 +1,149 @@
+import { ColorItem, ColorPalette, Meta } from '@storybook/blocks';
+
+<Meta title="Overview/Colors" />
+
+# Colors
+
+The design system color palette consisting of a collection of color scales in a
+range of contrast ratios from the background color.
+
+## Color Palette
+
+Here's the list of variables available for customization:
+
+<ColorPalette>
+  <ColorItem
+    className="bg-gray-50"
+    title="background"
+    subtitle="Default background color of <body />...etc"
+    colors={{
+      background: 'var(--background)',
+      foreground: 'var(--foreground)',
+    }}
+  />
+  <ColorItem
+    title="muted"
+    subtitle="Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch />"
+    colors={{
+      DEFAULT: 'var(--muted)',
+      foreground: 'var(--muted-foreground)',
+    }}
+  />
+  <ColorItem
+    title="card"
+    subtitle="Background color for <Card />"
+    colors={{
+      DEFAULT: 'var(--card)',
+      foreground: 'var(--card-foreground)',
+    }}
+  />
+  <ColorItem
+    title="popover"
+    subtitle="Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover />"
+    colors={{
+      DEFAULT: 'var(--popover)',
+      foreground: 'var(--popover-foreground)',
+    }}
+  />
+  <ColorItem title="border" subtitle="Default border color" colors={{ border: 'var(--border)' }} />
+  <ColorItem
+    title="input"
+    subtitle="Border color for inputs such as <Input />, <Select />, <Textarea />"
+    colors={{ input: 'var(--input)' }}
+  />
+  <ColorItem
+    title="primary"
+    subtitle="Primary colors for <Button />"
+    colors={{
+      DEFAULT: 'var(--primary)',
+      soft: 'var(--primary-soft)',
+      foreground: 'var(--primary-foreground)',
+    }}
+  />
+  <ColorItem
+    title="secondary"
+    subtitle="Secondary colors for <Button />"
+    colors={{
+      DEFAULT: 'var(--secondary)',
+      soft: 'var(--secondary-soft)',
+      foreground: 'var(--secondary-foreground)',
+    }}
+  />
+  <ColorItem
+    title="tertiary"
+    subtitle="Tertiary colors for <Button />"
+    colors={{
+      DEFAULT: 'var(--tertiary)',
+      soft: 'var(--tertiary-soft)',
+      foreground: 'var(--tertiary-foreground)',
+    }}
+  />
+  <ColorItem
+    title="destructive"
+    subtitle="Used for destructive actions such as <AlertDialog />, <Button variant='destructive'>...etc."
+    colors={{
+      DEFAULT: 'var(--destructive)',
+      soft: 'var(--destructive-soft)',
+      foreground: 'var(--destructive-foreground)',
+    }}
+  />
+  <ColorItem
+    title="accent"
+    subtitle="Used for accents such as hover effects on <DropdownMenuItem>, <SelectItem>...etc"
+    colors={{
+      DEFAULT: 'var(--accent)',
+      soft: 'var(--accent-soft)',
+      foreground: 'var(--accent-foreground)',
+    }}
+  />
+  <ColorItem
+    title="muted"
+    subtitle="Used for muted backgrounds such as <TabsList />, <Skeleton /> and <Switch />"
+    colors={{
+      DEFAULT: 'var(--muted)',
+      foreground: 'var(--muted-foreground)',
+    }}
+  />
+  <ColorItem
+    title="info"
+    subtitle="Used for info actions such as <Button variant='solid' color='info'>"
+    colors={{
+      DEFAULT: 'var(--info)',
+      soft: 'var(--info-soft)',
+      foreground: 'var(--info-foreground)',
+    }}
+  />
+  <ColorItem
+    title="warning"
+    subtitle="Used for warning actions such as <Button variant='solid' color='warning'>"
+    colors={{
+      DEFAULT: 'var(--warning)',
+      soft: 'var(--warning-soft)',
+      foreground: 'var(--warning-foreground)',
+    }}
+  />
+  <ColorItem
+    title="success"
+    subtitle="Used for success actions such as <Button variant='solid' color='success'>"
+    colors={{
+      DEFAULT: 'var(--success)',
+      soft: 'var(--success-soft)',
+      foreground: 'var(--success-foreground)',
+    }}
+  />
+  <ColorItem
+    title="danger"
+    subtitle="Used for danger actions such as <Button variant='solid' color='danger'>"
+    colors={{
+      DEFAULT: 'var(--danger)',
+      soft: 'var(--danger-soft)',
+      foreground: 'var(--danger-foreground)',
+    }}
+  />
+  <ColorItem title="ring" subtitle="Used for focus ring-3" colors={{ ring: 'var(--ring)' }} />
+  <ColorItem title="chart-1" subtitle="Used for chart 1" colors={{ chart1: 'var(--chart-1)' }} />
+  <ColorItem title="chart-2" subtitle="Used for chart 2" colors={{ chart2: 'var(--chart-2)' }} />
+  <ColorItem title="chart-3" subtitle="Used for chart 3" colors={{ chart3: 'var(--chart-3)' }} />
+  <ColorItem title="chart-4" subtitle="Used for chart 4" colors={{ chart4: 'var(--chart-4)' }} />
+  <ColorItem title="chart-5" subtitle="Used for chart 5" colors={{ chart5: 'var(--chart-5)' }} />
+</ColorPalette>

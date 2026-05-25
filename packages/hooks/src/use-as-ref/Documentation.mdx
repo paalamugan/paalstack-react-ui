@@ -1,0 +1,139 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as allStories from './use-as-ref.stories';
+
+<Meta of={allStories} />
+
+# useAsRef
+
+`useAsRef` returns a stable ref object whose `.current` value is always synchronized with the
+latest value passed in. The update is deferred to the **effect phase** via `useIsomorphicEffect`,
+so the ref is never mutated during render — making it safe for SSR and safe to pass as a stable
+dependency without triggering extra re-renders.
+
+> **Tip:** Think of it as a "live ref" — the object identity never changes, but the value it
+> points to is always current.
+
+## When to use it
+
+| Scenario                                                          | Recommended hook |
+| ----------------------------------------------------------------- | ---------------- |
+| Need the very latest value _during_ render (no SSR concern)       | `useLatestRef`   |
+| Need a stable ref updated _after_ render (SSR-safe, effect-phase) | **`useAsRef`**   |
+| Need a stable memoised callback identity                          | `useCallbackRef` |
+
+## Usage
+
+### Basic example
+
+<Canvas of={allStories.Usage} />
+
+```tsx
+import { useAsRef } from '@paalstack/react-hooks';
+
+function Demo() {
+  const [count, setCount] = useState(0);
+  const countRef = useAsRef(count);
+
+  const logRef = useCallback(() => {
+    // Always reads the latest count — no stale closure
+    console.log('ref.current =', countRef.current);
+  }, [countRef]);
+
+  return (
+    <>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+      <button onClick={logRef}>Log ref.current</button>
+    </>
+  );
+}
+```
+
+### Stable interval callback
+
+Avoid restarting a `setInterval` every time the callback changes by reading the latest version
+through the ref instead.
+
+<Canvas of={allStories.WithInterval} />
+
+```tsx
+import { useEffect, useState } from 'react';
+
+import { useAsRef } from '@paalstack/react-hooks';
+
+function useInterval(callback: () => void, delay: number) {
+  const callbackRef = useAsRef(callback);
+
+  useEffect(() => {
+    // The interval is set up once; callbackRef is stable so there's
+    // no need to include `callback` in the dependency array.
+    const id = setInterval(() => callbackRef.current(), delay);
+    return () => clearInterval(id);
+  }, [delay, callbackRef]);
+}
+```
+
+### Stable event listener
+
+Register a `window` event listener once and always dispatch to the latest handler, without
+re-subscribing on every render.
+
+<Canvas of={allStories.WithEventListener} />
+
+```tsx
+import { useEffect } from 'react';
+
+import { useAsRef } from '@paalstack/react-hooks';
+
+function useWindowEvent<K extends keyof WindowEventMap>(event: K, handler: (e: WindowEventMap[K]) => void) {
+  const handlerRef = useAsRef(handler);
+
+  useEffect(() => {
+    const listener = (e: WindowEventMap[K]) => handlerRef.current(e);
+    window.addEventListener(event, listener);
+    return () => window.removeEventListener(event, listener);
+  }, [event, handlerRef]); // handlerRef is stable — no re-subscription on handler change
+}
+```
+
+### Comparison with plain `useRef`
+
+A plain `useRef` captures the initial closure and becomes stale. `useAsRef` always reflects the
+current value.
+
+<Canvas of={allStories.CompareWithPlainRef} />
+
+```tsx
+const handler = () => count; // recreated each render
+
+const staleRef = useRef(handler); // ❌ still points to the initial closure
+const freshRef = useAsRef(handler); // ✅ always points to the latest closure
+```
+
+## Parameters
+
+| Parameter | Type | Description                                              |
+| --------- | ---- | -------------------------------------------------------- |
+| `value`   | `T`  | The value to synchronize into the ref after each render. |
+
+## Returns
+
+`useAsRef` returns a `React.RefObject<T>` whose `.current` always reflects the most recent value
+after the current render cycle completes. The **ref object itself is stable** — its identity never
+changes across renders.
+
+| Property      | Type | Description                                                |
+| ------------- | ---- | ---------------------------------------------------------- |
+| `ref.current` | `T`  | The latest synchronized value (updated after each render). |
+
+## Notes
+
+- **Effect-phase write** — the ref is updated inside `useIsomorphicEffect`, not during render.
+  This means `ref.current` still holds the _previous_ value during the render in which `value`
+  changes; it becomes current immediately after the paint.
+- **SSR-safe** — uses `useIsomorphicEffect` (`useLayoutEffect` in the browser, `useEffect` on the
+  server) to avoid hydration warnings.
+- **No re-renders** — mutating a ref never triggers a re-render, so consumers of the ref will not
+  update automatically; they must read `ref.current` imperatively (e.g. inside callbacks or
+  effects).
