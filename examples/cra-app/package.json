@@ -16,9 +16,9 @@
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
-    "@paalstack/react-hooks": "workspace:*",
-    "@paalstack/react-icons": "workspace:*",
-    "@paalstack/react-ui": "workspace:*"
+    "@paalstack/react-hooks": "^1.1.0",
+    "@paalstack/react-icons": "^1.1.0",
+    "@paalstack/react-ui": "^1.1.0"
   },
   "scripts": {
     "start": "craco start",

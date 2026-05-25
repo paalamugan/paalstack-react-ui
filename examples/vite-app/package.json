@@ -11,9 +11,9 @@
     "test": "echo 'No tests specified'"
   },
   "dependencies": {
-    "@paalstack/react-hooks": "workspace:*",
-    "@paalstack/react-icons": "workspace:*",
-    "@paalstack/react-ui": "workspace:*",
+    "@paalstack/react-hooks": "^1.1.0",
+    "@paalstack/react-icons": "^1.1.0",
+    "@paalstack/react-ui": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

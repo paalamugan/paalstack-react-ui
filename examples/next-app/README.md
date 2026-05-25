@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# paalstack-react-ui — Next.js Example
 
-## Getting Started
+A Next.js 14 App Router example using `@paalstack/react-ui`, `@paalstack/react-hooks`, and `@paalstack/react-icons` with Tailwind CSS v4.
 
-First, run the development server:
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup summary
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 1. Install packages
 
-## Learn More
+```bash
+pnpm add @paalstack/react-ui @paalstack/react-hooks @paalstack/react-icons
+pnpm add -D tailwindcss @tailwindcss/postcss
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Configure PostCSS (`postcss.config.mjs`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```js
+const config = {
+  plugins: { '@tailwindcss/postcss': {} },
+};
+export default config;
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+> Remove `tailwind.config.ts` if it was generated — Tailwind v4 uses CSS-only configuration.
 
-## Deploy on Vercel
+### 3. Set up global styles (`app/globals.css`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```css
+@import '@paalstack/react-ui/styles.css';
+@import '@paalstack/react-ui/theme.css';
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+@import 'tailwindcss';
+
+@source '../../node_modules/@paalstack/react-ui';
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+```
+
+### 4. Wrap your layout with `NextThemeProvider` (`app/layout.tsx`)
+
+```tsx
+import { NextThemeProvider } from '@paalstack/react-ui';
+
+import './globals.css';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <NextThemeProvider>{children}</NextThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+> `suppressHydrationWarning` on `<html>` prevents a React hydration warning from the theme class being applied on the client.
+
+### 5. Server vs Client components
+
+**Server Component** (`app/page.tsx`):
+
+```tsx
+import { Box, Heading, Text } from '@paalstack/react-ui';
+
+import { DemoCard } from './_components/DemoCard';
+
+export default function Home() {
+  return (
+    <Box as="main" className="flex min-h-screen flex-col items-center justify-center gap-6 p-8">
+      <Heading className="text-4xl font-bold">Welcome to Paalstack UI</Heading>
+      <Text className="text-muted-foreground">Built with Next.js + Tailwind CSS v4</Text>
+      <DemoCard />
+    </Box>
+  );
+}
+```
+
+**Client Component** (`app/_components/DemoCard.tsx`):
+
+```tsx
+'use client';
+
+import { useCounter } from '@paalstack/react-hooks';
+import { useNextTheme } from '@paalstack/react-ui';
+
+export function DemoCard() {
+  const [count, { increment }] = useCounter(0);
+  const { isDark, setTheme } = useNextTheme();
+  // ...
+}
+```
+
+## Full docs
+
+[https://paalamugan.github.io/paalstack-react-ui/](https://paalamugan.github.io/paalstack-react-ui/)

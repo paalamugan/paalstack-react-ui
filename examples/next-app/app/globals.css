@@ -1,3 +1,15 @@
-@import '@paalstack/react-ui/styles.css' layer(base);
+/* 1. Library base styles (CSS variables, reset) */
+@import '@paalstack/react-ui/styles.css';
+@import '@paalstack/react-ui/theme.css';
 
+/* 2. Tailwind CSS v4 */
 @import 'tailwindcss';
+
+/* 3. Tell Tailwind to scan the library's classes */
+@source '../../node_modules/@paalstack/react-ui';
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
