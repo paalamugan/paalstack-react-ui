@@ -1,6 +1,6 @@
 {
   "name": "@paalstack/react-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Accessible React UI components built on Base UI, styled with Tailwind CSS v4 and TypeScript",
   "type": "module",
   "types": "dist/index.d.ts",

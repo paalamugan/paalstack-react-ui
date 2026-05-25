@@ -1,6 +1,6 @@
 {
   "name": "@paalstack/react-providers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React context providers for theming, toast notifications, and internationalisation",
   "type": "module",
   "types": "dist/index.d.ts",
