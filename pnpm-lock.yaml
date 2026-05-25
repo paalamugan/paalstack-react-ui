@@ -466,10 +466,6 @@ importers:
         version: 18.3.7(@types/react@18.3.29)
 
   packages/test-utils:
-    dependencies:
-      '@paalstack/react-providers':
-        specifier: workspace:*
-        version: link:../providers
     devDependencies:
       '@types/react':
         specifier: ^18.3.1
