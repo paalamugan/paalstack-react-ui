@@ -1,5 +1,11 @@
 # @paalstack/react-hooks
 
+## 1.0.2
+
+### Patch Changes
+
+- [`e74ade6`](https://github.com/paalamugan/paalstack-react-ui/commit/e74ade603d5fd753c3a7b3584b5158bbbca55757) Thanks [@paalamugan](https://github.com/paalamugan)! - docs: update Hooks documentation link in README
+
 ## 1.0.1
 
 ### Patch Changes
