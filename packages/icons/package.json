@@ -1,6 +1,6 @@
 {
   "name": "@paalstack/react-icons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tree-shakeable React icon components from 31 popular icon libraries via sub-path imports",
   "type": "module",
   "types": "dist/index.d.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@paalstack/react-shared",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared utilities, types, constants, and helper functions for Paalstack React UI packages",
   "type": "module",
   "types": "dist/index.d.ts",
