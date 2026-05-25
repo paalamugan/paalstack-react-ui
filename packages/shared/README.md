@@ -2,7 +2,7 @@
 
 Shared utilities, types, constants, and helper functions used across all Paalstack React UI packages.
 
-> **Note:** This is an internal package. It is not published to npm and is not intended for direct consumer use.
+> **Note:** Most consumers should install [`@paalstack/react-ui`](https://www.npmjs.com/package/@paalstack/react-ui) instead — it re-exports everything from this package in one convenient bundle.
 
 ## Docs
 

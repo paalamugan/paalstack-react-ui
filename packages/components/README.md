@@ -2,7 +2,7 @@
 
 Accessible, unstyled-first React UI components built on top of [Base UI](https://base-ui.com/), styled with Tailwind CSS v4, and powered by TypeScript.
 
-> **Note:** Most consumers should install [`@paalstack/react-ui`](../ui) instead — it re-exports everything from this package along with providers, layouts, hooks, and global styles in one convenient bundle.
+> **Note:** Most consumers should install [`@paalstack/react-ui`](https://www.npmjs.com/package/@paalstack/react-ui) instead — it re-exports everything from this package along with providers, layouts, hooks, and global styles in one convenient bundle.
 
 ## Docs
 

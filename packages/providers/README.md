@@ -2,7 +2,7 @@
 
 React context providers for theming, toast notifications, and internationalisation — used as the foundation for all Paalstack React UI applications.
 
-> **Note:** Most consumers should install [`@paalstack/react-ui`](../ui) instead — it re-exports everything from this package in one convenient bundle.
+> **Note:** Most consumers should install [`@paalstack/react-ui`](https://www.npmjs.com/package/@paalstack/react-ui) instead — it re-exports everything from this package in one convenient bundle.
 
 ## Docs
 

@@ -2,7 +2,7 @@
 
 Polymorphic layout primitives and typography components for building structured React UIs — all styled with Tailwind CSS v4 and fully typed with TypeScript.
 
-> **Note:** Most consumers should install [`@paalstack/react-ui`](../ui) instead — it re-exports everything from this package in one convenient bundle.
+> **Note:** Most consumers should install [`@paalstack/react-ui`](https://www.npmjs.com/package/@paalstack/react-ui) instead — it re-exports everything from this package in one convenient bundle.
 
 ## Docs
 
