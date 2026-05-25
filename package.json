@@ -32,7 +32,6 @@
     "storybook:build:docs": "pnpm storybook:build -- --docs",
     "storybook:test": "test-storybook",
     "storybook:test:watch": "pnpm storybook:test -- --watch",
-    "prepare": "husky",
     "setup": "pnpm install && pnpm build",
     "validate:package-exports": "node ./scripts/validate-package-exports.js",
     "preview": "pnpm storybook:build && serve storybook-static",
