@@ -1,6 +1,6 @@
 # Paalstack React UI
 
-An open-source collection of React components, icons, and hooks for building modern web applications — powered by Tailwind CSS v4, TypeScript, and Base UI..
+An open-source collection of React components, icons, and hooks for building modern web applications — powered by Tailwind CSS v4, TypeScript, and Base UI.
 
 ## Packages
 
