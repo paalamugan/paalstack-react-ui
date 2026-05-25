@@ -1,13 +1,13 @@
 {
   "name": "@paalstack/react-hooks",
   "version": "1.0.0",
-  "description": "React UI hooks",
+  "description": "60+ production-ready React hooks for state management, UI interactions, async operations, and browser APIs",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "author": {
-    "name": "Paalamugan Samayamuthu",
+    "name": "Paalamugan",
     "email": "paalamugan@users.noreply.github.com"
   },
   "sideEffects": false,

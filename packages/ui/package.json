@@ -1,13 +1,13 @@
 {
   "name": "@paalstack/react-ui",
   "version": "1.0.0",
-  "description": "React UI combining all packages",
+  "description": "All-in-one React UI library — accessible components, layout primitives, hooks, icons, and providers styled with Tailwind CSS v4",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "author": {
-    "name": "Paalamugan Samayamuthu",
+    "name": "Paalamugan",
     "email": "paalamugan@users.noreply.github.com"
   },
   "scripts": {

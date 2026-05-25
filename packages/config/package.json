@@ -1,13 +1,13 @@
 {
   "name": "@paalstack/react-config",
   "version": "1.0.0",
-  "description": "React UI config",
+  "description": "Shared ESLint, Prettier, and TypeScript configuration for the Paalstack React UI monorepo",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": {
-    "name": "Paalamugan Samayamuthu",
+    "name": "Paalamugan",
     "email": "paalamugan@users.noreply.github.com"
   },
   "scripts": {

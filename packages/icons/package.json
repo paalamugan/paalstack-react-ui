@@ -1,13 +1,13 @@
 {
   "name": "@paalstack/react-icons",
   "version": "1.0.0",
-  "description": "React UI icons",
+  "description": "Tree-shakeable React icon components from 31 popular icon libraries via sub-path imports",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "author": {
-    "name": "Paalamugan Samayamuthu",
+    "name": "Paalamugan",
     "email": "paalamugan@users.noreply.github.com"
   },
   "scripts": {

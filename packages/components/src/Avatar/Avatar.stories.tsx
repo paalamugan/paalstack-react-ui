@@ -225,7 +225,7 @@ export const UserProfile: Story = {
     <div className="flex items-center gap-3">
       <Avatar src={avatarUrl} fallback="CN" size="lg" badge badgeProps={{ className: 'bg-green-500' }} />
       <div>
-        <p className="text-sm font-medium">Paalamugan S</p>
+        <p className="text-sm font-medium">Paalamugan</p>
         <p className="text-xs text-muted-foreground">paalamugan.samayamuthu@paalstack.com</p>
       </div>
     </div>

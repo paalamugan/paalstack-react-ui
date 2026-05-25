@@ -1,13 +1,13 @@
 {
   "name": "@paalstack/react-providers",
   "version": "1.0.0",
-  "description": "React UI providers",
+  "description": "React context providers for theming, toast notifications, and internationalisation",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "author": {
-    "name": "Paalamugan Samayamuthu",
+    "name": "Paalamugan",
     "email": "paalamugan@users.noreply.github.com"
   },
   "scripts": {

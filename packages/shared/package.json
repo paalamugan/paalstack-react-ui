@@ -1,13 +1,13 @@
 {
   "name": "@paalstack/react-shared",
   "version": "1.0.0",
-  "description": "React UI Shared",
+  "description": "Shared utilities, types, constants, and helper functions for Paalstack React UI packages",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "author": {
-    "name": "Paalamugan Samayamuthu",
+    "name": "Paalamugan",
     "email": "paalamugan@users.noreply.github.com"
   },
   "scripts": {
