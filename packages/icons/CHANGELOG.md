@@ -1,5 +1,11 @@
 # @paalstack/react-icons
 
+## 1.1.0
+
+### Minor Changes
+
+- [`6515217`](https://github.com/paalamugan/paalstack-react-ui/commit/651521767e96a7f7afccc109c92bb681dc48c5c6) Thanks [@paalamugan](https://github.com/paalamugan)! - chore: add keywords and publish configuration to package.json files across multiple packages
+
 ## 1.0.1
 
 ### Patch Changes

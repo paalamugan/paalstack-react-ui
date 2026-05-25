@@ -1,6 +1,6 @@
 {
   "name": "@paalstack/react-layouts",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Polymorphic layout primitives and typography components styled with Tailwind CSS v4",
   "type": "module",
   "types": "dist/index.d.ts",
