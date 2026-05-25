@@ -4,7 +4,7 @@ A collection of 60+ production-ready React hooks for state management, UI intera
 
 ## Docs
 
-[Storybook → Hooks documentation](https://paalamugan.github.io/paalstack-react-ui/?path=/docs/hooks-state-management-usecallbackref--documentation)
+[Storybook → Hooks documentation](https://paalamugan.github.io/paalstack-react-ui/?path=/docs/overview-hooks--docs)
 
 ## Installation
 
