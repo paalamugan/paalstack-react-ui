@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "An open-source collection of React components, icons, and hooks for building modern web applications — powered by Tailwind CSS v4, TypeScript, and Base UI.",
   "type": "module",
-  "private": true,
   "scripts": {
     "dev": "pnpm storybook",
     "start": "pnpm dev",
@@ -163,5 +162,34 @@
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
     }
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "tailwindcss",
+    "tailwind-css-v4",
+    "component-library",
+    "ui-components",
+    "design-system",
+    "react-components",
+    "storybook",
+    "monorepo",
+    "pnpm",
+    "tsup",
+    "vite",
+    "hooks",
+    "icons",
+    "layouts",
+    "test-utils",
+    "accessibility",
+    "dark-mode",
+    "base-ui",
+    "open-source",
+    "ui-kit",
+    "frontend"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   }
 }
