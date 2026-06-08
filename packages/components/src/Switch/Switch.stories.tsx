@@ -18,7 +18,11 @@ const meta: Meta<typeof Switch> = {
   component: Switch,
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['default', 'sm'] },
+    size: { control: 'select', options: ['sm', 'default', 'lg', 'xl'] },
+    color: {
+      control: 'select',
+      options: ['default', 'secondary', 'tertiary', 'success', 'warning', 'destructive', 'info', 'danger'],
+    },
     disabled: { control: 'boolean' },
     checked: { control: 'boolean' },
   },
@@ -28,28 +32,46 @@ export default meta;
 type Story = StoryObj<typeof Switch>;
 
 export const Basic: Story = {
-  render: () => (
+  render: (args) => (
     <div className="flex items-center space-x-2">
-      <Switch id="airplane-mode" />
+      <Switch id="airplane-mode" {...args} />
       <Label htmlFor="airplane-mode">Airplane Mode</Label>
     </div>
   ),
 };
 
 export const Checked: Story = {
-  render: () => (
+  render: (args) => (
     <div className="flex items-center space-x-2">
-      <Switch id="checked-demo" defaultChecked />
+      <Switch id="checked-demo" defaultChecked {...args} />
       <Label htmlFor="checked-demo">Enabled by default</Label>
     </div>
   ),
 };
 
 export const SmallSize: Story = {
-  render: () => (
+  render: (args) => (
     <div className="flex items-center space-x-2">
-      <Switch id="small-switch" size="sm" />
+      <Switch id="small-switch" size="sm" {...args} />
       <Label htmlFor="small-switch">Small switch</Label>
+    </div>
+  ),
+};
+
+export const LargeSize: Story = {
+  render: (args) => (
+    <div className="flex items-center space-x-2">
+      <Switch id="large-switch" size="lg" {...args} />
+      <Label htmlFor="large-switch">Large switch</Label>
+    </div>
+  ),
+};
+
+export const ExtraLargeSize: Story = {
+  render: (args) => (
+    <div className="flex items-center space-x-2">
+      <Switch id="xl-switch" size="xl" {...args} />
+      <Label htmlFor="xl-switch">Extra large switch</Label>
     </div>
   ),
 };
@@ -58,12 +80,20 @@ export const SizeComparison: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
+        <Switch id="size-sm" size="sm" defaultChecked />
+        <Label htmlFor="size-sm">Small size</Label>
+      </div>
+      <div className="flex items-center space-x-2">
         <Switch id="size-default" defaultChecked />
         <Label htmlFor="size-default">Default size</Label>
       </div>
       <div className="flex items-center space-x-2">
-        <Switch id="size-sm" size="sm" defaultChecked />
-        <Label htmlFor="size-sm">Small size</Label>
+        <Switch id="size-lg" size="lg" defaultChecked />
+        <Label htmlFor="size-lg">Large size</Label>
+      </div>
+      <div className="flex items-center space-x-2">
+        <Switch id="size-xl" size="xl" defaultChecked />
+        <Label htmlFor="size-xl">Extra large size</Label>
       </div>
     </div>
   ),
@@ -98,6 +128,59 @@ export const Controlled: Story = {
       </div>
     );
   },
+};
+
+export const ColorVariants: Story = {
+  render: (args) => (
+    <div className="space-y-4">
+      {(
+        [
+          { color: 'default', label: 'Default (Primary)' },
+          { color: 'secondary', label: 'Secondary' },
+          { color: 'tertiary', label: 'Tertiary' },
+          { color: 'success', label: 'Success' },
+          { color: 'warning', label: 'Warning' },
+          { color: 'destructive', label: 'Destructive' },
+          { color: 'info', label: 'Info' },
+          { color: 'danger', label: 'Danger' },
+        ] as const
+      ).map(({ color, label }) => (
+        <div key={color} className="flex items-center space-x-2">
+          <Switch id={`color-${color}`} color={color} defaultChecked {...args} />
+          <Label htmlFor={`color-${color}`}>{label}</Label>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const ColorVariantsAllSizes: Story = {
+  render: (args) => (
+    <div className="space-y-6">
+      {(
+        [
+          { color: 'default', label: 'Default' },
+          { color: 'secondary', label: 'Secondary' },
+          { color: 'tertiary', label: 'Tertiary' },
+          { color: 'success', label: 'Success' },
+          { color: 'warning', label: 'Warning' },
+          { color: 'destructive', label: 'Destructive' },
+          { color: 'info', label: 'Info' },
+          { color: 'danger', label: 'Danger' },
+        ] as const
+      ).map(({ color, label }) => (
+        <div key={color} className="space-y-2">
+          <p className="text-sm font-medium capitalize">{label}</p>
+          <div className="flex items-center gap-4">
+            <Switch size="sm" color={color} defaultChecked {...args} />
+            <Switch size="default" color={color} defaultChecked {...args} />
+            <Switch size="lg" color={color} defaultChecked {...args} />
+            <Switch size="xl" color={color} defaultChecked {...args} />
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
 };
 
 export const SettingsPanel: Story = {
