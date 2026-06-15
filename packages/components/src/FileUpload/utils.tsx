@@ -10,6 +10,11 @@ import {
   LuFileVideo as FileVideoIcon,
 } from '@/icons/lu';
 
+/**
+ * Format bytes to a human readable size
+ * @param bytes - The number of bytes to format
+ * @returns The formatted size
+ */
 export const formatBytes = (bytes: number): string => {
   if (bytes === 0) return '0 B';
   const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
@@ -17,7 +22,14 @@ export const formatBytes = (bytes: number): string => {
   return `${(bytes / 1024 ** i).toFixed(i ? 1 : 0)} ${sizes[i]}`;
 };
 
-export const getFileIcon = (file: File): React.ReactNode => {
+/**
+ * Get the icon for a file
+ * @param file - The file to get the icon for
+ * @param file.type - The type of the file
+ * @param file.name - The name of the file
+ * @returns The icon for the file
+ */
+export const getFileIcon = (file: { type: string; name: string }): React.ReactNode => {
   const type = file.type;
   const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
 

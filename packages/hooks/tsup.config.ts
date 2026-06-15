@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig(() => {
   return {
-    splitting: false,
+    splitting: true,
     entry: ['src/**/*.{ts,tsx}', '!src/**/*.test.{ts,tsx}', '!src/**/*.stories.{ts,tsx}'],
     format: ['esm', 'cjs'],
     external: ['react', 'react-dom', 'react-router'],
@@ -11,7 +11,7 @@ export default defineConfig(() => {
     minify: false,
     skipNodeModulesBundle: false,
     bundle: true,
-    treeshake: false,
+    treeshake: true,
     sourcemap: false,
     shims: true,
     clean: true, // clean up the dist folder before building
