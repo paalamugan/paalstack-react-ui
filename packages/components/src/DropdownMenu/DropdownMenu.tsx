@@ -678,12 +678,14 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
 }) => {
   return (
     <DropdownMenuRoot data-qa="dropdown-menu" {...props}>
-      <DropdownMenuTrigger
-        render={React.isValidElement(trigger) ? trigger : undefined}
-        data-qa="dropdown-menu-trigger"
-        {...triggerProps}
-        className={cn(triggerClassName, triggerProps?.className)}
-      />
+      {trigger && (
+        <DropdownMenuTrigger
+          render={React.isValidElement(trigger) ? trigger : undefined}
+          data-qa="dropdown-menu-trigger"
+          {...triggerProps}
+          className={cn(triggerClassName, triggerProps?.className)}
+        />
+      )}
       <DropdownMenuContent
         data-qa="dropdown-menu-content"
         {...contentProps}

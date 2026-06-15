@@ -112,7 +112,7 @@ export interface DropdownMenuProps extends DropdownMenuPrimitive.Root.Props {
   /**
    * The trigger element that will open the dropdown menu.
    */
-  trigger: React.ReactNode;
+  trigger?: React.ReactNode;
   /**
    * The items to display in the dropdown menu.
    */
