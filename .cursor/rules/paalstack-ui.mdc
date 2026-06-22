@@ -1,0 +1,56 @@
+---
+description: PaalStack React UI development rules for components, hooks, icons, and styling
+globs:
+  - "**/*.tsx"
+  - "**/*.ts"
+alwaysApply: false
+---
+
+# PaalStack React UI Rules
+
+## Before Creating Anything
+
+1. Search `@paalstack/react-ui` for existing components before creating UI.
+2. Search `@paalstack/react-hooks` before writing hooks for DOM, storage, media queries, or disclosure patterns.
+3. Search `@paalstack/react-icons/{lib}` before adding third-party icon packages.
+
+## Imports
+
+```tsx
+import '@paalstack/react-ui/styles.css';
+import { ThemeProvider, Button, Box, Form, Field, Input } from '@paalstack/react-ui';
+import { useDisclosure } from '@paalstack/react-hooks';
+import { LuSettings } from '@paalstack/react-icons/lu';
+```
+
+## Styling
+
+- Use semantic design tokens: `bg-primary`, `text-muted-foreground`, `border-border`.
+- Extend components with `className`; merge via `cn()`.
+- Wrap app in `ThemeProvider` for dark mode.
+
+## Forms
+
+- Use `Form` + `react-hook-form` + `zod` + `Field` + `Label`.
+- Display errors with `ErrorMessage` or Field error slot.
+
+## Components vs Native Variants
+
+- Prefer `Checkbox`, `RadioGroup`, `Select` (Base UI) for accessibility.
+- Use `NativeCheckbox`, `NativeRadio`, `NativeSelect` only when explicitly needed.
+
+## Overlays
+
+- Confirm destructive actions: `AlertDialog`
+- Forms/detail: `Dialog` or `Sheet`
+- Mobile: `Drawer`
+
+## Do Not
+
+- Duplicate Button, Input, Dialog, Table, or common hooks.
+- Import entire `@paalstack/react-icons` barrel in app code.
+- Use raw hex colors when semantic tokens exist.
+
+## Docs
+
+See `docs/` in the monorepo: COMPONENT_CATALOG.md, HOOKS_CATALOG.md, AI_SKILL.md, AI_QUICK_REFERENCE.md.

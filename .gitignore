@@ -31,3 +31,7 @@ complied.css
 node-compile-cache
 
 .anima
+
+.pnpm-store
+graphify-out/
+scripts/.kb-extract.json
