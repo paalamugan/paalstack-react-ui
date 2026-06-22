@@ -403,7 +403,7 @@ const SelectForwardRef = React.forwardRef<SelectTriggerRef, SelectProps<unknown,
 ) {
   const labelId = id ? id : label ? label.toString().toLowerCase().replace(/\s/g, '-') : undefined;
 
-  const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+  const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
 
   const groups: SelectOptionGroupType[] = React.useMemo(() => {
     const groupArray: SelectOptionGroupType[] = [];

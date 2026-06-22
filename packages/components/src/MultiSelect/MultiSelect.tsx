@@ -301,7 +301,7 @@ export const MultiSelect = React.forwardRef<React.ElementRef<'button'>, MultiSel
   ) => {
     const [open, setOpen] = React.useState(defaultOpen);
     const onSelectedValueChangeRef = useCallbackRef(onSelectedValueChange);
-    const isInvalid = isAriaInvalid(popoverModalContentProps['aria-invalid']) ?? invalid;
+    const isInvalid = invalid ?? isAriaInvalid(popoverModalContentProps['aria-invalid']);
     const labelId = id || label?.toString().toLowerCase().replace(/\s/g, '-') || '';
 
     React.useEffect(() => {

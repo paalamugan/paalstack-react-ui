@@ -303,7 +303,7 @@ export const CheckboxGroup = React.forwardRef<React.ElementRef<'div'>, CheckboxG
     },
     ref,
   ) => {
-    const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
     const localOptions = React.useMemo<OptionType[]>(() => {
       return options.map((option) => {
         if (typeof option === 'string' || typeof option === 'number') {

@@ -383,7 +383,7 @@ const RadioGroupForwardRef = React.forwardRef<RadioGroupRef, RadioGroupProps<unk
   },
   ref,
 ) {
-  const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+  const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
 
   const localOptions = React.useMemo<OptionType[]>(() => {
     return options.map((option) => {

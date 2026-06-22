@@ -215,7 +215,7 @@ const Textarea: ComponentWithAs<'textarea', TextareaProps> = forwardRef<Textarea
       onChange: onValueChange,
     });
 
-    const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
     const labelId = id || props.name || label;
 
     return (
