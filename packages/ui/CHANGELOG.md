@@ -1,5 +1,14 @@
 # @paalstack/react-ui
 
+## 1.1.2
+
+### Patch Changes
+
+- [`fa243c4`](https://github.com/paalamugan/paalstack-react-ui/commit/fa243c4d4ef4978acf4f121231e329352980aaf0) Thanks [@paalamugan](https://github.com/paalamugan)! - feat: enhance Switch component with size and color variants
+  - Added new size options: 'lg' and 'xl' to the Switch component.
+  - Introduced color variants for the Switch component, allowing for multiple color options.
+  - Updated stories to demonstrate new size and color functionalities.
+
 ## 1.1.1
 
 ### Patch Changes

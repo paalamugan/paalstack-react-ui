@@ -1,6 +1,6 @@
 {
   "name": "@paalstack/react-hooks",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "60+ production-ready React hooks for state management, UI interactions, async operations, and browser APIs",
   "type": "module",
   "types": "dist/index.d.ts",

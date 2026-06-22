@@ -1,5 +1,11 @@
 # @paalstack/react-hooks
 
+## 1.1.1
+
+### Patch Changes
+
+- [`92bbcc8`](https://github.com/paalamugan/paalstack-react-ui/commit/92bbcc8d27aa77a42a8390697c8d266aac7a52d2) Thanks [@paalamugan](https://github.com/paalamugan)! - feat: enhance FileUpload utility functions with documentation and configuration updates
+
 ## 1.1.0
 
 ### Minor Changes
