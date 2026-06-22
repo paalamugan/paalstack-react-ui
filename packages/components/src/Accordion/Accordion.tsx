@@ -5,7 +5,9 @@ import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
 import { RxChevronDown as ChevronDownIcon, RxChevronUp as ChevronUpIcon } from '@/icons/rx';
 import { cn } from '@/shared/lib';
 
-const AccordionRoot = AccordionPrimitive.Root;
+const AccordionRoot = <TValue,>({ ...props }: React.ComponentProps<typeof AccordionPrimitive.Root<TValue>>) => (
+  <AccordionPrimitive.Root<TValue> {...props} />
+);
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
@@ -89,7 +91,7 @@ interface AccordionItem {
 /**
  * Props for the Accordion component.
  */
-type AccordionProps = Omit<React.ComponentProps<typeof AccordionRoot>, 'multiple'> & {
+type AccordionProps<TValue> = Omit<React.ComponentProps<typeof AccordionRoot<TValue>>, 'multiple'> & {
   /** The items to render in the Accordion. */
   items: AccordionItem[];
   /**
@@ -129,7 +131,7 @@ type AccordionProps = Omit<React.ComponentProps<typeof AccordionRoot>, 'multiple
  * // Single type (only one item can be open at a time)
  * <Accordion
  *   type="single"
- *   defaultValue="item-1"
+ *   defaultValue={['item-1']}
  *   items={[
  *     { value: 'item-1', title: 'Question 1', content: 'Answer 1' },
  *     { value: 'item-2', title: 'Question 2', content: 'Answer 2' },
@@ -340,14 +342,14 @@ type AccordionProps = Omit<React.ComponentProps<typeof AccordionRoot>, 'multiple
  *   ]}
  * />
  */
-const Accordion: React.FC<AccordionProps> = ({
+const Accordion = <TValue,>({
   items,
   type = 'single',
   triggerProps,
   contentProps,
   itemProps,
   ...props
-}) => {
+}: AccordionProps<TValue>) => {
   return (
     <AccordionRoot {...props} multiple={type === 'multiple'} data-qa="accordion">
       {items.map((item) => (

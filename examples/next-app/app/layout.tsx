@@ -9,15 +9,17 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Paalstack React UI — Next.js Example',
-  description: 'Built with Paalstack React UI',
+  title: 'Paalstack React UI — Component Showcase',
+  description: 'Production-ready Next.js app powered by @paalstack/react-ui',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <NextThemeProvider>{children}</NextThemeProvider>
+        <NextThemeProvider>
+          {children}
+        </NextThemeProvider>
       </body>
     </html>
   );

@@ -15,7 +15,10 @@
     "react-dom": "^18",
     "@paalstack/react-hooks": "^1.1.0",
     "@paalstack/react-icons": "^1.1.0",
-    "@paalstack/react-ui": "^1.1.0"
+    "@paalstack/react-ui": "^1.1.0",
+    "@hookform/resolvers": "^3.9.0",
+    "react-hook-form": "^7.53.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

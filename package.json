@@ -36,6 +36,7 @@
     "docs:extract": "node ./scripts/generate-ai-knowledge-base.mjs",
     "docs:generate": "node ./scripts/write-ai-knowledge-base.mjs",
     "docs:build": "pnpm docs:extract && pnpm docs:generate",
+    "prepare": "pnpm build:config",
     "validate:package-exports": "node ./scripts/validate-package-exports.js",
     "preview": "pnpm storybook:build && serve storybook-static",
     "preview:docs": "pnpm storybook:build:docs && serve storybook-static",

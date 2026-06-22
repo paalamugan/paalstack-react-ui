@@ -5,8 +5,8 @@ A minimal React + Vite example using `@paalstack/react-ui`, `@paalstack/react-ho
 ## Getting started
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173).
@@ -16,8 +16,8 @@ Open [http://localhost:5173](http://localhost:5173).
 ### 1. Install packages
 
 ```bash
-pnpm add @paalstack/react-ui @paalstack/react-hooks @paalstack/react-icons
-pnpm add -D tailwindcss @tailwindcss/vite
+npm install @paalstack/react-ui @paalstack/react-hooks @paalstack/react-icons
+npm install -D tailwindcss @tailwindcss/vite
 ```
 
 ### 2. Configure Vite (`vite.config.ts`)

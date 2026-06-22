@@ -5,8 +5,8 @@ A Next.js 14 App Router example using `@paalstack/react-ui`, `@paalstack/react-h
 ## Getting started
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
@@ -16,8 +16,8 @@ Open [http://localhost:3000](http://localhost:3000).
 ### 1. Install packages
 
 ```bash
-pnpm add @paalstack/react-ui @paalstack/react-hooks @paalstack/react-icons
-pnpm add -D tailwindcss @tailwindcss/postcss
+npm install @paalstack/react-ui @paalstack/react-hooks @paalstack/react-icons
+npm install -D tailwindcss @tailwindcss/postcss
 ```
 
 ### 2. Configure PostCSS (`postcss.config.mjs`)
