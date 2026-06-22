@@ -472,7 +472,7 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
   ) {
     const isOptionValue = selectOptionAsValue || typeof options?.[0] === 'string' || typeof options?.[0] === 'number';
 
-    const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
     const labelId = id || label?.toString().toLowerCase().replace(/\s/g, '-') || '';
     const isMultiple = !!props.multiple;
 

@@ -237,7 +237,7 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
     },
     ref,
   ) => {
-    const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
     const labelId = id || label?.toLowerCase().replace(/\s/g, '-');
     const [date, setDate] = React.useState<DateRange | undefined>(undefined);
 

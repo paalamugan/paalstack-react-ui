@@ -210,7 +210,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
     },
     ref,
   ) => {
-    const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
     const selectedDate = React.useMemo(() => (typeof value === 'string' ? new Date(value) : value), [value]);
     const [date, setDate] = React.useState<Date | undefined>(selectedDate);
     const labelId = id || label?.toLowerCase().replace(/\s/g, '-');

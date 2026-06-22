@@ -218,7 +218,7 @@ const CheckboxForwardRef = React.forwardRef<CheckboxRef, CheckboxProps>(function
   },
   ref,
 ) {
-  const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+  const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
   const id = props.id || props.name || label?.toString() || '';
   return (
     <>

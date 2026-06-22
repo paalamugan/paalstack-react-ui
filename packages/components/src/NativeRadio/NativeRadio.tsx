@@ -270,7 +270,7 @@ export const NativeRadio: ComponentWithAs<'input', NativeRadioProps> = forwardRe
     },
     ref,
   ) => {
-    const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
 
     const id = props.id || props.name || (label && typeof label === 'string' ? label : 'radio-input');
 

@@ -215,7 +215,7 @@ export const NativeCheckbox = React.forwardRef<HTMLInputElement, NativeCheckboxP
     },
     ref,
   ) => {
-    const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
     const id = props.id || props.name || (label && typeof label === 'string' ? label : 'checkbox-input');
     const onChangeHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
       const checked = event.target.checked;

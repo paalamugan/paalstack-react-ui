@@ -231,7 +231,7 @@ const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(
     },
     ref,
   ) => {
-    const isInvalid = isAriaInvalid(selectProps['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(selectProps['aria-invalid']);
     const labelId = id || (typeof label === 'string' ? label.toLowerCase().replace(/\s/g, '-') : undefined);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

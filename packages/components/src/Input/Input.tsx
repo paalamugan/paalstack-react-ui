@@ -133,7 +133,7 @@ const Input: ComponentWithAs<'input', InputProps> = forwardRef<InputProps, 'inpu
     ref,
   ) => {
     const { className: labelClassName, ...restLabelProps } = labelProps || {};
-    const isInvalid = isAriaInvalid(props['aria-invalid']) || invalid;
+    const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
     const labelId = id || props.name || (typeof label === 'string' ? label : 'input');
 
     const onChangeHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
