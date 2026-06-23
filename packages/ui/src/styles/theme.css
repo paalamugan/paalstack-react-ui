@@ -1,5 +1,22 @@
 @custom-variant dark (&:is(.dark *));
 
+/* Base UI / shadcn data-state variants — defined inline because Turbopack's resolver
+   does not use the "style" package.json export condition, so @import "shadcn/tailwind.css"
+   resolves to nothing and these are never registered from that import. */
+@custom-variant data-open {
+  &:where([data-state="open"]),
+  &:where([data-open]:not([data-open="false"])) {
+    @slot;
+  }
+}
+
+@custom-variant data-closed {
+  &:where([data-state="closed"]),
+  &:where([data-closed]:not([data-closed="false"])) {
+    @slot;
+  }
+}
+
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -94,4 +111,11 @@
   --spacing-84: 21rem;
   --spacing-88: 22rem;
   --spacing-108: 27rem;
+
+  /* Custom breakpoints */
+  --breakpoint-xl: 1440px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-md: 992px;
+  --breakpoint-sm: 768px;
+  --breakpoint-xs: 481px;
 }

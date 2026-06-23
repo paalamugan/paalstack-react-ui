@@ -22,6 +22,7 @@ import { Textarea } from '../Textarea';
 import { FormField, FormRoot } from './components';
 import { Form } from './Form';
 import { FormFieldItem } from './FormFieldItem';
+import { FormFieldItems } from './FormFieldItems';
 
 const meta: Meta<typeof Form> = {
   title: 'Components/Form',
@@ -1196,3 +1197,212 @@ export const WithCombobox: Story = {
     );
   },
 };
+
+/**
+ * Demonstrates mixing config-driven `fields` with a directly placed `<FormFieldItem>` child.
+ * The `username` and `email` fields are rendered via the `fields` prop while the
+ * `agreeToTerms` checkbox is rendered manually as a child of `<Form>`.
+ */
+export const WithFormFieldItemAsChild: Story = {
+  render: () => {
+    const formSchema = z.object({
+      username: z.string().min(2, 'Username must be at least 2 characters.'),
+      email: z.string().email('Please enter a valid email.'),
+      agreeToTerms: z.boolean().refine(Boolean, 'You must agree to the terms.'),
+    });
+
+    type FormType = z.infer<typeof formSchema>;
+
+    const form = useForm<FormType>({
+      resolver: zodResolver(formSchema),
+      defaultValues: { username: '', email: '', agreeToTerms: false },
+    });
+
+    const onSubmitHandle = async (values: FormType) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast('You submitted the following values:', {
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="overflow-auto text-white">{JSON.stringify(values, null, 2)}</code>
+          </pre>
+        ),
+      });
+    };
+
+    return (
+      <Form<FormType>
+        form={form}
+        onSubmit={onSubmitHandle}
+        fields={[
+          { type: 'input', name: 'username', label: 'Username', required: true, placeholder: 'Enter a username' },
+          { type: 'input', name: 'email', label: 'Email', inputType: 'email', required: true, placeholder: 'Enter an email' },
+        ]}
+        submitText="Register"
+        hideResetButton
+        className="max-w-md"
+      >
+        {/* FormFieldItem placed directly as a child of Form */}
+        <FormFieldItem
+          control={form.control}
+          field={{
+            type: 'checkbox',
+            name: 'agreeToTerms',
+            label: 'I agree to the terms and conditions',
+            required: true,
+          }}
+        />
+      </Form>
+    );
+  },
+};
+
+/**
+ * Demonstrates using only `<FormFieldItem>` components as children — no `fields` prop.
+ * Pass `fields={[]}` and render every field individually for full layout control.
+ */
+export const WithFormFieldItemOnly: Story = {
+  render: () => {
+    const formSchema = z.object({
+      firstName: z.string().min(1, 'First name is required.'),
+      lastName: z.string().min(1, 'Last name is required.'),
+      role: z.string({ required_error: 'Please select a role.' }),
+      bio: z.string().optional(),
+    });
+
+    type FormType = z.infer<typeof formSchema>;
+
+    const form = useForm<FormType>({
+      resolver: zodResolver(formSchema),
+      defaultValues: { firstName: '', lastName: '', role: undefined, bio: '' },
+    });
+
+    const onSubmitHandle = async (values: FormType) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast('You submitted the following values:', {
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="overflow-auto text-white">{JSON.stringify(values, null, 2)}</code>
+          </pre>
+        ),
+      });
+    };
+
+    return (
+      <Form<FormType>
+        form={form}
+        onSubmit={onSubmitHandle}
+        fields={[]}
+        submitText="Save"
+        hideResetButton
+        className="max-w-md"
+      >
+        <FormFieldItem
+          control={form.control}
+          field={{ type: 'input', name: 'firstName', label: 'First Name', required: true, placeholder: 'John' }}
+        />
+        <FormFieldItem
+          control={form.control}
+          field={{ type: 'input', name: 'lastName', label: 'Last Name', required: true, placeholder: 'Doe' }}
+        />
+        <FormFieldItem
+          control={form.control}
+          field={{
+            type: 'select',
+            name: 'role',
+            label: 'Role',
+            required: true,
+            placeholder: 'Select a role',
+            options: ['Admin', 'Editor', 'Viewer'],
+          }}
+        />
+        <FormFieldItem
+          control={form.control}
+          field={{ type: 'textarea', name: 'bio', label: 'Bio', placeholder: 'Tell us about yourself' }}
+        />
+      </Form>
+    );
+  },
+};
+
+/**
+ * Demonstrates using `<FormFieldItems>` to render groups of fields as children of `<Form>`.
+ * Each group is placed in its own layout section, giving full control over visual grouping.
+ */
+export const WithFormFieldItemsAsChild: Story = {
+  render: () => {
+    const formSchema = z.object({
+      firstName: z.string().min(1, 'First name is required.'),
+      lastName: z.string().min(1, 'Last name is required.'),
+      email: z.string().email('Please enter a valid email.'),
+      phone: z.string().optional(),
+      country: z.string({ required_error: 'Please select a country.' }),
+      bio: z.string().optional(),
+    });
+
+    type FormType = z.infer<typeof formSchema>;
+
+    const personalFields: FormFieldItemType<FormType>[] = [
+      { type: 'input', name: 'firstName', label: 'First Name', required: true, placeholder: 'John', formItemClassName: 'col-span-1' },
+      { type: 'input', name: 'lastName', label: 'Last Name', required: true, placeholder: 'Doe', formItemClassName: 'col-span-1' },
+    ];
+
+    const contactFields: FormFieldItemType<FormType>[] = [
+      { type: 'input', name: 'email', label: 'Email', inputType: 'email', required: true, placeholder: 'john@example.com', formItemClassName: 'col-span-1' },
+      { type: 'input', name: 'phone', label: 'Phone', inputType: 'tel', placeholder: '+1 234 567 890', formItemClassName: 'col-span-1' },
+    ];
+
+    const form = useForm<FormType>({
+      resolver: zodResolver(formSchema),
+      defaultValues: { firstName: '', lastName: '', email: '', phone: '', country: undefined, bio: '' },
+    });
+
+    const onSubmitHandle = async (values: FormType) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast('You submitted the following values:', {
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="overflow-auto text-white">{JSON.stringify(values, null, 2)}</code>
+          </pre>
+        ),
+      });
+    };
+
+    return (
+      <Form<FormType>
+        form={form}
+        onSubmit={onSubmitHandle}
+        fields={[]}
+        submitText="Submit"
+        hideResetButton
+        className="max-w-lg"
+      >
+        <p className="text-sm font-semibold text-foreground">Personal Info</p>
+        <div className="grid grid-cols-2 gap-4">
+          <FormFieldItems fields={personalFields} control={form.control} />
+        </div>
+
+        <p className="text-sm font-semibold text-foreground">Contact Details</p>
+        <div className="grid grid-cols-2 gap-4">
+          <FormFieldItems fields={contactFields} control={form.control} />
+        </div>
+
+        <FormFieldItem
+          control={form.control}
+          field={{
+            type: 'select',
+            name: 'country',
+            label: 'Country',
+            required: true,
+            placeholder: 'Select a country',
+            options: ['United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France'],
+          }}
+        />
+        <FormFieldItem
+          control={form.control}
+          field={{ type: 'textarea', name: 'bio', label: 'Bio', placeholder: 'Tell us about yourself' }}
+        />
+      </Form>
+    );
+  },
+};
+
