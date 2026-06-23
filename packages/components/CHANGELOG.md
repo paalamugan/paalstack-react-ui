@@ -1,5 +1,11 @@
 # @paalstack/react-components
 
+## 1.2.0
+
+### Minor Changes
+
+- [`67df612`](https://github.com/paalamugan/paalstack-react-ui/commit/67df612e1b60258117229bbe4c7c9c65103b551d) Thanks [@paalamugan](https://github.com/paalamugan)! - minor update
+
 ## 1.1.2
 
 ### Patch Changes

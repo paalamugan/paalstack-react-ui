@@ -1,5 +1,11 @@
 # @paalstack/react-ui
 
+## 1.2.0
+
+### Minor Changes
+
+- [`89f4c36`](https://github.com/paalamugan/paalstack-react-ui/commit/89f4c36fc7032aa9116ca374a0c0f08fdb841e89) Thanks [@paalamugan](https://github.com/paalamugan)! - minor update
+
 ## 1.1.2
 
 ### Patch Changes
