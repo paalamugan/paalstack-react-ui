@@ -37,7 +37,7 @@ import {
   type StoreAction,
   type StoreState,
 } from './types';
-import { formatBytes, getFileIcon } from './utils';
+import { formatBytes, getFileExtension, getFileIcon } from './utils';
 
 const StoreContext = React.createContext<Store | null>(null);
 
@@ -500,7 +500,7 @@ const FileUpload = (props: FileUploadProps) => {
 
         if (acceptTypes) {
           const fileType = file.type;
-          const fileExtension = `.${file.name.split('.').pop()}`;
+          const fileExtension = `.${getFileExtension(file.name)}`;
 
           if (
             !acceptTypes.some(

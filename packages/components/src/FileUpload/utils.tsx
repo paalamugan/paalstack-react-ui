@@ -11,6 +11,25 @@ import {
 } from '@/icons/lu';
 
 /**
+ * Get the extension from the file name
+ * @param name - The name of the file
+ * @returns File extension from the file name
+ */
+export const getFileExtension = (name: string): string => {
+  const parts = name.toLowerCase().split('.');
+  const extension = parts.length > 1 ? (parts.pop() ?? '') : '';
+  return extension;
+};
+
+/**
+ * Converts an extensions list to the format used by the <input accept> attribute
+ * @param extensions - Extensions list
+ * @returns Accept string
+ */
+export const toAcceptString = (extensions: string[]): string =>
+  extensions.map((ext) => `.${ext.toLowerCase()}`).join(',');
+
+/**
  * Format bytes to a human readable size
  * @param bytes - The number of bytes to format
  * @returns The formatted size
@@ -31,7 +50,7 @@ export const formatBytes = (bytes: number): string => {
  */
 export const getFileIcon = (file: { type: string; name: string }): React.ReactNode => {
   const type = file.type;
-  const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
+  const extension = getFileExtension(file.name);
 
   if (type.startsWith('video/')) {
     return <FileVideoIcon />;
