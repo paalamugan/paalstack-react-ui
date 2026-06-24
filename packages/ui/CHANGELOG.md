@@ -1,5 +1,14 @@
 # @paalstack/react-ui
 
+## 1.2.2
+
+### Patch Changes
+
+- [`a119ee6`](https://github.com/paalamugan/paalstack-react-ui/commit/a119ee6f259fc231160fc26d875619685a1831df) Thanks [@paalamugan](https://github.com/paalamugan)! - feat: enhance IconButton component with new props and stories
+  - Added new props to the IconButton component, including `variant` and `color`, to support various visual styles and color options.
+  - Updated the IconButton stories to demonstrate the new props, including examples for each variant and color combination.
+  - Removed deprecated `outline` prop documentation and adjusted the component's logic to accommodate the new structure.
+
 ## 1.2.1
 
 ### Patch Changes
