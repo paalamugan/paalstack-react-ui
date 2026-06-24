@@ -310,7 +310,7 @@ export interface FormProps<TData extends FieldValues> extends React.PropsWithChi
      * @param e Event
      * @example <Button type="button" isLoading={isSubmitting} onClick={onFormSubmit}>Submit</Button>
      */
-    onFormSubmit?: React.FormEventHandler<HTMLFormElement>;
+    onFormSubmit?: React.FormEventHandler<HTMLButtonElement>;
   }>;
   /**
    * The submit button variant
@@ -397,3 +397,4 @@ export interface FormProps<TData extends FieldValues> extends React.PropsWithChi
    */
   noValidate?: boolean;
 }
+

@@ -1235,7 +1235,14 @@ export const WithFormFieldItemAsChild: Story = {
         onSubmit={onSubmitHandle}
         fields={[
           { type: 'input', name: 'username', label: 'Username', required: true, placeholder: 'Enter a username' },
-          { type: 'input', name: 'email', label: 'Email', inputType: 'email', required: true, placeholder: 'Enter an email' },
+          {
+            type: 'input',
+            name: 'email',
+            label: 'Email',
+            inputType: 'email',
+            required: true,
+            placeholder: 'Enter an email',
+          },
         ]}
         submitText="Register"
         hideResetButton
@@ -1342,13 +1349,42 @@ export const WithFormFieldItemsAsChild: Story = {
     type FormType = z.infer<typeof formSchema>;
 
     const personalFields: FormFieldItemType<FormType>[] = [
-      { type: 'input', name: 'firstName', label: 'First Name', required: true, placeholder: 'John', formItemClassName: 'col-span-1' },
-      { type: 'input', name: 'lastName', label: 'Last Name', required: true, placeholder: 'Doe', formItemClassName: 'col-span-1' },
+      {
+        type: 'input',
+        name: 'firstName',
+        label: 'First Name',
+        required: true,
+        placeholder: 'John',
+        formItemClassName: 'col-span-1',
+      },
+      {
+        type: 'input',
+        name: 'lastName',
+        label: 'Last Name',
+        required: true,
+        placeholder: 'Doe',
+        formItemClassName: 'col-span-1',
+      },
     ];
 
     const contactFields: FormFieldItemType<FormType>[] = [
-      { type: 'input', name: 'email', label: 'Email', inputType: 'email', required: true, placeholder: 'john@example.com', formItemClassName: 'col-span-1' },
-      { type: 'input', name: 'phone', label: 'Phone', inputType: 'tel', placeholder: '+1 234 567 890', formItemClassName: 'col-span-1' },
+      {
+        type: 'input',
+        name: 'email',
+        label: 'Email',
+        inputType: 'email',
+        required: true,
+        placeholder: 'john@example.com',
+        formItemClassName: 'col-span-1',
+      },
+      {
+        type: 'input',
+        name: 'phone',
+        label: 'Phone',
+        inputType: 'tel',
+        placeholder: '+1 234 567 890',
+        formItemClassName: 'col-span-1',
+      },
     ];
 
     const form = useForm<FormType>({
@@ -1405,4 +1441,3 @@ export const WithFormFieldItemsAsChild: Story = {
     );
   },
 };
-
