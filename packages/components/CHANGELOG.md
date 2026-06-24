@@ -1,5 +1,13 @@
 # @paalstack/react-components
 
+## 1.2.1
+
+### Patch Changes
+
+- [`e8771cd`](https://github.com/paalamugan/paalstack-react-ui/commit/e8771cd654ba04ae47a4ee7b4bc5e4bfd67441a2) Thanks [@paalamugan](https://github.com/paalamugan)! - fix: reorder animation classes for consistency across components
+  - Adjusted the order of animation classes in multiple components including Accordion, AlertDialog, Combobox, ContextMenu, Dialog, Drawer, DropdownMenu, HoverCard, NavigationMenu, Popover, Select, and Tooltip for improved consistency in behavior.
+  - Ensured that the `data-open` classes precede the `data-closed` classes to maintain a uniform animation experience.
+
 ## 1.2.0
 
 ### Minor Changes
