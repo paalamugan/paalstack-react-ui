@@ -1,10 +1,15 @@
 import type { BoxProps } from '@/layouts/Box';
+import type { AllColorVariant } from '@/shared/constants';
 import type { ComponentWithAs } from '@/shared/types';
 import type React from 'react';
+import type { BUTTON_ROUNDED, ButtonVariant } from '../Button/constants';
 
 import { Box } from '@/layouts/Box';
 import { cn } from '@/shared/lib';
 import { forwardRef } from '@/shared/utils';
+
+import { buttonVariants } from '../Button/Button';
+import { BUTTON_COLOR_VARIANT_MAPPING } from '../Button/constants';
 
 export type IconButtonProps = BoxProps & {
   icon?: React.ReactNode;
@@ -17,13 +22,24 @@ export type IconButtonProps = BoxProps & {
    */
   disabled?: boolean;
   /**
-   * The rounded variant of the icon button.
+   * @deprecated Use `variant="outline"` instead.
    */
   outline?: boolean;
   /**
    * The border radius of the icon button.
    */
-  rounded?: string;
+  rounded?: keyof typeof BUTTON_ROUNDED;
+  /**
+   * The visual style variant of the icon button. Mirrors Button's variant prop.
+   * @default undefined
+   */
+  variant?: ButtonVariant | 'default' | 'destructive' | 'secondary';
+  /**
+   * The color applied to the variant. Only used when `variant` is a ButtonVariant
+   * (solid, surface, outline, soft, ghost, link).
+   * @default 'primary'
+   */
+  color?: AllColorVariant;
 } & (
     | {
         /**
@@ -219,20 +235,41 @@ export type IconButtonProps = BoxProps & {
  */
 export const IconButton: ComponentWithAs<'button', IconButtonProps> = forwardRef<IconButtonProps, 'button'>(
   ({ children, icon, ...props }, ref) => {
-    const { className, disabled, outline, rounded = 'md', ...rest } = props;
+    const { className, disabled, outline, rounded = 'md', variant, color, ...rest } = props;
+
+    const isSimpleVariant =
+      variant && ['outline', 'ghost', 'link', 'destructive', 'secondary', 'default'].includes(variant as string);
+
+    const variantClassName = (() => {
+      if (!variant) return '';
+      if (isSimpleVariant && !color) {
+        return buttonVariants({
+          variant: variant as Extract<
+            typeof variant,
+            'default' | 'outline' | 'ghost' | 'link' | 'destructive' | 'secondary'
+          >,
+          size: 'icon',
+          rounded,
+        });
+      }
+      return cn(
+        buttonVariants({ size: 'icon', rounded }),
+        BUTTON_COLOR_VARIANT_MAPPING[variant as ButtonVariant]?.[color || 'primary'],
+      );
+    })();
+
     return (
       <Box
         data-qa="icon-button"
-        {...rest}
         as="button"
         type="button"
         ref={ref}
+        {...rest}
         className={cn(
-          'inline-flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-50',
-          {
-            'border border-border bg-transparent p-2 text-accent-foreground': outline,
-          },
-          rounded && `rounded-${rounded}`,
+          !variant && 'inline-flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-50',
+          !variant && outline && 'border border-border bg-transparent p-2 text-accent-foreground',
+          !variant && `rounded-${rounded}`,
+          variantClassName,
           className,
         )}
         disabled={disabled}
