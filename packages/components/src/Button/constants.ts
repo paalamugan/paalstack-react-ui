@@ -248,51 +248,51 @@ export const BUTTON_COLOR_VARIANT_MAPPING: Record<ButtonVariant, Record<AllColor
       'bg-transparent text-accent-foreground hover:bg-accent shadow-none focus-visible:ring-accent focus-visible:border-accent',
   },
   link: {
-    gray: 'bg-transparent text-gray-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    red: 'bg-transparent text-red-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    gray: 'bg-transparent text-gray-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    red: 'bg-transparent text-red-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     orange:
-      'bg-transparent text-orange-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-orange-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     amber:
-      'bg-transparent text-amber-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-amber-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     yellow:
-      'bg-transparent text-yellow-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    lime: 'bg-transparent text-lime-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-yellow-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    lime: 'bg-transparent text-lime-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     green:
-      'bg-transparent text-green-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-green-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     emerald:
-      'bg-transparent text-emerald-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    teal: 'bg-transparent text-teal-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    cyan: 'bg-transparent text-cyan-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    sky: 'bg-transparent text-sky-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    blue: 'bg-transparent text-blue-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-emerald-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    teal: 'bg-transparent text-teal-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    cyan: 'bg-transparent text-cyan-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    sky: 'bg-transparent text-sky-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    blue: 'bg-transparent text-blue-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     indigo:
-      'bg-transparent text-indigo-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-indigo-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     violet:
-      'bg-transparent text-violet-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-violet-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     purple:
-      'bg-transparent text-purple-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-purple-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     fuchsia:
-      'bg-transparent text-fuchsia-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    pink: 'bg-transparent text-pink-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    rose: 'bg-transparent text-rose-600 p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-fuchsia-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    pink: 'bg-transparent text-pink-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    rose: 'bg-transparent text-rose-600 p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     primary:
-      'bg-transparent text-primary p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-primary p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     secondary:
-      'bg-transparent text-secondary-foreground p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-secondary-foreground p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     tertiary:
-      'bg-transparent text-tertiary p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-tertiary p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     destructive:
-      'bg-transparent text-destructive p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
-    info: 'bg-transparent text-info p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-destructive p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+    info: 'bg-transparent text-info p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     danger:
-      'bg-transparent text-danger p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-danger p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     success:
-      'bg-transparent text-success p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-success p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     warning:
-      'bg-transparent text-warning p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-warning p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     muted:
-      'bg-transparent text-muted-foreground p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-muted-foreground p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
     accent:
-      'bg-transparent text-accent-foreground p-0 hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
+      'bg-transparent text-accent-foreground p-0 h-auto hover:bg-transparent underline-offset-4 hover:underline shadow-none focus-visible:ring-transparent',
   },
 };
