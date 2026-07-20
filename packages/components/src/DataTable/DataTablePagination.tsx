@@ -57,8 +57,6 @@ export function DataTablePagination<TData>({
    * Otherwise, use the global pagination.
    */
   useEffect(() => {
-    // If the enableLocalPagination is false, don't update the table pagination.
-    if (!enableLocalPagination) return;
     if (currentPageProp) {
       table.setPageIndex(currentPageProp - 1);
     }
