@@ -106,6 +106,11 @@ export interface PopoverModalContentProps extends Omit<CommandNoResultFoundProps
    * @default true
    */
   showCheckIcon?: boolean;
+  /**
+   * Whether to disable local sorting
+   * @default false
+   */
+  disabledLocalSorting?: boolean;
 }
 
 export const PopoverModalContent: FC<PopoverModalContentProps> = ({
@@ -129,6 +134,7 @@ export const PopoverModalContent: FC<PopoverModalContentProps> = ({
   searchValue: searchValueProp,
   initialSearchContent,
   showCheckIcon = true,
+  disabledLocalSorting = false,
 }) => {
   const [searchValue, setSearchValue] = useState(searchValueProp || '');
   const filterRef = useRef(filter);
@@ -175,10 +181,11 @@ export const PopoverModalContent: FC<PopoverModalContentProps> = ({
   }, [searchValue, filterBy, options]);
 
   const sortedOptions = useMemo(() => {
+    if (disabledLocalSorting) return filteredOptions;
     return filteredOptions.sort((a, b) => {
       return a.label.localeCompare(b.label);
     });
-  }, [filteredOptions]);
+  }, [filteredOptions, disabledLocalSorting]);
 
   const checkIconClassNameFn = (value: string) => {
     return typeof checkIconClassName === 'function' ? checkIconClassName(value) : checkIconClassName;
