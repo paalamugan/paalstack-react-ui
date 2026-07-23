@@ -57,11 +57,14 @@ export function DataTablePagination<TData>({
    * Otherwise, use the global pagination.
    */
   useEffect(() => {
-    if (currentPageProp) {
-      table.setPageIndex(currentPageProp - 1);
-    }
+    // If the page size prop is provided, set the page size to the page size prop.
     if (pageSizeProp) {
       table.setPageSize(pageSizeProp);
+    }
+
+    // If the enableLocalPagination is true and the current page prop is provided, set the page index to the current page prop.
+    if (enableLocalPagination && currentPageProp) {
+      table.setPageIndex(currentPageProp - 1);
     }
   }, [enableLocalPagination, table, currentPageProp, pageSizeProp]);
 
@@ -101,8 +104,9 @@ export function DataTablePagination<TData>({
       } else {
         table.setPageSize(size);
       }
+      onPageChange(1);
     },
-    [onPageSizeChangeProp, table, enableLocalPagination],
+    [enableLocalPagination, onPageSizeChangeProp, onPageChange, table],
   );
 
   return (
