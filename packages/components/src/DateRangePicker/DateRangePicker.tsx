@@ -104,6 +104,22 @@ export interface DateRangePickerProps {
    * Additional props for the calendar component.
    */
   calendarProps?: Omit<CalendarProps, 'mode' | 'selected' | 'onSelect'>;
+  /**
+   * Additional props for the popover root component.
+   */
+  popoverProps?: React.ComponentProps<typeof PopoverRoot>;
+  /**
+   * Additional props for the popover trigger component.
+   */
+  popoverTriggerProps?: React.ComponentProps<typeof PopoverTrigger>;
+  /**
+   * Additional props for the popover content component.
+   */
+  popoverContentProps?: React.ComponentProps<typeof PopoverContent>;
+  /**
+   * Additional props for the preset calendar component.
+   */
+  presetCalendarProps?: React.ComponentProps<typeof PresetCalendar>;
 }
 
 const DELIMITER = '::';
@@ -233,6 +249,10 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
       errorMessage,
       disabled,
       calendarProps,
+      popoverProps,
+      popoverTriggerProps,
+      popoverContentProps,
+      presetCalendarProps,
       ...props
     },
     ref,
@@ -265,24 +285,24 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
             </Label>
           )}
           <Box className={cn('grid gap-2', className)}>
-            <PopoverRoot>
+            <PopoverRoot {...popoverProps}>
               <PopoverTrigger
                 render={
                   <Button
                     data-qa="date-range-picker-button"
-                    {...props}
                     type="button"
                     variant="outline"
                     disabled={disabled}
                     data-empty={!hasDate}
                     className={cn(
-                      'min-w-[300px] justify-between px-2.5 text-left font-normal data-[empty=true]:text-muted-foreground',
+                      'min-w-75 justify-between px-2.5 text-left font-normal data-[empty=true]:text-muted-foreground',
                       {
                         'border-danger hover:bg-background focus:ring-danger/40': isInvalid,
                       },
                     )}
                     ref={ref}
                     id={labelId}
+                    {...props}
                   >
                     <Box as="span" className="flex items-center gap-2">
                       <CalendarIcon data-icon="inline-start" className="size-4" data-qa="date-range-picker-icon" />
@@ -303,11 +323,13 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
                     <ChevronDownIcon data-icon="inline-end" className="size-4 opacity-50" />
                   </Button>
                 }
+                {...popoverTriggerProps}
               />
               <PopoverContent
                 className={cn('min-w-full', isPreset ? 'flex w-auto flex-col space-y-2 p-2' : 'w-auto p-0')}
                 align="start"
                 data-qa="date-range-picker-popover"
+                {...popoverContentProps}
               >
                 {isPreset ? (
                   <PresetCalendar
@@ -316,6 +338,7 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
                     onDateRangeChange={onSelect}
                     presetPlaceholder={presetPlaceholder}
                     numberOfMonths={numberOfMonths}
+                    {...presetCalendarProps}
                   />
                 ) : (
                   <Calendar

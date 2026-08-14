@@ -86,6 +86,22 @@ export interface DatePickerProps {
    * Additional props for the calendar component.
    */
   calendarProps?: Omit<CalendarProps, 'mode' | 'selected' | 'onSelect'>;
+  /**
+   * Additional props for the popover root component.
+   */
+  popoverProps?: React.ComponentProps<typeof PopoverRoot>;
+  /**
+   * Additional props for the popover trigger component.
+   */
+  popoverTriggerProps?: React.ComponentProps<typeof PopoverTrigger>;
+  /**
+   * Additional props for the popover content component.
+   */
+  popoverContentProps?: React.ComponentProps<typeof PopoverContent>;
+  /**
+   * Additional props for the preset calendar component.
+   */
+  presetCalendarProps?: React.ComponentProps<typeof PresetCalendar>;
 }
 
 const PresetCalendar: React.FC<
@@ -206,6 +222,10 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       errorMessage,
       disabled,
       calendarProps,
+      popoverProps,
+      popoverTriggerProps,
+      popoverContentProps,
+      presetCalendarProps,
       ...props
     },
     ref,
@@ -239,18 +259,17 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
               {label}
             </Label>
           )}
-          <PopoverRoot>
+          <PopoverRoot {...popoverProps}>
             <PopoverTrigger
               render={
                 <Button
                   data-qa="date-picker-button"
-                  {...props}
                   type="button"
                   variant="outline"
                   disabled={disabled}
                   data-empty={!date}
                   className={cn(
-                    'min-w-[240px] justify-between text-left font-normal data-[empty=true]:text-muted-foreground',
+                    'min-w-60 justify-between text-left font-normal data-[empty=true]:text-muted-foreground',
                     {
                       'border-danger text-danger hover:bg-background hover:text-danger focus:ring-danger/40': isInvalid,
                     },
@@ -258,6 +277,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                   )}
                   ref={ref}
                   id={labelId}
+                  {...props}
                 >
                   <Box as="span" className="flex items-center gap-2">
                     <CalendarIcon className="size-4" data-qa="date-picker-icon" />
@@ -272,11 +292,13 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                   <ChevronDownIcon data-icon="inline-end" className="size-4 opacity-50" />
                 </Button>
               }
+              {...popoverTriggerProps}
             />
             <PopoverContent
               className={cn('min-w-full', isPreset ? 'flex w-auto flex-col space-y-2 p-2' : 'w-auto p-0')}
               align="start"
               data-qa="date-picker-popover"
+              {...popoverContentProps}
             >
               {isPreset ? (
                 <PresetCalendar
@@ -285,6 +307,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                   onDateChange={onSelect}
                   presetPlaceholder={presetPlaceholder}
                   calendarProps={calendarProps}
+                  {...presetCalendarProps}
                 />
               ) : (
                 <Calendar
