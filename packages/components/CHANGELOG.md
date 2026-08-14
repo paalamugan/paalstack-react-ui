@@ -1,5 +1,11 @@
 # @paalstack/react-components
 
+## 1.2.3
+
+### Patch Changes
+
+- [`0c00a54`](https://github.com/paalamugan/paalstack-react-ui/commit/0c00a5427fa873074ef37a9ab7ae0b4c29d9af10) - fix: update DataTablePagination to handle page size and current page more effectively
+
 ## 1.2.2
 
 ### Patch Changes
