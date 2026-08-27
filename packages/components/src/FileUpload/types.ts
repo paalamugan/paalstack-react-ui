@@ -1,6 +1,6 @@
 import type * as React from 'react';
 
-export type Direction = 'ltr' | 'rtl';
+export type FileUploadDirection = 'ltr' | 'rtl';
 
 export interface FileState {
   file: File;
@@ -38,7 +38,7 @@ export interface FileUploadContextValue {
   listId: string;
   labelId: string;
   disabled: boolean;
-  dir: Direction;
+  dir: FileUploadDirection;
   inputRef: React.RefObject<HTMLInputElement | null>;
   urlCache: WeakMap<File, string>;
 }
@@ -71,7 +71,7 @@ export interface FileUploadProps extends Omit<React.ComponentProps<'div'>, 'defa
   accept?: string;
   maxFiles?: number;
   maxSize?: number;
-  dir?: Direction;
+  dir?: FileUploadDirection;
   label?: string;
   name?: string;
   asChild?: boolean;

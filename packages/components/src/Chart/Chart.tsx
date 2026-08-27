@@ -42,6 +42,8 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
 
   return (
     <style
+      data-qa="chart-style"
+      data-slot="chart-style"
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(
@@ -426,6 +428,148 @@ export type ChartLegendContentProps = React.ComponentProps<'div'> & {
   nameKey?: string;
 } & RechartsPrimitive.DefaultLegendContentProps;
 
+// ─── Props API (Compound Component) ──────────────────────────────────────────
+
+export interface ChartProps extends Omit<ChartContainerProps, 'children'> {
+  /**
+   * The chart configuration that maps data keys to labels/colors for theming.
+   */
+  config: ChartConfig;
+  /**
+   * The chart content — a Recharts chart element (BarChart, LineChart, AreaChart,
+   * PieChart, RadarChart, ...) with its series. Rendered inside a ResponsiveContainer.
+   */
+  children?: React.ReactNode;
+  /**
+   * Show the default chart tooltip.
+   * @default true
+   */
+  showTooltip?: boolean;
+  /**
+   * Show the default chart legend.
+   * @default false
+   */
+  showLegend?: boolean;
+  /**
+   * Custom tooltip content element (defaults to `<ChartTooltipContent />`).
+   */
+  tooltipContent?: React.ReactNode;
+  /**
+   * Custom legend content element (defaults to `<ChartLegendContent />`).
+   */
+  legendContent?: React.ReactNode;
+}
+
+/**
+ * Chart Component
+ *
+ * A declarative, props-driven chart wrapper around ChartContainer. Provides the
+ * default tooltip/legend out of the box and passes the Recharts chart element
+ * through to a responsive container.
+ * Perfect for dashboards, analytics, reports, and data visualization.
+ *
+ * @example
+ * // Basic usage — pass any Recharts chart as children
+ * import { Chart, ChartTooltipContent, ChartLegendContent } from '@paalstack/react-ui';
+ * import { Bar, BarChart, XAxis, YAxis } from 'recharts';
+ *
+ * const chartData = [
+ *   { month: 'Jan', sales: 4000 },
+ *   { month: 'Feb', sales: 3000 },
+ *   { month: 'Mar', sales: 5000 },
+ * ];
+ *
+ * const chartConfig = {
+ *   sales: { label: 'Sales', color: '#2563eb' },
+ * };
+ *
+ * <Chart config={chartConfig} className="h-[300px]">
+ *   <BarChart data={chartData}>
+ *     <XAxis dataKey="month" />
+ *     <YAxis />
+ *     <Bar dataKey="sales" fill="var(--color-sales)" />
+ *   </BarChart>
+ * </Chart>
+ *
+ * @example
+ * // With tooltip and legend enabled
+ * import { Line, LineChart, XAxis, YAxis } from 'recharts';
+ *
+ * <Chart config={chartConfig} showTooltip showLegend>
+ *   <LineChart data={chartData}>
+ *     <XAxis dataKey="month" />
+ *     <YAxis />
+ *     <Line dataKey="revenue" stroke="var(--color-revenue)" />
+ *     <Line dataKey="expenses" stroke="var(--color-expenses)" />
+ *   </LineChart>
+ * </Chart>
+ *
+ * @example
+ * // Composition API — full control with ChartContainer + Recharts directly
+ * import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@paalstack/react-ui';
+ * import { Bar, BarChart, XAxis } from 'recharts';
+ *
+ * <ChartContainer config={chartConfig} className="h-[300px]">
+ *   <BarChart data={chartData}>
+ *     <XAxis dataKey="month" />
+ *     <ChartTooltip content={<ChartTooltipContent />} />
+ *     <Bar dataKey="sales" fill="var(--color-sales)" />
+ *   </BarChart>
+ * </ChartContainer>
+ *
+ * @tip The tooltip is enabled by default — set showTooltip={false} to disable it
+ * @tip All Recharts props are supported — see Recharts documentation for advanced customization
+ */
+const Chart: React.FC<ChartProps> = ({
+  config,
+  children,
+  showTooltip = true,
+  showLegend = false,
+  tooltipContent,
+  legendContent,
+  ...props
+}) => {
+  let content: React.ReactNode = children;
+
+  // Inject the default tooltip/legend into the Recharts chart element — they must
+  // be children of the chart component (BarChart/LineChart/...) to register with it.
+  if (React.isValidElement(children)) {
+    const existingChildren = React.Children.toArray((children.props as { children?: React.ReactNode }).children);
+    const injected: React.ReactNode[] = [];
+    if (showTooltip) {
+      injected.push(
+        <ChartTooltip
+          key="chart-tooltip"
+          content={(tooltipContent ?? <ChartTooltipContent />) as React.ComponentProps<typeof ChartTooltip>['content']}
+        />,
+      );
+    }
+    if (showLegend) {
+      injected.push(
+        <ChartLegend
+          key="chart-legend"
+          content={(legendContent ?? <ChartLegendContent />) as React.ComponentProps<typeof ChartLegend>['content']}
+        />,
+      );
+    }
+    if (injected.length > 0) {
+      content = React.cloneElement(
+        children as React.ReactElement<{ children?: React.ReactNode }>,
+        undefined,
+        ...existingChildren,
+        ...injected,
+      );
+    }
+  }
+
+  return (
+    <ChartContainer data-qa="chart" config={config} {...props}>
+      <RechartsPrimitive.ResponsiveContainer>{content}</RechartsPrimitive.ResponsiveContainer>
+    </ChartContainer>
+  );
+};
+Chart.displayName = 'Chart';
+
 const ChartLegendContent: React.FC<ChartLegendContentProps> = ({
   className,
   hideIcon = false,
@@ -496,5 +640,5 @@ function getPayloadConfigFromPayload(config: ChartConfig, payload: unknown, key:
   return configLabelKey in config ? config[configLabelKey] : config[key];
 }
 
-export { ChartContainer, ChartLegend, ChartLegendContent, ChartStyle, ChartTooltip, ChartTooltipContent };
+export { Chart, ChartContainer, ChartLegend, ChartLegendContent, ChartStyle, ChartTooltip, ChartTooltipContent };
 export type { NameType, ValueType };
