@@ -88,6 +88,16 @@ function App() {
 | `/tfi`         | Themify Icons      |
 | `/ti`          | Typicons           |
 
+## AI agent skill
+
+This package ships with an AI agent skill (SKILL.md + component inventory) describing the whole PaalStack ecosystem. After installing, run:
+
+```bash
+npx paalstack-skill
+```
+
+It copies the skill into every detected AI coding agent (Hermes, Claude Code, Cursor, …). Flags: `--list`, `--hermes`, `--claude`, `--project`, `--force`.
+
 ## Requirements
 
 | Peer dependency | Version |

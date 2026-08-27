@@ -197,10 +197,23 @@ Install these separately for standalone usage:
 | `./styles.css`        | Base styles and CSS variable definitions          |
 | `./styles-scoped.css` | Scoped styles for embedding inside existing apps  |
 | `./theme.css`         | Default light/dark theme CSS variables            |
+| `./agent-skill`       | AI agent skill (SKILL.md) for this library        |
 
 ### Scoped styles
 
 Use `styles-scoped.css` instead of `styles.css` when embedding inside an existing app to prevent Tailwind utilities from leaking outside your component tree.
+
+## AI agent skill
+
+This package ships with an agent skill that teaches AI coding agents (Hermes, Claude Code, Cursor, …) the library's conventions: the props API, the full component inventory, setup requirements, and known pitfalls.
+
+After installing, run:
+
+```bash
+npx paalstack-skill
+```
+
+It copies the skill into every detected agent. Flags: `--list`, `--hermes`, `--claude`, `--project`, `--force`. The skill is versioned with this package — after upgrading, re-run with `--force`.
 
 ## Custom theme
 

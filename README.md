@@ -793,6 +793,44 @@ Open [http://localhost:6007/](http://localhost:6007/) to view docs.
 pnpm build
 ```
 
+> **Warning (AI agents):** `pnpm build` in `packages/components` runs one tsup
+> process over ~200 entries and can hang memory-constrained machines. Use the
+> batched build instead — see
+> [`skills/paalstack-react-ui/SKILL.md`](./skills/paalstack-react-ui/SKILL.md).
+
+### Batched Build (memory-safe, recommended for CI and laptops)
+
+```bash
+# From the repo root:
+bash packages/components/build-batched.sh            # full batched build
+bash packages/components/build-batched.sh --resume   # resume interrupted run
+
+# Or via the package script:
+pnpm --filter @paalstack/react-components build:batched
+```
+
+Splits ~200 entries into batches of 30 — one fresh tsup process per batch, a
+final DTS pass, resumable via stamps. Takes ~25 minutes; never poll in a
+tight loop.
+
+### AI Agent Skill
+
+This repo ships an installable agent skill under
+[`skills/paalstack-react-ui/`](./skills/paalstack-react-ui/) — package
+knowledge, the two-API convention (props API vs composition API), the
+batched build procedure, and an every-component inventory.
+
+The skill **ships inside the npm packages**. In any project that installs
+the library:
+
+```bash
+npx paalstack-skill
+```
+
+installs it into every detected agent (Hermes Agent, Claude Code, Cursor).
+See [`skills/paalstack-react-ui/README.md`](./skills/paalstack-react-ui/README.md)
+for flags and manual-install paths.
+
 ### Build Storybook
 
 ```bash
