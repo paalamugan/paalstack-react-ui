@@ -1,7 +1,7 @@
 {
   "name": "@paalstack/react-ui",
   "version": "1.2.3",
-  "description": "All-in-one React UI library — accessible components, layout primitives, hooks, icons, and providers styled with Tailwind CSS v4",
+  "description": "All-in-one React UI library \u2014 accessible components, layout primitives, hooks, icons, and providers styled with Tailwind CSS v4",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.cjs",
@@ -26,6 +26,7 @@
   "dependencies": {
     "@base-ui/react": "^1.4.1",
     "@hookform/resolvers": "^5.2.2",
+    "@shadcn/react": "^0.3.0",
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.15.2",
     "cheerio": "^1.1.2",
@@ -71,7 +72,9 @@
       "types": "./dist/lib/index.d.ts",
       "import": "./dist/lib/index.js",
       "require": "./dist/lib/index.cjs"
-    }
+    },
+    "./agent-skill": "./skills/paalstack-react-ui/SKILL.md",
+    "./agent-skill/*": "./skills/paalstack-react-ui/*"
   },
   "repository": {
     "type": "git",
@@ -84,8 +87,13 @@
   "license": "MIT",
   "files": [
     "dist",
+    "skills",
+    "bin",
     "tsconfig.json"
   ],
+  "bin": {
+    "paalstack-skill": "bin/paalstack-skill.cjs"
+  },
   "devDependencies": {
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1"

@@ -54,6 +54,7 @@
   "license": "MIT",
   "files": [
     "dist",
+    "skills",
     "tsconfig.json"
   ],
   "devDependencies": {

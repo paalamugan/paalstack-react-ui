@@ -276,6 +276,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.4.0(react-hook-form@7.76.1(react@18.3.1))
+      '@shadcn/react':
+        specifier: ^0.3.0
+        version: 0.3.0(@types/react@18.3.29)(react@18.3.1)
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -482,6 +485,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.4.0(react-hook-form@7.76.1(react@18.3.1))
+      '@shadcn/react':
+        specifier: ^0.3.0
+        version: 0.3.0(@types/react@18.3.29)(react@18.3.1)
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2888,6 +2894,17 @@ packages:
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
+
+  '@shadcn/react@0.3.0':
+    resolution: {integrity: sha512-iKN0NuYe850VDHlxEfvppFrpa7CMV3zArTHusXlaSmeFeQhohGbIqclv6WwPTs/44I8EkXQpcuRt6sXEVKkWqQ==}
+    peerDependencies:
+      '@types/react': '>=19'
+      react: '>=19'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
 
   '@sideway/address@4.1.5':
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
@@ -5769,7 +5786,7 @@ packages:
   git-raw-commits@2.0.11:
     resolution: {integrity: sha512-VnctFhw+xfj8Va1xtfEqCUD2XDrbAPSJx+hSrE5K7fGdjZruW7XV+QOrN7LF/RJyvspRiD2I0asWsxFp0ya26A==}
     engines: {node: '>=10'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   github-slugger@1.5.0:
@@ -9012,6 +9029,7 @@ packages:
   tsconfck@3.1.6:
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
     engines: {node: ^18 || >=20}
+    deprecated: unmaintained
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
@@ -12202,6 +12220,11 @@ snapshots:
     optional: true
 
   '@rtsao/scc@1.1.0': {}
+
+  '@shadcn/react@0.3.0(@types/react@18.3.29)(react@18.3.1)':
+    optionalDependencies:
+      '@types/react': 18.3.29
+      react: 18.3.1
 
   '@sideway/address@4.1.5':
     dependencies:
