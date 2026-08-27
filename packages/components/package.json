@@ -12,6 +12,8 @@
   },
   "scripts": {
     "build": "npm run type-check && npm run lint && npm run clean && npm run tsup",
+    "build:batched": "npm run type-check && npm run lint && bash build-batched.sh",
+    "build:batched:resume": "bash build-batched.sh --resume",
     "lint": "eslint ./src --ext ts,tsx --config ../../.eslintrc.cjs --report-unused-disable-directives --max-warnings 0 --cache",
     "lint:fix": "npm run lint -- --fix",
     "type-check": "tsc --noEmit",
@@ -19,13 +21,14 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx}\" --cache",
     "tsup": "tsup",
     "tsup:watch": "tsup --watch",
-    "prepublishOnly": "npm run tsup",
+    "prepublishOnly": "npm run build:batched",
     "clean": "rimraf dist",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
     "@hookform/resolvers": "^5.2.2",
+    "@shadcn/react": "^0.3.0",
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
