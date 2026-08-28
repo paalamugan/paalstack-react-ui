@@ -64,7 +64,6 @@ export const Default: Story = {
         new FormData(event.currentTarget).forEach((value, key) => {
           data[key] = value;
         });
-        // eslint-disable-next-line no-console
         console.log('Questionnaire submitted:', data);
       }}
     >
