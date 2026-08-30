@@ -18,6 +18,8 @@
     "build:ui": "pnpm --filter @paalstack/react-ui run tsup",
     "lint": "pnpm -r run lint",
     "lint:fix": "pnpm -r run lint:fix",
+    "lint:skills": "node scripts/sync-skills.mjs --check",
+    "skills:sync": "node scripts/sync-skills.mjs",
     "type-check": "pnpm -r run type-check",
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx}\" --cache",
