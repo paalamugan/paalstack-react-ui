@@ -1,5 +1,22 @@
 # @paalstack/react-ui
 
+## 1.4.1
+
+### Patch Changes
+
+- [#13](https://github.com/paalamugan/paalstack-react-ui/pull/13) [`7485b5e`](https://github.com/paalamugan/paalstack-react-ui/commit/7485b5e7b06f333793fd4db64bbac338e3ded958) Thanks [@paalamugan](https://github.com/paalamugan)! - Fix `paalstack-skill --force` silently installing nothing.
+
+  The CLI's `targets()` function only returned a target list when a target
+  flag (`--hermes`, `--claude`, `--project`, `--all`) was passed — `--force`
+  alone matched no branch and fell through to an empty array, printing
+  "Nothing installed." even though the user clearly meant "overwrite
+  everywhere."
+
+  A bare `--force` now installs into every detected dir (Hermes + Claude
+  Code user-scope, plus any auto-detected project-scope dirs). The other
+  target-scope flags are unchanged. Adds `packages/ui/bin/paalstack-skill.test.cjs`
+  to lock the behavior in.
+
 ## 1.4.0
 
 ### Minor Changes
