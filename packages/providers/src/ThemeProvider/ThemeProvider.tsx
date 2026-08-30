@@ -104,7 +104,39 @@ export const ThemeProvider = ({
   storageKey = 'paalstack-ui-theme',
   toasterProps,
 }: ThemeProviderProps) => {
-  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem(storageKey) as Theme) || defaultTheme);
+  // SSR-safe theme resolution.
+  //
+  // Theme persistence is a browser-only concern: `localStorage` is undefined on
+  // the server, and Next 16's server render pass calls function components to
+  // extract the initial HTML. Reading `localStorage` inside a `useState`
+  // initializer crashes the server pass with
+  // `Cannot read properties of undefined (reading 'getItem')`.
+  //
+  // Strategy:
+  //   - First render (server + first client render): use `defaultTheme` so the
+  //     markup is consistent on both sides (no hydration mismatch).
+  //   - On client mount, read the persisted value from `localStorage` and
+  //     update state. The `useEffect` covers the case where the user picked a
+  //     non-default theme in a previous session; the visual flash is at most
+  //     one paint, and the `data-theme` attribute is applied on the next
+  //     effect tick.
+  //
+  // This is also the long-term SSR fix documented in shadhil-crm's
+  // `next.config.ts` — once this ships, web can opt back into static
+  // rendering per page.
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(storageKey) as Theme | null;
+      if (stored && stored !== theme) {
+        setTheme(stored);
+      }
+    } catch {
+      // localStorage may throw in private-browsing / sandboxed iframes /
+      // strict cookie policies. Fall back to defaultTheme silently.
+    }
+  }, [storageKey, theme]);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -127,9 +159,15 @@ export const ThemeProvider = ({
     root.classList.add(theme);
   }, [theme]);
 
-  const setThemeHandler = (theme: Theme) => {
-    localStorage.setItem(storageKey, theme);
-    setTheme(theme);
+  const setThemeHandler = (next: Theme) => {
+    try {
+      window.localStorage.setItem(storageKey, next);
+    } catch {
+      // localStorage may throw in private-browsing / sandboxed iframes /
+      // strict cookie policies. The in-memory theme still updates; persistence
+      // is best-effort.
+    }
+    setTheme(next);
   };
 
   const value = {
