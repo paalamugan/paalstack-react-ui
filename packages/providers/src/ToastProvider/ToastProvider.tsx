@@ -1,6 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import type { ToasterProps } from './Toast';
 
+import { cn } from '@/shared/lib';
+
 import { Toaster } from './Toast';
 
 export interface ToastProviderProps extends ToasterProps {
@@ -99,10 +101,19 @@ export interface ToastProviderProps extends ToasterProps {
  * @tip Close button included by default
  * @tip Supports promise-based toasts for async operations
  */
-export const ToastProvider: FC<ToastProviderProps> = ({ children, ...props }) => {
+export const ToastProvider: FC<ToastProviderProps> = ({ children, toastOptions, ...props }) => {
   return (
     <>
-      <Toaster richColors closeButton position="top-right" {...props} />
+      <Toaster
+        richColors
+        closeButton
+        position="top-right"
+        toastOptions={{
+          ...toastOptions,
+          className: cn(toastOptions?.className, 'font-sans'),
+        }}
+        {...props}
+      />
       {children}
     </>
   );

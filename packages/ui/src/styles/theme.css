@@ -4,20 +4,47 @@
    does not use the "style" package.json export condition, so @import "shadcn/tailwind.css"
    resolves to nothing and these are never registered from that import. */
 @custom-variant data-open {
-  &:where([data-state="open"]),
-  &:where([data-open]:not([data-open="false"])) {
+  &:where([data-state='open']),
+  &:where([data-open]:not([data-open='false'])) {
     @slot;
   }
 }
 
 @custom-variant data-closed {
-  &:where([data-state="closed"]),
-  &:where([data-closed]:not([data-closed="false"])) {
+  &:where([data-state='closed']),
+  &:where([data-closed]:not([data-closed='false'])) {
     @slot;
   }
 }
 
-@theme {
+/* Base UI animation lifecycle variants. Base UI sets `data-starting-style` and
+   `data-ending-style` on popups during their open/close transitions, and the
+   library's Sheet, Accordion, and NavigationMenu use Tailwind variants like
+   `data-starting-style:opacity-0` to drive entry/exit animations. Without
+   these custom variants defined, Tailwind silently drops the classes at
+   build time, leaving the components un-animated (not broken — just no
+   fade/slide). */
+@custom-variant data-starting-style {
+  &:where([data-starting-style]) {
+    @slot;
+  }
+}
+
+@custom-variant data-ending-style {
+  &:where([data-ending-style]) {
+    @slot;
+  }
+}
+
+/* `data-[side=...]` is built into Tailwind v4 (data-attr variant) — but
+   `data-side` (Base UI's convention for Sheet) needs an explicit alias. */
+@custom-variant data-side {
+  &:where([data-side]) {
+    @slot;
+  }
+}
+
+@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -85,10 +112,13 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Custom font */
-  --font-sans: var(--custom-font-sans);
-  --font-mono: var(--custom-font-mono);
-  --font-serif: var(--custom-font-serif);
+  /* Custom font — Inter is the default brand font for this library's
+     components. Consumers using a different font can override in their own globals.css or wire `--font-sans` directly to their
+     next/font variable (e.g. `--font-ibm-plex-sans`). Falls back to a
+     sensible system stack if the consumer doesn't define either. */
+  --font-sans: var(--font-inter, ui-sans-serif, system-ui, sans-serif);
+  --font-mono: 'ui-monospace', 'SFMono-Regular', monospace;
+  --font-serif: 'ui-serif', 'Georgia', serif;
 
   /* Custom radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -96,15 +126,17 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Custom shadow */
-  --shadow-2xs: var(--custom-shadow-2xs);
-  --shadow-xs: var(--custom-shadow-xs);
-  --shadow-sm: var(--custom-shadow-sm);
-  --shadow: var(--custom-shadow);
-  --shadow-md: var(--custom-shadow-md);
-  --shadow-lg: var(--custom-shadow-lg);
-  --shadow-xl: var(--custom-shadow-xl);
-  --shadow-2xl: var(--custom-shadow-2xl);
+  /* Custom shadow — no indirection; consumers can override these CSS
+     variables in their own tokens.css if they want a custom shadow
+     scale. The shadcn default below matches Tailwind v4's defaults. */
+  --shadow-2xs: 0 1px 1px rgb(0 0 0 / 0.025);
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.035);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.09), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.12);
 
   /* Custom spacing */
   --spacing: 0.25rem;

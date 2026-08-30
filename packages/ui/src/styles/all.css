@@ -1,0 +1,72 @@
+/**
+ * @paalstack/react-ui — all.css
+ *
+ * The complete PaalStack shadcn setup, consolidated into a single drop-in
+ * import. Equivalent to importing the four component parts in order:
+ *
+ *   @import '@paalstack/react-ui/base.css';       (shadcn tokens + house rules)
+ *   @import '@paalstack/react-ui/utilities.css'; (custom Tailwind utilities + keyframes)
+ *   @import '@paalstack/react-ui/toast.css';     (sonner toast close-button positioning)
+ *   @import '@paalstack/react-ui/theme.css';     (@custom-variant dark + data-state variants + @theme inline mapping)
+ *
+ * Use this in your consumer's globals.css when you want the complete
+ * library setup with a single import:
+ *
+ *   @import '@paalstack/react-ui/all.css';
+ *
+ * Layer order in the consumer's globals.css (matters for cascade):
+ *   1. @import '@paalstack/react-ui/all.css'    — this file (tokens + utilities + toast + theme mapping)
+ *   2. @import './brand.css'                     — per-project overrides
+ *   3. @import 'tailwindcss'                     — engine
+ *   4. @theme inline { ... } (only if you need to ADD mappings beyond what
+ *      theme.css provides — see the migration note below)
+ *   5. @source '...node_modules/@paalstack/react-ui' — Tailwind scan path
+ *
+ * Why four files combined:
+ *
+ * - base.css       — :root / .dark / extended semantic tokens (info, success,
+ *                    warning, danger, destructive, chart-1..5), button-cursor,
+ *                    autofill fix, * { border-border }. The library's token
+ *                    contract.
+ * - utilities.css  — Custom Tailwind utilities the library's components use:
+ *                    `ps-step`, `animate-caret-blink`, `native` (checkbox/radio
+ *                    checkmark), accordion-down/up keyframes. Without these,
+ *                    components that use them silently render broken.
+ * - toast.css      — Sonner toast close-button positioning + RTL/LTR offsets
+ *                    for the headless toast variant. Required for the library's
+ *                    `toast.*` API.
+ * - theme.css      — `@custom-variant dark (&:is(.dark *))` + the 5 Base UI
+ *                    data-state variants (data-open / data-closed /
+ *                    data-starting-style / data-ending-style / data-side) +
+ *                    the `@theme inline` block that maps semantic tokens
+ *                    (`--primary`, `--background`, etc.) to Tailwind utility
+ *                    classes (`bg-primary`, `text-foreground`, etc.) +
+ *                    `@font-*`, `@radius-*`, `@shadow-*`, `@spacing-*`,
+ *                    `@breakpoint-*`. Including this in all.css means the
+ *                    consumer doesn't have to rewrite the full shadcn theme
+ *                    block in their globals.css — they only need to add
+ *                    `@theme inline { ... }` if they want to ADD mappings
+ *                    beyond what the library provides.
+ *
+ * Migration from a manual @theme inline block:
+ *
+ * If your consumer previously declared `@theme inline { --color-X: var(--X) ... }`
+ * in globals.css, you can DELETE most of it. The library's theme.css already
+ * declares all the standard shadcn mappings. Only keep consumer-local additions
+ * (e.g. project-specific tokens that aren't part of the shadcn contract).
+ *
+ * The `@custom-variant dark` declaration is now owned by the library — remove
+ * the duplicate from your consumer's globals.css.
+ *
+ * Backward compatibility:
+ *
+ * base.css, utilities.css, toast.css, theme.css, fonts.css, styles.css,
+ * styles-scoped.css are all still exported as separate files. This
+ * `all.css` is purely additive — new consumers can opt in, old consumers
+ * that imported the four files individually continue to work unchanged.
+ */
+
+@import './base.css';
+@import './theme.css';
+@import './utilities.css';
+@import './toast.css';

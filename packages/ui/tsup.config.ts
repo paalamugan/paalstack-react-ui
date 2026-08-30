@@ -37,7 +37,15 @@ export default defineConfig(() => {
     dts: true,
     async onSuccess() {
       console.log('Build succeeded!');
-      await Promise.all([fse.copy('src/styles/theme.css', 'dist/theme.css'), buildScopedCss()]);
+      await Promise.all([
+        fse.copy('src/styles/theme.css', 'dist/theme.css'),
+        fse.copy('src/styles/base.css', 'dist/base.css'),
+        fse.copy('src/styles/utilities.css', 'dist/utilities.css'),
+        fse.copy('src/styles/toast.css', 'dist/toast.css'),
+        fse.copy('src/styles/fonts.css', 'dist/fonts.css'),
+        fse.copy('src/styles/all.css', 'dist/all.css'),
+        buildScopedCss(),
+      ]);
     },
     shims: true,
   };
