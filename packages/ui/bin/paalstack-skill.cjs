@@ -88,7 +88,11 @@ function targets() {
   if (flags.has('--hermes')) return [{ name: 'Hermes Agent', dir: HERMES_DIR }];
   if (flags.has('--claude')) return [{ name: 'Claude Code (user)', dir: CLAUDE_DIR }];
   if (flags.has('--project')) return PROJECT_TARGETS.map((d) => ({ name: d, dir: d }));
-  if (flags.has('--all') || args.length === 0) {
+  // `--force` is a modifier, not a target. Pairing it with `--all` (or no
+  // flag) is the documented "overwrite everywhere" invocation. Treat a bare
+  // `--force` as `--all --force` instead of silently installing nothing.
+  const isAll = flags.has('--all') || args.length === 0 || flags.has('--force');
+  if (isAll) {
     const found = [{ name: 'Hermes Agent', dir: HERMES_DIR }, { name: 'Claude Code (user)', dir: CLAUDE_DIR }];
     // Auto-detect project-scoped dirs only if they already exist
     for (const d of PROJECT_TARGETS) {
