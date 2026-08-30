@@ -45,8 +45,7 @@ export default defineConfig({
 **3. Set up global styles (`src/index.css`)**
 
 ```css
-@import '@paalstack/react-ui/styles.css';
-@import '@paalstack/react-ui/theme.css';
+@import '@paalstack/react-ui/all.css';
 @import 'tailwindcss';
 @source '../node_modules/@paalstack/react-ui';
 
@@ -56,6 +55,11 @@ export default defineConfig({
   }
 }
 ```
+
+> **Granular imports:** Replace `@import '@paalstack/react-ui/all.css';` with the individual
+> subpaths (`@paalstack/react-ui/styles.css` + `theme.css`, or `base.css` + `theme.css` +
+> `utilities.css` + `toast.css` + `fonts.css`) when you need fine-grained cascade control. See
+> the **Exports** section below for the full subpath list.
 
 **4. Wrap your app**
 
@@ -97,8 +101,7 @@ export default { plugins: { '@tailwindcss/postcss': {} } };
 **3. Set up global styles (`app/globals.css`)**
 
 ```css
-@import '@paalstack/react-ui/styles.css';
-@import '@paalstack/react-ui/theme.css';
+@import '@paalstack/react-ui/all.css';
 @import 'tailwindcss';
 @source '../../node_modules/@paalstack/react-ui';
 
@@ -108,6 +111,11 @@ export default { plugins: { '@tailwindcss/postcss': {} } };
   }
 }
 ```
+
+> **Granular imports:** Replace `@import '@paalstack/react-ui/all.css';` with the individual
+> subpaths (`@paalstack/react-ui/styles.css` + `theme.css`, or `base.css` + `theme.css` +
+> `utilities.css` + `toast.css` + `fonts.css`) when you need fine-grained cascade control. See
+> the **Exports** section below for the full subpath list.
 
 **4. Wrap your layout**
 
@@ -190,18 +198,47 @@ Install these separately for standalone usage:
 
 ## Exports
 
-| Sub-path              | Description                                       |
-| --------------------- | ------------------------------------------------- |
-| `.`                   | All components, providers, layouts, and utilities |
-| `./lib`               | Utility functions (cn, dateIntl, httpClient, …)   |
-| `./styles.css`        | Base styles and CSS variable definitions          |
-| `./styles-scoped.css` | Scoped styles for embedding inside existing apps  |
-| `./theme.css`         | Default light/dark theme CSS variables            |
-| `./agent-skill`       | AI agent skill (SKILL.md) for this library        |
+| Sub-path              | Description                                                |
+| --------------------- | ---------------------------------------------------------- |
+| `.`                   | All components, providers, layouts, hooks, icons, and utilities |
+| `./lib`               | Utility functions (cn, dateIntl, httpClient, …)            |
+| `./styles.css`        | Alias of `./index.css` — base styles and CSS variable definitions |
+| `./styles-scoped.css` | Scoped styles for embedding inside existing apps           |
+| `./theme.css`         | Default light/dark theme CSS variables                     |
+| `./base.css`          | CSS variable tokens + reset (no Tailwind utilities, no theme) |
+| `./utilities.css`     | Tailwind utility classes the library components depend on  |
+| `./toast.css`         | Sonner / toast animation + positioning rules               |
+| `./fonts.css`         | Self-hosted font files (Inter family) + @font-face blocks   |
+| `./all.css`           | **Single-import convenience** — bundles `base.css` + `theme.css` + `utilities.css` + `toast.css` + `fonts.css` in one file. Use this when you don't need fine-grained cascade control. |
+| `./agent-skill`       | AI agent skill (SKILL.md) for this library                 |
+| `./agent-skill/*`     | All files in the bundled skill (references/, scripts/)     |
+
+### Choosing the right CSS subpath
+
+Most apps want this:
+
+```css
+@import '@paalstack/react-ui/all.css';   /* one import, full library */
+@import 'tailwindcss';
+```
+
+If you need fine-grained control over cascade order (e.g. you want your own `@layer base`
+rules to override the library), import the pieces individually:
+
+```css
+@import '@paalstack/react-ui/base.css';      /* tokens + reset */
+@import '@paalstack/react-ui/theme.css';     /* light/dark vars */
+@import '@paalstack/react-ui/utilities.css'; /* library utilities */
+@import '@paalstack/react-ui/toast.css';     /* toast rules */
+@import '@paalstack/react-ui/fonts.css';     /* font @font-face blocks */
+@import 'tailwindcss';
+```
 
 ### Scoped styles
 
-Use `styles-scoped.css` instead of `styles.css` when embedding inside an existing app to prevent Tailwind utilities from leaking outside your component tree.
+Use `styles-scoped.css` instead of `all.css` when embedding inside an existing app to prevent
+Tailwind utilities from leaking outside your component tree (all utilities are wrapped under
+a `.app` selector).
 
 ## AI agent skill
 
@@ -220,8 +257,7 @@ It copies the skill into every detected agent. Flags: `--list`, `--hermes`, `--c
 Override any CSS variable in your global stylesheet after the imports:
 
 ```css
-@import '@paalstack/react-ui/styles.css';
-@import '@paalstack/react-ui/theme.css';
+@import '@paalstack/react-ui/all.css';
 @import 'tailwindcss';
 
 @layer base {
@@ -229,6 +265,9 @@ Override any CSS variable in your global stylesheet after the imports:
     --primary: oklch(55% 0.2 250);
     --primary-foreground: oklch(98% 0 0);
     --radius: 0.5rem;
+
+    /* Override the shadow scale (--shadow-2xs ... --shadow-2xl) */
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
   }
   .dark {
     --primary: oklch(65% 0.2 250);
@@ -236,6 +275,11 @@ Override any CSS variable in your global stylesheet after the imports:
   }
 }
 ```
+
+The library ships a refined shadow scale (lower opacities at the small end for hairline
+borders, proper two-layer ramps from `sm` upward, less muddy `2xl` on dark backgrounds).
+Override individual `--shadow-*` tokens — or the whole scale — by re-declaring them in your
+`@layer base { :root { … } }` block above.
 
 ## Requirements
 

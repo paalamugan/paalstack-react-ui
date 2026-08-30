@@ -79,7 +79,15 @@ Replace the contents of `src/index.css`:
 }
 ```
 
-> **Scoped styles (optional):** If you are embedding this UI inside an existing app and need Tailwind utilities to only apply inside a specific element, see [Scoped Styles](#scoped-styles) below.
+> **Single-import shortcut:** Replace the two `@import '@paalstack/react-ui/styles.css'` and
+> `theme.css` lines with `@import '@paalstack/react-ui/all.css';` — it bundles tokens, base,
+> utilities, toast rules, fonts, and the light/dark theme into one import. Use the individual
+> subpaths (`base.css`, `utilities.css`, `toast.css`, `fonts.css`, `theme.css`) when you want
+> fine-grained control over cascade order.
+
+> **Scoped styles (optional):** If you are embedding this UI inside an existing app and need
+> Tailwind utilities to only apply inside a specific element, see [Scoped Styles](#scoped-styles)
+> below.
 
 ### 5. Wrap your app with ThemeProvider
 
@@ -210,6 +218,10 @@ Replace the contents of `app/globals.css`:
 >
 > - `app/globals.css` → `../../node_modules/@paalstack/react-ui`
 > - `src/app/globals.css` → `../../../node_modules/@paalstack/react-ui`
+
+> **Single-import shortcut:** Replace the two `@import '@paalstack/react-ui/styles.css'` and
+> `theme.css` lines with `@import '@paalstack/react-ui/all.css';` — it bundles tokens, base,
+> utilities, toast rules, fonts, and the light/dark theme into one import.
 
 > **Scoped styles (optional):** If you are embedding this UI inside an existing app and need Tailwind utilities to only apply inside a specific element, see [Scoped Styles](#scoped-styles) below.
 
@@ -800,18 +812,24 @@ pnpm build
 
 ### Batched Build (memory-safe, recommended for CI and laptops)
 
+`@paalstack/react-components` has ~200 entries; `packages/ui` is smaller (2 entries) but its
+DTS pass traverses the full re-export graph (components, layouts, providers, hooks, icons,
+shared) and can spike memory past 2GB. Both packages ship a batched build that splits JS into
+per-batch tsup processes (memory freed between batches) and isolates the heavy DTS pass.
+
 ```bash
-# From the repo root:
+# @paalstack/react-components (largest — ~200 entries, ~25 min)
 bash packages/components/build-batched.sh            # full batched build
 bash packages/components/build-batched.sh --resume   # resume interrupted run
-
-# Or via the package script:
 pnpm --filter @paalstack/react-components build:batched
+
+# @paalstack/react-ui (umbrella — 2 TS entries, but full-graph DTS)
+bash packages/ui/build-batched.sh                    # full batched build
+bash packages/ui/build-batched.sh --resume           # resume interrupted run
+pnpm --filter @paalstack/react-ui build:batched
 ```
 
-Splits ~200 entries into batches of 30 — one fresh tsup process per batch, a
-final DTS pass, resumable via stamps. Takes ~25 minutes; never poll in a
-tight loop.
+Resumable via stamp files under `node_modules/.cache/tsup-batches/`. Never poll in a tight loop.
 
 ### AI Agent Skill
 

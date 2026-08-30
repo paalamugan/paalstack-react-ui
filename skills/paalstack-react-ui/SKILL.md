@@ -40,9 +40,9 @@ that imports the library, adding components to it, or building/publishing it.
 | packages/ui | `@paalstack/react-ui` | The all-in-one consumer bundle (components + layouts + providers + hooks + icons + styles). **Install this one.** |
 | packages/components | `@paalstack/react-components` | Components only (no styles). ui re-exports it. |
 | packages/layouts | — | Box, Stack, Text, Heading, Typography primitives |
-| packages/providers | — | ThemeProvider, NextThemeProvider, ToastProvider (sonner) |
+| packages/providers | — | ThemeProvider, NextThemeProvider, FormatIntlProvider, ToastProvider (sonner) |
 | packages/shared | — | `cn`, `Slot`, constants, types |
-| packages/hooks | — | 50+ hooks (useMediaQuery, useControllable, ...) |
+| packages/hooks | — | 73 hooks (useMediaQuery, useControllable, ...) |
 | packages/icons | — | react-icons re-exports (`@/icons/lu` = lucide via react-icons) |
 
 Stack: React 18+, Base UI primitives (`@base-ui/react/*`), Tailwind CSS v4,
@@ -58,8 +58,18 @@ pnpm add @paalstack/react-ui
 
 ```tsx
 // styles (pick ONE):
-import '@paalstack/react-ui/styles.css';        // global utilities
+import '@paalstack/react-ui/all.css';               // single-import: tokens + theme + utilities + toast + fonts
+// import '@paalstack/react-ui/styles.css';        // legacy: compiled bundle of everything (avoid on Next.js / Turbopack)
 // import '@paalstack/react-ui/styles-scoped.css'; // utilities scoped under .app
+```
+
+For fine-grained cascade control, import the pieces individually:
+
+```css
+@import '@paalstack/react-ui/base.css';      /* token contract + house rules */
+@import '@paalstack/react-ui/utilities.css'; /* custom Tailwind utilities + keyframes */
+@import '@paalstack/react-ui/toast.css';     /* sonner toast positioning */
+@import '@paalstack/react-ui/theme.css';     /* @custom-variant dark + @theme inline */
 ```
 
 ```tsx
@@ -118,18 +128,29 @@ and hangs the machine. Use the batched build:
 
 ```bash
 cd <repo-root>
+
+# @paalstack/react-components (the heavy one — ~200 entries)
 bash packages/components/build-batched.sh            # full batched build
 bash packages/components/build-batched.sh --resume   # resume interrupted run
 # or: pnpm --filter @paalstack/react-components build:batched
+
+# @paalstack/react-ui (2 entries, but full-graph DTS pass)
+bash packages/ui/build-batched.sh                    # full batched build
+bash packages/ui/build-batched.sh --resume           # resume interrupted run
+# or: pnpm --filter @paalstack/react-ui build:batched
 ```
 
 - 199 entries → 7 batches of 30, one fresh tsup process per batch, then one
   DTS pass. Resumable via stamps in node_modules/.cache/tsup-batches.
 - Takes ~25 min total. Run it in the background (terminal background=true);
   never poll in a tight loop.
-- Batch logs: /tmp/tsup-batch-N.log; DTS log: /tmp/tsup-dts.log.
-- packages/ui builds fine normally (4 source files + CSS) but its DTS pass
-  takes ~20 min because it type-checks the whole component graph.
+- Batch logs: /tmp/tsup-batch-N.log (components) or /tmp/tsup-ui-batch-N.log (ui);
+  DTS logs: /tmp/tsup-dts.log or /tmp/tsup-ui-dts.log.
+- packages/ui builds fine normally (2 source files + CSS) but its DTS pass
+  takes ~20 min because it type-checks the whole component graph. Its batch
+  script also replicates the main `tsup.config.ts`'s CSS `onSuccess()` step
+  at the end (copies `theme.css`, `base.css`, `utilities.css`, `toast.css`,
+  `fonts.css`, `all.css` + PostCSS-builds `index.app.css` + copies `fonts/`).
 
 Type-check only (no bundle): `npx tsc --noEmit -p packages/components/tsconfig.json`
 (~10 min — background it too).

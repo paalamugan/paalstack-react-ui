@@ -55,9 +55,8 @@ export default defineConfig({
 Replace the contents of `src/index.css`:
 
 ```css
-/* 1. Library base styles (CSS variables, reset) */
-@import '@paalstack/react-ui/styles.css';
-@import '@paalstack/react-ui/theme.css';
+/* 1. Library styles (tokens, reset, theme, utilities, fonts, toast) */
+@import '@paalstack/react-ui/all.css';
 
 /* 2. Tailwind CSS v4 */
 @import 'tailwindcss';
@@ -71,6 +70,10 @@ Replace the contents of `src/index.css`:
   }
 }
 ```
+
+> **Single-import shortcut:** `@import '@paalstack/react-ui/all.css';` bundles `base.css` +
+> `theme.css` + `utilities.css` + `toast.css` + `fonts.css` into one file. Replace it with the
+> individual subpaths when you need fine-grained cascade control.
 
 > **Scoped styles (optional):** If you are embedding this UI inside an existing app and need Tailwind utilities to only apply inside a specific element, see [Scoped Styles](#scoped-styles) below.
 
@@ -175,9 +178,8 @@ export default config;
 Replace the contents of `app/globals.css`:
 
 ```css
-/* 1. Library base styles (CSS variables, reset) */
-@import '@paalstack/react-ui/styles.css';
-@import '@paalstack/react-ui/theme.css';
+/* 1. Library styles (tokens, reset, theme, utilities, fonts, toast) */
+@import '@paalstack/react-ui/all.css';
 
 /* 2. Tailwind CSS v4 */
 @import 'tailwindcss';
@@ -320,8 +322,7 @@ export function DemoCard() {
 Add your own CSS variables inside `globals.css` (or `index.css`) after the imports:
 
 ```css
-@import '@paalstack/react-ui/styles.css';
-@import '@paalstack/react-ui/theme.css';
+@import '@paalstack/react-ui/all.css';
 @import 'tailwindcss';
 @source '../node_modules/@paalstack/react-ui';
 
@@ -330,6 +331,9 @@ Add your own CSS variables inside `globals.css` (or `index.css`) after the impor
     --primary: oklch(55% 0.2 250);
     --primary-foreground: oklch(98% 0 0);
     --radius: 0.5rem;
+
+    /* Override individual --shadow-* tokens (or the whole scale) */
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
   }
   .dark {
     --primary: oklch(65% 0.2 250);
