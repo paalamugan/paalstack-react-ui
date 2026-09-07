@@ -1,5 +1,16 @@
 # @paalstack/react-components
 
+## 1.3.1
+
+### Patch Changes
+
+- [`13d7bc3`](https://github.com/paalamugan/paalstack-react-ui/commit/13d7bc3d6cffcb8b44f5dfa7802bce4a923ed42a) Thanks [@paalamugan](https://github.com/paalamugan)! - fix(components): make CommandItem check icon opt-in and tidy DataTable/Typography styles
+  - CommandItem: add `showCheckIcon` prop (default false) and only render the check icon when enabled
+  - DataTable: suppress hover background on the empty-results row
+  - DataTableFacetedFilter: replace arbitrary `w-[200px]` with `w-50`
+  - DataTableRowActions: add configurable `ariaLabel` for the trigger button and screen-reader text; replace `w-[160px]` with `w-40`
+  - TypographyP: remove `not-first:mt-6` top margin
+
 ## 1.3.0
 
 ### Minor Changes
