@@ -276,7 +276,7 @@ TypographyH6.displayName = 'TypographyH6';
  * @tip Use with other typography components
  */
 export const TypographyP: ComponentWithAs<'p', BoxProps> = forwardRef<BoxProps, 'p'>(({ className, ...props }, ref) => (
-  <Box as="p" ref={ref} className={cn('leading-7 not-first:mt-6', className)} data-qa="p" {...props} />
+  <Box as="p" ref={ref} className={cn('leading-7', className)} data-qa="p" {...props} />
 ));
 TypographyP.displayName = 'TypographyP';
 

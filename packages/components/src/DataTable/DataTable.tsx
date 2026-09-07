@@ -760,7 +760,11 @@ export const DataTable = <TRow, TValue>({
                 </TableRow>
               ))
             ) : (
-              <TableRow data-qa="data-table-no-results" {...emptyContentTableRowProps}>
+              <TableRow
+                data-qa="data-table-no-results"
+                {...emptyContentTableRowProps}
+                className={cn('hover:bg-transparent', emptyContentTableRowProps?.className)}
+              >
                 <TableCell
                   colSpan={columns.length}
                   data-qa="data-table-no-results-cell"

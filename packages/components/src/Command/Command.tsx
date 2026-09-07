@@ -122,7 +122,10 @@ const CommandLoading = ({ ...props }: React.ComponentProps<typeof CommandPrimiti
 );
 CommandLoading.displayName = 'CommandLoading';
 
-const CommandItem = ({ className, children, ...props }: React.ComponentProps<typeof CommandPrimitive.Item>) => (
+export interface CommandItemProps extends React.ComponentProps<typeof CommandPrimitive.Item> {
+  showCheckIcon?: boolean;
+}
+const CommandItem = ({ className, children, showCheckIcon = false, ...props }: CommandItemProps) => (
   <CommandPrimitive.Item
     data-slot="command-item"
     data-qa="command-item"
@@ -133,7 +136,9 @@ const CommandItem = ({ className, children, ...props }: React.ComponentProps<typ
     {...props}
   >
     {children}
-    <CheckIcon className="ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
+    {showCheckIcon && (
+      <CheckIcon className="ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
+    )}
   </CommandPrimitive.Item>
 );
 CommandItem.displayName = 'CommandItem';

@@ -24,9 +24,21 @@ interface DataTableRowActionsProps<TData> {
   row: DataTableRow<TData>;
   rowSchema: z.AnyZodObject;
   actionItems: DataTableActionItem[];
+  /**
+   * Accessible label for the trigger button. Defaults to "Open menu".
+   * Pass a per-row label (e.g. `Actions for ${row.original.name}`) so
+   * screen-reader users can distinguish rows - the generic default is
+   * ambiguous in a table of many rows.
+   */
+  ariaLabel?: string;
 }
 
-export const DataTableRowActions = <TData,>({ row, rowSchema, actionItems }: DataTableRowActionsProps<TData>) => {
+export const DataTableRowActions = <TData,>({
+  row,
+  rowSchema,
+  actionItems,
+  ariaLabel = 'Open menu',
+}: DataTableRowActionsProps<TData>) => {
   const rowData = rowSchema.parse(row.original);
 
   return (
@@ -37,13 +49,14 @@ export const DataTableRowActions = <TData,>({ row, rowSchema, actionItems }: Dat
             variant="ghost"
             className="flex size-8 p-0 data-[popup-open]:bg-muted"
             data-qa="data-table-row-actions-button"
+            aria-label={ariaLabel}
           >
             <DotsHorizontalIcon className="size-4" data-qa="data-table-row-actions-icon" />
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">{ariaLabel}</span>
           </Button>
         }
       />
-      <DropdownMenuContent align="end" className="w-[160px]" data-qa="data-table-row-actions-content">
+      <DropdownMenuContent align="end" className="w-40" data-qa="data-table-row-actions-content">
         {actionItems.map((actionItem) => (
           <Fragment key={actionItem.label}>
             {!actionItem.subLabels?.length ? (
