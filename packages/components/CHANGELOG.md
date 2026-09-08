@@ -1,5 +1,11 @@
 # @paalstack/react-components
 
+## 1.5.0
+
+### Minor Changes
+
+- [`99062d0`](https://github.com/paalamugan/paalstack-react-ui/commit/99062d09e5aae2bd6257c24a69018a98a95590a6) Thanks [@paalamugan](https://github.com/paalamugan)! - Add `DataTableColumnHeaderToggle` — a one-click sortable column header (no dropdown). Clicking the header button directly toggles the sort direction; the icon updates on every click (CaretSort → ArrowUp → ArrowDown). Ideal for server-side sorting where the sort state is forwarded to the API via `onSortingChange`.
+
 ## 1.4.1
 
 ### Patch Changes
