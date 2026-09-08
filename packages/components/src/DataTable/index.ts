@@ -1,5 +1,6 @@
 export * from './DataTable';
 export * from './DataTableColumnHeader';
+export * from './DataTableColumnHeaderToggle';
 export * from './DataTableFacetedFilter';
 export * from './DataTablePagination';
 export * from './DataTableRowActions';
