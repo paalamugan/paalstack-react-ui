@@ -1,17 +1,12 @@
 import type { Column } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
 
-import {
-  RxArrowDown as ArrowDownIcon,
-  RxArrowUp as ArrowUpIcon,
-  RxCaretSort as CaretSortIcon,
-} from '@/icons/rx';
+import { RxArrowDown as ArrowDownIcon, RxArrowUp as ArrowUpIcon, RxCaretSort as CaretSortIcon } from '@/icons/rx';
 import { cn } from '@/shared/lib';
 
 import { Button } from '../Button';
 
-interface DataTableColumnHeaderToggleProps<TData, TValue>
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+interface DataTableColumnHeaderToggleProps<TData, TValue> extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   column: Column<TData, TValue>;
   title: ReactNode;
 }
@@ -39,10 +34,7 @@ export const DataTableColumnHeaderToggle = <TData, TValue>({
   }
 
   return (
-    <div
-      className={cn('flex items-center space-x-2', className)}
-      data-qa="data-table-column-header-toggle"
-    >
+    <div className={cn('flex items-center space-x-2', className)} data-qa="data-table-column-header-toggle">
       <Button
         variant="ghost"
         size="sm"
@@ -53,20 +45,11 @@ export const DataTableColumnHeaderToggle = <TData, TValue>({
       >
         <span data-qa="data-table-column-header-title">{title}</span>
         {column.getIsSorted() === 'desc' ? (
-          <ArrowDownIcon
-            className="ml-2 size-4"
-            data-qa="data-table-column-header-desc-icon"
-          />
+          <ArrowDownIcon className="ml-2 size-4" data-qa="data-table-column-header-desc-icon" />
         ) : column.getIsSorted() === 'asc' ? (
-          <ArrowUpIcon
-            className="ml-2 size-4"
-            data-qa="data-table-column-header-asc-icon"
-          />
+          <ArrowUpIcon className="ml-2 size-4" data-qa="data-table-column-header-asc-icon" />
         ) : (
-          <CaretSortIcon
-            className="ml-2 size-4"
-            data-qa="data-table-column-header-sort-icon"
-          />
+          <CaretSortIcon className="ml-2 size-4" data-qa="data-table-column-header-sort-icon" />
         )}
       </Button>
     </div>

@@ -400,53 +400,37 @@ export const MultiSelect = React.forwardRef<React.ElementRef<'button'>, MultiSel
                       <Box className="flex flex-wrap items-center gap-2">
                         {(() => {
                           // Keep the VALUES (labelMapping is keyed by value).
-                          const visibleValues = selectedValues.filter(
-                            (item) => labelMapping[item],
-                          );
-                          const overflowCount = Math.max(
-                            visibleValues.length - maxSelectedBadges,
-                            0,
-                          );
+                          const visibleValues = selectedValues.filter((item) => labelMapping[item]);
+                          const overflowCount = Math.max(visibleValues.length - maxSelectedBadges, 0);
                           // Collapse to a "+N selected" summary badge when there
                           // are more selections than maxSelectedBadges.
                           const badgeValues =
-                            overflowCount > 0
-                              ? visibleValues.slice(0, maxSelectedBadges)
-                              : visibleValues;
-                          const renderItems = badgeValues.map(
-                            (item) => (
-                              <Badge
-                                variant="secondary"
-                                key={item}
-                                data-qa={`multi-select-badge-${item}`}
-                              >
-                                {labelMapping[item]}
-                                <span
-                                  className="rounded-full text-muted-foreground ring-offset-background outline-hidden hover:rounded-full hover:bg-muted-foreground/40 hover:text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                                  onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                      handleUnselect(item);
-                                      setOpen(false);
-                                    }
-                                  }}
-                                  onMouseDown={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                  }}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
+                            overflowCount > 0 ? visibleValues.slice(0, maxSelectedBadges) : visibleValues;
+                          const renderItems = badgeValues.map((item) => (
+                            <Badge variant="secondary" key={item} data-qa={`multi-select-badge-${item}`}>
+                              {labelMapping[item]}
+                              <span
+                                className="rounded-full text-muted-foreground ring-offset-background outline-hidden hover:rounded-full hover:bg-muted-foreground/40 hover:text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') {
                                     handleUnselect(item);
                                     setOpen(false);
-                                  }}
-                                >
-                                  <XMarkIcon
-                                    className="size-3"
-                                    data-qa={`multi-select-badge-close-${item}`}
-                                  />
-                                </span>
-                              </Badge>
-                            ),
-                          );
+                                  }
+                                }}
+                                onMouseDown={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleUnselect(item);
+                                  setOpen(false);
+                                }}
+                              >
+                                <XMarkIcon className="size-3" data-qa={`multi-select-badge-close-${item}`} />
+                              </span>
+                            </Badge>
+                          ));
                           // When collapsed, also render a non-removable
                           // summary badge for the hidden selections.
                           if (overflowCount > 0) {
