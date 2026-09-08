@@ -1,5 +1,29 @@
 # @paalstack/react-components
 
+## 1.4.1
+
+### Patch Changes
+
+- fix(MultiSelect): show selected badges when collapsed
+
+  The `maxSelectedBadges` collapse mapped selected values to labels and then
+  looked them up again by label, so the visible badges rendered empty (only
+  the "+N selected" overflow badge showed). Keep the values and look up the
+  label only for display, so the first N badges render alongside the
+  overflow badge.
+
+## 1.4.0
+
+### Minor Changes
+
+- feat(MultiSelect): collapse selected badges beyond a threshold
+
+  Add a `maxSelectedBadges` prop (default 3). When more than that many
+  options are selected, the trigger renders only the first N badges plus a
+  compact "+N selected" summary badge instead of overflowing with every
+  selection. Keeps the trigger from sprawling when many options are picked
+  (e.g. a status filter with 9+ states selected).
+
 ## 1.3.1
 
 ### Patch Changes

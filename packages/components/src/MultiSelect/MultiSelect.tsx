@@ -66,6 +66,15 @@ export interface MultiSelectProps extends Omit<PopoverModalContentProps, 'option
    */
   contentProps?: React.ComponentProps<typeof PopoverContent>;
   /**
+   * Maximum number of selected badges to render inside the trigger before
+   * collapsing the overflow into a "+N selected" summary badge. When
+   * `selectedValues.length > maxSelectedBadges`, only the first
+   * `maxSelectedBadges` badges are shown plus a compact summary badge so
+   * the trigger doesn't overflow when many options are selected.
+   * @default 3
+   */
+  maxSelectedBadges?: number;
+  /**
    * Whether the multiselect is inline
    */
   inline?: boolean;
@@ -295,6 +304,7 @@ export const MultiSelect = React.forwardRef<React.ElementRef<'button'>, MultiSel
       errorMessage,
       open: defaultOpen = false,
       onOpenChange,
+      maxSelectedBadges = 3,
       ...popoverModalContentProps
     },
     ref,
@@ -387,11 +397,29 @@ export const MultiSelect = React.forwardRef<React.ElementRef<'button'>, MultiSel
                     )}
                   >
                     {selectedValues.length ? (
-                      <Box className="flex flex-wrap gap-2">
-                        {selectedValues.map(
-                          (item) =>
-                            labelMapping[item] && (
-                              <Badge variant="secondary" key={item} data-qa={`multi-select-badge-${item}`}>
+                      <Box className="flex flex-wrap items-center gap-2">
+                        {(() => {
+                          // Keep the VALUES (labelMapping is keyed by value).
+                          const visibleValues = selectedValues.filter(
+                            (item) => labelMapping[item],
+                          );
+                          const overflowCount = Math.max(
+                            visibleValues.length - maxSelectedBadges,
+                            0,
+                          );
+                          // Collapse to a "+N selected" summary badge when there
+                          // are more selections than maxSelectedBadges.
+                          const badgeValues =
+                            overflowCount > 0
+                              ? visibleValues.slice(0, maxSelectedBadges)
+                              : visibleValues;
+                          const renderItems = badgeValues.map(
+                            (item) => (
+                              <Badge
+                                variant="secondary"
+                                key={item}
+                                data-qa={`multi-select-badge-${item}`}
+                              >
                                 {labelMapping[item]}
                                 <span
                                   className="rounded-full text-muted-foreground ring-offset-background outline-hidden hover:rounded-full hover:bg-muted-foreground/40 hover:text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -411,11 +439,29 @@ export const MultiSelect = React.forwardRef<React.ElementRef<'button'>, MultiSel
                                     setOpen(false);
                                   }}
                                 >
-                                  <XMarkIcon className="size-3" data-qa={`multi-select-badge-close-${item}`} />
+                                  <XMarkIcon
+                                    className="size-3"
+                                    data-qa={`multi-select-badge-close-${item}`}
+                                  />
                                 </span>
                               </Badge>
                             ),
-                        )}
+                          );
+                          // When collapsed, also render a non-removable
+                          // summary badge for the hidden selections.
+                          if (overflowCount > 0) {
+                            renderItems.push(
+                              <Badge
+                                variant="secondary"
+                                key="__multi-select-overflow"
+                                data-qa="multi-select-overflow-badge"
+                              >
+                                +{overflowCount} selected
+                              </Badge>,
+                            );
+                          }
+                          return renderItems;
+                        })()}
                       </Box>
                     ) : (
                       <Text className="text-sm font-normal" data-qa="multi-select-placeholder">
