@@ -64,10 +64,16 @@ export const DataTableRowActions = <TData,>({
                 onClick={(e) => actionItem.onClick?.(actionItem.value, e)}
                 data-qa="data-table-row-action-item"
               >
-                {actionItem.label}
                 {actionItem.icon && (
-                  <DropdownMenuShortcut data-qa="data-table-row-action-item-icon">
-                    {<actionItem.icon />}
+                  <actionItem.icon
+                    className="mr-2 size-4 text-muted-foreground"
+                    data-qa="data-table-row-action-item-icon"
+                  />
+                )}
+                {actionItem.label}
+                {actionItem.shortcut && (
+                  <DropdownMenuShortcut data-qa="data-table-row-action-item-shortcut">
+                    {actionItem.shortcut}
                   </DropdownMenuShortcut>
                 )}
               </DropdownMenuItem>

@@ -173,6 +173,18 @@ export interface DialogProps extends React.ComponentPropsWithoutRef<typeof Dialo
    */
   footer?: React.ReactNode;
   /**
+   * The props for the dialog title.
+   */
+  dialogTitleProps?: React.ComponentPropsWithoutRef<typeof DialogTitle>;
+  /**
+   * The props for the dialog description.
+   */
+  dialogDescriptionProps?: React.ComponentPropsWithoutRef<typeof DialogDescription>;
+  /**
+   * The props for the dialog trigger.
+   */
+  dialogTriggerProps?: React.ComponentPropsWithoutRef<typeof DialogTrigger>;
+  /**
    * The props for the dialog content.
    */
   dialogContentProps?: React.ComponentPropsWithoutRef<typeof DialogContent>;
@@ -280,6 +292,9 @@ const Dialog: React.FC<DialogProps> = ({
   header,
   contentClassName,
   footer,
+  dialogTitleProps,
+  dialogDescriptionProps,
+  dialogTriggerProps,
   dialogContentProps,
   dialogHeaderProps,
   dialogFooterProps,
@@ -296,6 +311,7 @@ const Dialog: React.FC<DialogProps> = ({
               'data-qa': 'dialog-trigger',
             } as React.HTMLAttributes<HTMLElement>,
           )}
+          {...dialogTriggerProps}
         />
       )}
       <DialogContent
@@ -305,8 +321,8 @@ const Dialog: React.FC<DialogProps> = ({
       >
         {header && (
           <DialogHeader {...dialogHeaderProps} className={cn(header.className, dialogHeaderProps?.className)}>
-            {header.title && <DialogTitle>{header.title}</DialogTitle>}
-            <DialogDescription>{header.description}</DialogDescription>
+            {header.title && <DialogTitle {...dialogTitleProps}>{header.title}</DialogTitle>}
+            <DialogDescription {...dialogDescriptionProps}>{header.description}</DialogDescription>
           </DialogHeader>
         )}
         {children}

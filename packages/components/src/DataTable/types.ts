@@ -20,6 +20,8 @@ export interface DataTableActionItem extends DataTableLabelOption {
   value: string;
   onClick?: (value: string, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   subLabels?: DataTableLabelOption[];
+  /** Optional shortcut hint rendered on the right side of the item (e.g. "⌘E"). */
+  shortcut?: ReactNode;
 }
 
 export interface DataTablePaginationOption {
