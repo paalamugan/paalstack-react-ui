@@ -1,5 +1,13 @@
 # @paalstack/react-ui
 
+## 1.6.2
+
+### Patch Changes
+
+- [`16beda1`](https://github.com/paalamugan/paalstack-react-ui/commit/16beda19a4c9b0832b5c59793f64480f7cc5533f) Thanks [@paalamugan](https://github.com/paalamugan)! - feat(components): add DataTable action shortcuts and Dialog element props
+  - DataTable: support optional `shortcut` in action items, render icons on the left and shortcut hints on the right
+  - Dialog: expose `dialogTitleProps`, `dialogDescriptionProps`, and `dialogTriggerProps` for customization
+
 ## 1.6.1
 
 ### Patch Changes
