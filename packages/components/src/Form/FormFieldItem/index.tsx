@@ -150,6 +150,7 @@ export const FormFieldItem = <TData extends FieldValues>({
     labelDescription,
     inline,
     formItemClassName,
+    formContainerClassName,
     formLabelClassName,
     hideErrorMessage,
     ...item
@@ -164,11 +165,15 @@ export const FormFieldItem = <TData extends FieldValues>({
         const isInvalid = fieldState.invalid;
         const isInlineType = inlineTypes.includes(item.type);
         return (
-          <div className={cn('flex flex-col gap-1', formItemClassName)} data-qa={`form-field-${item.name}`}>
+          <div className={cn('flex flex-col gap-1', formContainerClassName)} data-qa={`form-field-${item.name}`}>
             <div
-              className={cn('flex flex-col gap-2', {
-                'flex-row items-center': isInline,
-              })}
+              className={cn(
+                'flex flex-col gap-1',
+                {
+                  'flex-row items-center': isInline,
+                },
+                formItemClassName,
+              )}
             >
               {label && item.type !== FormFieldTypeEnum.Field && (
                 <FieldLabel
@@ -506,20 +511,22 @@ export const FormFieldItem = <TData extends FieldValues>({
                 )}
               </>
             </div>
-            <FieldContent>
-              {item.description && item.type !== FormFieldTypeEnum.Field && (
-                <FieldDescription className={cn({ 'pl-38': formInline })} data-qa={`form-description-${item.name}`}>
-                  {item.description}
-                </FieldDescription>
-              )}
-              {!hideErrorMessage && item.type !== FormFieldTypeEnum.Field && isInvalid && (
-                <FieldError
-                  errors={[fieldState.error]}
-                  data-qa={`form-error-message-${item.name}`}
-                  className={cn({ 'pl-38': formInline })}
-                />
-              )}
-            </FieldContent>
+            {item.type !== FormFieldTypeEnum.Field && (
+              <FieldContent>
+                {item.description && (
+                  <FieldDescription className={cn({ 'pl-38': formInline })} data-qa={`form-description-${item.name}`}>
+                    {item.description}
+                  </FieldDescription>
+                )}
+                {!hideErrorMessage && isInvalid && (
+                  <FieldError
+                    errors={[fieldState.error]}
+                    data-qa={`form-error-message-${item.name}`}
+                    className={cn({ 'pl-38': formInline })}
+                  />
+                )}
+              </FieldContent>
+            )}
           </div>
         );
       }}

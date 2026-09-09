@@ -38,6 +38,7 @@ interface CommonFormFieldItem<TData> {
   disabled?: boolean;
   className?: string;
   inline?: boolean;
+  formContainerClassName?: string;
   formItemClassName?: string;
   formLabelClassName?: string;
   hideErrorMessage?: boolean;

@@ -470,8 +470,6 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
     },
     ref,
   ) {
-    const isOptionValue = selectOptionAsValue || typeof options?.[0] === 'string' || typeof options?.[0] === 'number';
-
     const isInvalid = invalid ?? isAriaInvalid(props['aria-invalid']);
     const labelId = id || label?.toString().toLowerCase().replace(/\s/g, '-') || '';
     const isMultiple = !!props.multiple;
@@ -569,6 +567,39 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
       [fetchOptions, isMultiple, chipsInputProps, inputProps],
     );
 
+    const optionsToObjectCache = React.useMemo(() => {
+      if (!selectOptionAsValue) return {};
+      const cache: Record<string, OptionType> = {};
+      for (const option of activeOptions) {
+        const items = isOptionGroup(option) ? normalizeOptions(option.items) : [option as OptionType];
+        for (const item of items) {
+          cache[item.value] = item;
+        }
+      }
+      return cache;
+    }, [activeOptions, selectOptionAsValue]);
+
+    const selectOptionAsValueProps = React.useMemo(() => {
+      if (!selectOptionAsValue) return {};
+      const resolveItemKey = (item: unknown) => {
+        if (typeof item === 'string' || typeof item === 'number') return String(item);
+        if (item && typeof item === 'object' && 'value' in item) {
+          return String((item as OptionType).value);
+        }
+        return String(item);
+      };
+      return {
+        itemToStringLabel: (item: unknown) => {
+          const key = resolveItemKey(item);
+          return optionsToObjectCache[key]?.label ?? key;
+        },
+        itemToStringValue: (item: unknown) => {
+          const key = resolveItemKey(item);
+          return optionsToObjectCache[key]?.value ?? key;
+        },
+      };
+    }, [optionsToObjectCache, selectOptionAsValue]);
+
     return (
       <>
         <Box
@@ -593,6 +624,7 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
             open={controlledOpen}
             onOpenChange={onOpenChange}
             inputRef={ref}
+            {...selectOptionAsValueProps}
             {...props}
           >
             {isMultiple ? (
@@ -672,7 +704,7 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
                                 return (
                                   <ComboboxItem
                                     key={item.key || item.value}
-                                    value={isOptionValue ? item.value : item}
+                                    value={selectOptionAsValue ? item.value : item}
                                     data-qa="combobox-group-item"
                                     disabled={item.disabled}
                                     {...itemProps}
@@ -702,7 +734,7 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
                         return (
                           <ComboboxItem
                             key={option.key || option.value}
-                            value={isOptionValue ? option.value : option}
+                            value={selectOptionAsValue ? option.value : option}
                             data-qa="combobox-item"
                             disabled={option.disabled}
                             {...itemProps}
