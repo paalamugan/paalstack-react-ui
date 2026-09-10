@@ -213,6 +213,9 @@ const ComboboxChips = React.forwardRef<
 ));
 ComboboxChips.displayName = 'ComboboxChips';
 
+const comboboxChipClassName =
+  'flex h-[calc(--spacing(5.25))] w-fit items-center justify-center gap-1 rounded-sm bg-muted px-1.5 text-xs font-medium whitespace-nowrap text-foreground has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50 has-data-[slot=combobox-chip-remove]:pr-0';
+
 const ComboboxChip = ({
   className,
   children,
@@ -224,10 +227,7 @@ const ComboboxChip = ({
   <ComboboxPrimitive.Chip
     data-slot="combobox-chip"
     data-qa="combobox-chip"
-    className={cn(
-      'flex h-[calc(--spacing(5.25))] w-fit items-center justify-center gap-1 rounded-sm bg-muted px-1.5 text-xs font-medium whitespace-nowrap text-foreground has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50 has-data-[slot=combobox-chip-remove]:pr-0',
-      className,
-    )}
+    className={cn(comboboxChipClassName, className)}
     {...props}
   >
     {children}
@@ -431,7 +431,7 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
     {
       label,
       options,
-      selectOptionAsValue = false,
+      selectOptionAsValue = true,
       placeholder = 'Search...',
       required,
       value,
@@ -457,6 +457,7 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
       chipsProps,
       chipProps,
       chipsInputProps,
+      maxSelectedChips = 3,
       collectionProps,
       valueProps,
       labelProps,
@@ -570,14 +571,14 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
     const optionsToObjectCache = React.useMemo(() => {
       if (!selectOptionAsValue) return {};
       const cache: Record<string, OptionType> = {};
-      for (const option of activeOptions) {
+      for (const option of [...normalizedData.flatItems, ...activeOptions]) {
         const items = isOptionGroup(option) ? normalizeOptions(option.items) : [option as OptionType];
         for (const item of items) {
           cache[item.value] = item;
         }
       }
       return cache;
-    }, [activeOptions, selectOptionAsValue]);
+    }, [activeOptions, normalizedData.flatItems, selectOptionAsValue]);
 
     const selectOptionAsValueProps = React.useMemo(() => {
       if (!selectOptionAsValue) return {};
@@ -631,14 +632,21 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
               <ComboboxChips ref={chipsRef} aria-invalid={isInvalid} {...chipsProps}>
                 <ComboboxValue {...valueProps}>
                   {(selectedValues: unknown) => {
-                    const values = Array.isArray(selectedValues) ? (selectedValues as OptionType[]) : [];
+                    const values = Array.isArray(selectedValues)
+                      ? (selectedValues as Array<OptionType | string | number>)
+                      : [];
+                    const overflowCount = Math.max(values.length - maxSelectedChips, 0);
+                    const chipValues = overflowCount > 0 ? values.slice(0, maxSelectedChips) : values;
                     return (
                       <>
-                        {values.map((item: OptionType | string | number) => {
+                        {chipValues.map((item: OptionType | string | number) => {
                           if (typeof item === 'string' || typeof item === 'number') {
+                            const label = selectOptionAsValue
+                              ? (optionsToObjectCache[String(item)]?.label ?? item)
+                              : item;
                             return (
                               <ComboboxChip key={item} {...chipProps}>
-                                {item}
+                                {label}
                               </ComboboxChip>
                             );
                           }
@@ -648,6 +656,15 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
                             </ComboboxChip>
                           );
                         })}
+                        {overflowCount > 0 && (
+                          <span
+                            data-slot="combobox-chip"
+                            data-qa="combobox-overflow-chip"
+                            className={comboboxChipClassName}
+                          >
+                            +{overflowCount} selected
+                          </span>
+                        )}
                         <ComboboxChipsInput
                           id={labelId}
                           placeholder={placeholder}

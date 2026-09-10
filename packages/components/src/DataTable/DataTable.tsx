@@ -7,6 +7,7 @@ import type {
   Header,
   OnChangeFn,
   Row,
+  RowSelectionState,
   SortingState,
   VisibilityState,
 } from '@tanstack/react-table';
@@ -30,6 +31,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+
+import { isEqual } from 'lodash-es';
 
 import { cn } from '@/shared/lib';
 
@@ -178,6 +181,30 @@ export interface DataTableProps<TRow, TValue = unknown> {
    * @default ''
    */
   globalFilter?: string;
+
+  /**
+   * Row selection state. Keys are row ids; `true` means selected.
+   * @example <DataTable rowSelection={{ '1': true }} />
+   */
+  rowSelection?: RowSelectionState;
+  /**
+   * @param updatedRowSelection row selection state
+   */
+  onRowSelectionChange?: (updatedRowSelection: RowSelectionState) => void;
+  /**
+   * Column visibility state
+   */
+  columnVisibility?: VisibilityState;
+  onColumnVisibilityChange?: (updatedColumnVisibility: VisibilityState) => void;
+  /**
+   * Column filters state
+   * @example <DataTable columnFilters={[{ id: 'status', value: 'active' }]} />
+   */
+  columnFilters?: ColumnFiltersState;
+  /**
+   * @param updatedColumnFilters column filters state
+   */
+  onColumnFiltersChange?: (updatedColumnFilters: ColumnFiltersState) => void;
   /**
    *
    * @param cell single cell of the table
@@ -552,6 +579,12 @@ export const DataTable = <TRow, TValue>({
   sorting: sortingProp = [],
   onSortingChange,
   globalFilter: globalFilterProp,
+  rowSelection: rowSelectionProp,
+  onRowSelectionChange,
+  columnVisibility: columnVisibilityProp,
+  onColumnVisibilityChange,
+  columnFilters: columnFiltersProp,
+  onColumnFiltersChange,
   getCellClassName,
   getHeadClassName,
   getRowClassName,
@@ -573,9 +606,9 @@ export const DataTable = <TRow, TValue>({
   loadingTableCellProps,
   loadingProps,
 }: DataTableProps<TRow, TValue>) => {
-  const [rowSelection, setRowSelection] = useState({});
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>(rowSelectionProp ?? {});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(columnVisibilityProp ?? {});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(columnFiltersProp ?? []);
   const [globalFilter, setGlobalFilter] = useState(globalFilterProp || '');
   const [sorting, setSorting] = useState<SortingState>(sortingProp);
   const tableColumns = enableSelectableTable ? [getSelectColumn<TRow>(), ...columns] : columns;
@@ -639,6 +672,33 @@ export const DataTable = <TRow, TValue>({
     [onSortingChange, sorting],
   );
 
+  const onRowSelectionChangeLocal: OnChangeFn<RowSelectionState> = useCallback(
+    (updater) => {
+      const next = typeof updater === 'function' ? updater(rowSelection) : updater;
+      setRowSelection(next);
+      onRowSelectionChange?.(next);
+    },
+    [onRowSelectionChange, rowSelection],
+  );
+
+  const onColumnVisibilityChangeLocal: OnChangeFn<VisibilityState> = useCallback(
+    (updater) => {
+      const next = typeof updater === 'function' ? updater(columnVisibility) : updater;
+      setColumnVisibility(next);
+      onColumnVisibilityChange?.(next);
+    },
+    [onColumnVisibilityChange, columnVisibility],
+  );
+
+  const onColumnFiltersChangeLocal: OnChangeFn<ColumnFiltersState> = useCallback(
+    (updater) => {
+      const next = typeof updater === 'function' ? updater(columnFilters) : updater;
+      setColumnFilters(next);
+      onColumnFiltersChange?.(next);
+    },
+    [onColumnFiltersChange, columnFilters],
+  );
+
   const table = useReactTable({
     data: rows,
     columns: tableColumns,
@@ -651,10 +711,10 @@ export const DataTable = <TRow, TValue>({
     },
     enableRowSelection: true,
     enableHiding: showTableConfigure ?? false,
-    onRowSelectionChange: setRowSelection,
+    onRowSelectionChange: onRowSelectionChangeLocal,
     onSortingChange: onSortingChangeLocal,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
+    onColumnFiltersChange: onColumnFiltersChangeLocal,
+    onColumnVisibilityChange: onColumnVisibilityChangeLocal,
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: globalFilterFn || optimizedGlobalFilterFn,
     getCoreRowModel: getCoreRowModel(),
@@ -677,12 +737,42 @@ export const DataTable = <TRow, TValue>({
   useEffect(() => {
     if (!sortingProp?.length) return;
     setSorting((prevSorting) => {
-      if (JSON.stringify(prevSorting) === JSON.stringify(sortingProp)) {
+      if (isEqual(prevSorting, sortingProp)) {
         return prevSorting;
       }
       return sortingProp;
     });
   }, [sortingProp]);
+
+  useEffect(() => {
+    if (rowSelectionProp === undefined) return;
+    setRowSelection((prev) => {
+      if (isEqual(prev, rowSelectionProp)) {
+        return prev;
+      }
+      return rowSelectionProp;
+    });
+  }, [rowSelectionProp]);
+
+  useEffect(() => {
+    if (columnVisibilityProp === undefined) return;
+    setColumnVisibility((prev) => {
+      if (isEqual(prev, columnVisibilityProp)) {
+        return prev;
+      }
+      return columnVisibilityProp;
+    });
+  }, [columnVisibilityProp]);
+
+  useEffect(() => {
+    if (columnFiltersProp === undefined) return;
+    setColumnFilters((prev) => {
+      if (isEqual(prev, columnFiltersProp)) {
+        return prev;
+      }
+      return columnFiltersProp;
+    });
+  }, [columnFiltersProp]);
 
   return (
     <div className={cn('flex w-full flex-col gap-2', className)}>

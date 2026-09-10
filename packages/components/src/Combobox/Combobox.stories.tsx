@@ -142,32 +142,11 @@ export const Controlled: Story = {
     const [value, setValue] = useState<ComboboxValueType | null>(null);
     return (
       <div className="w-[300px]">
-        <Combobox {...args} value={value} onValueChange={(v) => setValue(v as ComboboxValueType)} />
-        <p className="mt-2 text-sm text-muted-foreground">Selected: {value ? JSON.stringify(value) : 'none'}</p>
-      </div>
-    );
-  },
-  args: {
-    ...WithLabel.args,
-    label: 'Controlled Combobox',
-  },
-};
-
-export const ControlledWithSelectOptionAsValue: Story = {
-  render: (args) => {
-    const [value, setValue] = useState<string | null>(null);
-    const optionMap = {
-      us: 'United States',
-      gb: 'United Kingdom',
-      ca: 'Canada',
-    };
-    return (
-      <div className="w-[300px]">
         <Combobox
           {...args}
+          selectOptionAsValue={false}
           value={value}
-          onValueChange={(v) => setValue(v as string)}
-          itemToStringLabel={(item) => optionMap[item as keyof typeof optionMap]}
+          onValueChange={(v) => setValue(v as ComboboxValueType)}
         />
         <p className="mt-2 text-sm text-muted-foreground">Selected: {value ? JSON.stringify(value) : 'none'}</p>
       </div>
@@ -175,30 +154,8 @@ export const ControlledWithSelectOptionAsValue: Story = {
   },
   args: {
     ...WithLabel.args,
-    label: 'Controlled Combobox with Select Option As Value',
-    options: [
-      { value: 'us', label: 'United States' },
-      { value: 'gb', label: 'United Kingdom' },
-      { value: 'ca', label: 'Canada' },
-    ],
-    selectOptionAsValue: true,
-  },
-};
-
-export const ControlledWithDefaultSelectOptionAsValue: Story = {
-  render: (args) => {
-    const [value, setValue] = useState<string | null>(null);
-    return (
-      <div className="w-[300px]">
-        <Combobox {...args} value={value} onValueChange={(v) => setValue(v as string)} />
-        <p className="mt-2 text-sm text-muted-foreground">Selected: {value ? JSON.stringify(value) : 'none'}</p>
-      </div>
-    );
-  },
-  args: {
-    ...WithLabel.args,
-    label: 'Controlled Combobox with Default Select Option As Value',
-    options: ['United States', 'United Kingdom', 'Canada'],
+    label: 'Controlled Combobox',
+    selectOptionAsValue: false,
   },
 };
 
@@ -247,6 +204,7 @@ export const Form: Story = {
                   {...args}
                   {...field}
                   id="story-language"
+                  selectOptionAsValue={false}
                   aria-invalid={fieldState.invalid}
                   onValueChange={(v) => field.onChange(v as ComboboxValueType)}
                 />
@@ -282,6 +240,211 @@ export const Form: Story = {
   },
 };
 
+// ─── Select Option As Value (Single) ────────────────────────────────────────
+
+const SELECT_OPTION_AS_VALUE_OPTIONS: OptionType[] = ALL_COUNTRIES.slice(0, 8);
+
+/**
+ * Default single-select: the field value is the option's primitive `value`
+ * (e.g. `"us"`), while the input shows the option label.
+ */
+export const SelectOptionAsValueBasic: Story = {
+  name: 'Select Option As Value: Basic',
+  args: {
+    ...WithLabel.args,
+    label: 'Country',
+    placeholder: 'Search countries...',
+    options: SELECT_OPTION_AS_VALUE_OPTIONS,
+    defaultValue: 'us',
+  },
+};
+
+export const SelectOptionAsValueControlled: Story = {
+  name: 'Select Option As Value: Controlled',
+  render: (args) => {
+    const [value, setValue] = useState<string | null>('gb');
+    return (
+      <div className="w-[300px] space-y-3">
+        <Combobox {...args} value={value} onValueChange={(v) => setValue(v as string)} />
+        <p className="text-sm text-muted-foreground">Selected: {value ? JSON.stringify(value) : 'none'}</p>
+      </div>
+    );
+  },
+  args: {
+    ...SelectOptionAsValueBasic.args,
+    defaultValue: undefined,
+  },
+};
+
+export const SelectOptionAsValueStringOptions: Story = {
+  name: 'Select Option As Value: String Options',
+  render: (args) => {
+    const [value, setValue] = useState<string | null>(null);
+    return (
+      <div className="w-[300px] space-y-3">
+        <Combobox {...args} value={value} onValueChange={(v) => setValue(v as string)} />
+        <p className="text-sm text-muted-foreground">Selected: {value ? JSON.stringify(value) : 'none'}</p>
+      </div>
+    );
+  },
+  args: {
+    ...WithLabel.args,
+    label: 'Country',
+    placeholder: 'Search countries...',
+    options: ['United States', 'United Kingdom', 'Canada'],
+  },
+};
+
+export const SelectOptionAsValueInvalid: Story = {
+  name: 'Select Option As Value: Invalid',
+  args: {
+    ...SelectOptionAsValueBasic.args,
+    defaultValue: undefined,
+    required: true,
+    isInvalid: true,
+    errorMessage: 'Please select a country.',
+  },
+};
+
+export const SelectOptionAsValueDisabled: Story = {
+  name: 'Select Option As Value: Disabled',
+  args: {
+    ...SelectOptionAsValueBasic.args,
+    disabled: true,
+  },
+};
+
+export const SelectOptionAsValueInline: Story = {
+  name: 'Select Option As Value: Inline',
+  args: {
+    ...SelectOptionAsValueBasic.args,
+    inline: true,
+    required: true,
+  },
+};
+
+export const SelectOptionAsValueGroups: Story = {
+  name: 'Select Option As Value: Groups',
+  render: (args) => {
+    const [value, setValue] = useState<string | null>('react');
+    return (
+      <div className="w-[300px] space-y-3">
+        <Combobox {...args} value={value} onValueChange={(v) => setValue(v as string)} />
+        <p className="text-sm text-muted-foreground">Selected: {value ? JSON.stringify(value) : 'none'}</p>
+      </div>
+    );
+  },
+  args: {
+    ...WithLabel.args,
+    label: 'Framework',
+    placeholder: 'Search frameworks...',
+    emptyOptionMessage: 'No frameworks found.',
+    options: [
+      {
+        label: 'Frontend',
+        items: [
+          { value: 'react', label: 'React', key: 'react' },
+          { value: 'vue', label: 'Vue', key: 'vue' },
+          { value: 'svelte', label: 'Svelte', key: 'svelte' },
+        ],
+      },
+      {
+        label: 'Backend',
+        items: [
+          { value: 'express', label: 'Express', key: 'express' },
+          { value: 'fastify', label: 'Fastify', key: 'fastify' },
+        ],
+      },
+    ],
+  },
+};
+
+/**
+ * Primitive string field value via the default `selectOptionAsValue` behavior.
+ */
+export const SelectOptionAsValueInForm: Story = {
+  name: 'Select Option As Value: In Form',
+  render: () => {
+    const schema = z.object({
+      country: z.string().min(1, 'Please select a country.'),
+    });
+    type FormValues = z.infer<typeof schema>;
+
+    const form = useForm<FormValues>({
+      resolver: zodResolver(schema),
+      defaultValues: { country: '' },
+    });
+
+    const onSubmit = (data: FormValues) => {
+      toast('Submitted!', {
+        description: (
+          <pre className="mt-2 w-[300px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        ),
+      });
+    };
+
+    return (
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] space-y-4">
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="story-select-option-as-value-country" required>
+                  Country
+                </FieldLabel>
+                <Combobox
+                  id="story-select-option-as-value-country"
+                  placeholder="Search countries..."
+                  options={SELECT_OPTION_AS_VALUE_OPTIONS}
+                  value={field.value}
+                  onValueChange={(v) => field.onChange(v as string)}
+                  aria-invalid={fieldState.invalid}
+                  className="w-full"
+                />
+                <FieldDescription>The submitted value is a primitive string such as "us".</FieldDescription>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+          <div className="flex gap-2">
+            <Button type="button" variant="outline" onClick={() => form.reset()}>
+              Reset
+            </Button>
+            <Button type="submit">Submit</Button>
+          </div>
+        </form>
+      </FormProvider>
+    );
+  },
+};
+
+export const SelectOptionAsValueRemoteFetch: Story = {
+  name: 'Select Option As Value: Remote Fetch',
+  render: () => {
+    const [value, setValue] = useState<string | null>(null);
+    return (
+      <div className="w-[320px] space-y-3">
+        <Combobox
+          label="Country"
+          placeholder="Search countries…"
+          value={value}
+          onValueChange={(v) => setValue(v as string)}
+          fetchOptions={mockFetch}
+          fetchDebounce={400}
+          loadingMessage="Searching countries…"
+          emptyOptionMessage="No countries found."
+          className="w-full"
+        />
+        <p className="text-sm text-muted-foreground">Selected: {value ? JSON.stringify(value) : 'none'}</p>
+      </div>
+    );
+  },
+};
+
 // ─── Remote Fetch Stories ─────────────────────────────────────────────────────
 
 /**
@@ -303,6 +466,7 @@ export const RemoteFetch: Story = {
           placeholder="Search countries…"
           value={value}
           onValueChange={setValue}
+          selectOptionAsValue={false}
           fetchOptions={mockFetch}
           fetchDebounce={400}
           loadingMessage="Searching countries…"
@@ -366,6 +530,7 @@ export const RemoteFetchWithErrors: Story = {
           placeholder="Search countries…"
           value={value}
           onValueChange={setValue}
+          selectOptionAsValue={false}
           fetchOptions={mockFetchWithErrors}
           emptyOptionMessage="No results — try again."
           loadingMessage="Fetching…"
@@ -408,6 +573,7 @@ export const WithExternalLoading: Story = {
           placeholder="Search countries…"
           value={value}
           onValueChange={setValue}
+          selectOptionAsValue={false}
           options={options}
           isLoading={loading}
           loadingMessage="Please wait…"
@@ -475,6 +641,7 @@ export const RemoteFetchInForm: Story = {
                     placeholder="Search countries…"
                     value={field.value}
                     onValueChange={(v) => field.onChange(v)}
+                    selectOptionAsValue={false}
                     fetchOptions={mockFetch}
                     fetchDebounce={400}
                     loadingMessage="Searching countries…"
@@ -500,14 +667,7 @@ export const RemoteFetchInForm: Story = {
   },
 };
 
-export const WithMultiple: Story = {
-  args: {
-    ...WithLabel.args,
-    multiple: true,
-  },
-};
-
-// ─── Grouped Options Stories ──────────────────────────────────────────────────
+// ─── Multiple Select Stories ─────────────────────────────────────────────────
 
 const FRAMEWORK_GROUPS: OptionGroupType[] = [
   {
@@ -539,6 +699,178 @@ const FRAMEWORK_GROUPS: OptionGroupType[] = [
   },
 ];
 
+const MULTIPLE_OPTIONS: OptionType[] = [
+  { value: 'item-1', label: 'Option 1', key: 'item-1' },
+  { value: 'item-2', label: 'Option 2', key: 'item-2' },
+  { value: 'item-3', label: 'Option 3', key: 'item-3' },
+  { value: 'item-4', label: 'Option 4', key: 'item-4' },
+  { value: 'item-5', label: 'Option 5', key: 'item-5' },
+  { value: 'item-6', label: 'Option 6', key: 'item-6' },
+];
+
+export const WithMultiple: Story = {
+  name: 'Multiple: Basic',
+  args: {
+    ...WithLabel.args,
+    label: 'Options',
+    placeholder: 'Search options...',
+    multiple: true,
+    options: MULTIPLE_OPTIONS,
+  },
+};
+
+/**
+ * Primitive string values (`selectOptionAsValue`) with preselected items.
+ * Chip labels still resolve from the option list.
+ */
+export const WithMultipleSelectOptionAsValue: Story = {
+  name: 'Multiple: Select Option As Value',
+  args: {
+    ...WithMultiple.args,
+    selectOptionAsValue: true,
+    defaultValue: ['item-1', 'item-2'],
+  },
+};
+
+/**
+ * Extra selections collapse into a "+N selected" chip after `maxSelectedChips`.
+ */
+export const WithMultipleOverflowChips: Story = {
+  name: 'Multiple: Overflow Chips',
+  args: {
+    ...WithMultipleSelectOptionAsValue.args,
+    defaultValue: ['item-1', 'item-2', 'item-3', 'item-4', 'item-5'],
+    maxSelectedChips: 2,
+  },
+};
+
+export const WithMultipleControlled: Story = {
+  name: 'Multiple: Controlled',
+  render: (args) => {
+    const [value, setValue] = useState<string[]>(['item-1', 'item-2', 'item-3']);
+    return (
+      <div className="w-[300px] space-y-3">
+        <Combobox {...args} value={value} onValueChange={(v) => setValue(v as string[])} />
+        <p className="text-sm text-muted-foreground">Selected: {value.length ? JSON.stringify(value) : 'none'}</p>
+      </div>
+    );
+  },
+  args: {
+    ...WithMultipleSelectOptionAsValue.args,
+    maxSelectedChips: 3,
+  },
+};
+
+export const WithMultipleInvalid: Story = {
+  name: 'Multiple: Invalid',
+  args: {
+    ...WithMultiple.args,
+    isInvalid: true,
+    errorMessage: 'Please select at least one option.',
+  },
+};
+
+export const WithMultipleDisabled: Story = {
+  name: 'Multiple: Disabled',
+  args: {
+    ...WithMultipleSelectOptionAsValue.args,
+    disabled: true,
+  },
+};
+
+export const WithMultipleInline: Story = {
+  name: 'Multiple: Inline',
+  args: {
+    ...WithMultipleSelectOptionAsValue.args,
+    inline: true,
+    required: true,
+  },
+};
+
+export const WithMultipleGroups: Story = {
+  name: 'Multiple: Groups',
+  args: {
+    ...WithLabel.args,
+    label: 'Frameworks',
+    placeholder: 'Search frameworks...',
+    emptyOptionMessage: 'No frameworks found.',
+    multiple: true,
+    selectOptionAsValue: true,
+    defaultValue: ['react', 'express', 'nextjs'],
+    maxSelectedChips: 2,
+    options: FRAMEWORK_GROUPS,
+  },
+};
+
+/**
+ * Multiple combobox wired to react-hook-form. Values are primitive strings via
+ * `selectOptionAsValue`. Overflow chips kick in after three selections.
+ */
+export const WithMultipleInForm: Story = {
+  name: 'Multiple: In Form',
+  render: () => {
+    const schema = z.object({
+      options: z.array(z.string()).min(1, 'Please select at least one option.'),
+    });
+    type FormValues = z.infer<typeof schema>;
+
+    const form = useForm<FormValues>({
+      resolver: zodResolver(schema),
+      defaultValues: { options: ['item-1'] },
+    });
+
+    const onSubmit = (data: FormValues) => {
+      toast('Submitted!', {
+        description: (
+          <pre className="mt-2 w-[300px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        ),
+      });
+    };
+
+    return (
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-[300px] space-y-4">
+          <FormField
+            control={form.control}
+            name="options"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="story-multiple-options" required>
+                  Options
+                </FieldLabel>
+                <Combobox
+                  id="story-multiple-options"
+                  placeholder="Search options..."
+                  options={MULTIPLE_OPTIONS}
+                  multiple
+                  selectOptionAsValue
+                  maxSelectedChips={3}
+                  value={field.value}
+                  onValueChange={(v) => field.onChange(v as string[])}
+                  aria-invalid={fieldState.invalid}
+                  className="w-full"
+                />
+                <FieldDescription>Select one or more options.</FieldDescription>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+          <div className="flex gap-2">
+            <Button type="button" variant="outline" onClick={() => form.reset()}>
+              Reset
+            </Button>
+            <Button type="submit">Submit</Button>
+          </div>
+        </form>
+      </FormProvider>
+    );
+  },
+};
+
+// ─── Grouped Options Stories ──────────────────────────────────────────────────
+
 /**
  * Pass an array of `OptionGroupType` to `options` to render grouped options with
  * labelled sections separated by dividers — no composition required.
@@ -568,7 +900,12 @@ export const WithGroupsControlled: Story = {
     const [value, setValue] = useState<ComboboxValueType | null>(null);
     return (
       <div className="w-[300px] space-y-3">
-        <Combobox {...args} value={value} onValueChange={(v) => setValue(v as ComboboxValueType)} />
+        <Combobox
+          {...args}
+          selectOptionAsValue={false}
+          value={value}
+          onValueChange={(v) => setValue(v as ComboboxValueType)}
+        />
         <p className="text-sm text-muted-foreground">Selected: {value ? `${value.label} (${value.value})` : 'none'}</p>
       </div>
     );
@@ -627,6 +964,7 @@ export const WithGroupsInForm: Story = {
                   placeholder="Search frameworks..."
                   options={FRAMEWORK_GROUPS}
                   emptyOptionMessage="No frameworks found."
+                  selectOptionAsValue={false}
                   value={field.value}
                   onValueChange={field.onChange}
                   aria-invalid={fieldState.invalid}

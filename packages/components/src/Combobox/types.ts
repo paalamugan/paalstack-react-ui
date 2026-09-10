@@ -40,7 +40,11 @@ export interface ComboboxProps<
    * before the user starts typing. Defaults to [].
    */
   options?: Array<ComboboxOptionType>;
-  /** Whether to select the option as the value @default false */
+  /**
+   * When true, the selected value is the option's primitive `value` string
+   * rather than the full option object. Chip labels still resolve from `options`.
+   * @default true
+   */
   selectOptionAsValue?: boolean;
   /** Whether the combobox is open */
   open?: boolean;
@@ -104,6 +108,15 @@ export interface ComboboxProps<
    * Useful for controlling `showRemove`, className, or other per-chip options.
    */
   chipProps?: React.ComponentProps<typeof ComboboxChip>;
+  /**
+   * Maximum number of selected chips to render when `multiple` is true,
+   * before collapsing the overflow into a "+N selected" summary chip.
+   * When more items are selected than this limit, only the first
+   * `maxSelectedChips` chips are shown plus a compact summary chip so
+   * the trigger doesn't grow when many options are selected.
+   * @default 3
+   */
+  maxSelectedChips?: number;
   /**
    * Props forwarded to the `ComboboxChipsInput` (the text input inside the
    * chips container) when `multiple` is true.

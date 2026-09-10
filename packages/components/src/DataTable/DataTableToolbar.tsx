@@ -122,29 +122,36 @@ export const DataTableToolbar = forwardRef<DataTableToolbarHandle, DataTableTool
   }
   return (
     <div className={cn('flex items-center justify-between', toolbarContainerClassName)}>
-      <div className="flex flex-1 items-center gap-2">
-        {search && (
-          <Input
-            placeholder={search.placeholder || getPlaceholder()}
-            value={getCurrentSearchValue()}
-            onChange={(event) => handleSearchValueChange(event.target.value)}
-            className={cn('w-[150px] lg:w-[250px]', search.className)}
-            data-qa="data-table-search-input"
-          />
-        )}
-        {facetFilterColumns?.map(
-          ({ accessorKey, ...column }) =>
-            table.getColumn(accessorKey) && (
-              <DataTableFacetedFilter key={accessorKey} column={table.getColumn(accessorKey)} {...column} />
-            ),
-        )}
-        {isFiltered && (
-          <Button variant="ghost" onClick={onReset} className="px-2 lg:px-3" data-qa="data-table-reset-filters-button">
-            Reset
-            <Cross2Icon className="ml-2 size-4" data-qa="data-table-reset-filters-icon" />
-          </Button>
-        )}
-      </div>
+      {(!!facetFilterColumns?.length || !!search) && (
+        <div className="flex flex-1 items-center gap-2">
+          {search && (
+            <Input
+              placeholder={search.placeholder || getPlaceholder()}
+              value={getCurrentSearchValue()}
+              onChange={(event) => handleSearchValueChange(event.target.value)}
+              className={cn('w-37.5 lg:w-62.5', search.className)}
+              data-qa="data-table-search-input"
+            />
+          )}
+          {facetFilterColumns?.map(
+            ({ accessorKey, ...column }) =>
+              table.getColumn(accessorKey) && (
+                <DataTableFacetedFilter key={accessorKey} column={table.getColumn(accessorKey)} {...column} />
+              ),
+          )}
+          {isFiltered && (
+            <Button
+              variant="ghost"
+              onClick={onReset}
+              className="px-2 lg:px-3"
+              data-qa="data-table-reset-filters-button"
+            >
+              Reset
+              <Cross2Icon className="ml-2 size-4" data-qa="data-table-reset-filters-icon" />
+            </Button>
+          )}
+        </div>
+      )}
       {(showTableConfigure || toolbarRightSideContent || toolbarLeftSideContent) && (
         <div
           className={cn('flex items-center justify-end gap-2', toolbarRightSideContainerClassName)}

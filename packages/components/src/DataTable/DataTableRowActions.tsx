@@ -47,7 +47,7 @@ export const DataTableRowActions = <TData,>({
         render={
           <Button
             variant="ghost"
-            className="flex size-8 p-0 data-[popup-open]:bg-muted"
+            className="flex size-8 p-0 data-popup-open:bg-muted"
             data-qa="data-table-row-actions-button"
             aria-label={ariaLabel}
           >
@@ -65,10 +65,7 @@ export const DataTableRowActions = <TData,>({
                 data-qa="data-table-row-action-item"
               >
                 {actionItem.icon && (
-                  <actionItem.icon
-                    className="mr-2 size-4 text-muted-foreground"
-                    data-qa="data-table-row-action-item-icon"
-                  />
+                  <actionItem.icon className="size-4 text-muted-foreground" data-qa="data-table-row-action-item-icon" />
                 )}
                 {actionItem.label}
                 {actionItem.shortcut && (

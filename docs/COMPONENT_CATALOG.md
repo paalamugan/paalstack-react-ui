@@ -2405,7 +2405,11 @@ interface ComboboxProps {
   * before the user starts typing. Defaults to [].
   */
   options?: Array<ComboboxOptionType>;
-  /** Whether to select the option as the value @default false */
+  /**
+   * When true, the selected value is the option's primitive `value` string
+   * rather than the full option object. Chip labels still resolve from `options`.
+   * @default true
+   */
   selectOptionAsValue?: boolean;
   /** Whether the combobox is open */
   open?: boolean;
