@@ -31,7 +31,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-
 import { isEqual } from 'lodash-es';
 
 import { cn } from '@/shared/lib';
