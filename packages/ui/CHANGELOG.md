@@ -1,5 +1,15 @@
 # @paalstack/react-ui
 
+## 1.7.0
+
+### Minor Changes
+
+- [`a21d03b`](https://github.com/paalamugan/paalstack-react-ui/commit/a21d03b532afd2e7c5dd826e76b9e7ca650fbe96) Thanks [@paalamugan](https://github.com/paalamugan)! - feat(components): make Combobox selectOptionAsValue default and add controlled DataTable state
+  - Combobox: default `selectOptionAsValue` to true, add `maxSelectedChips` overflow chip, resolve chip labels from options
+  - DataTable: support controlled `rowSelection`, `columnVisibility`, and `columnFilters` with change callbacks
+  - DataTable: fix popup open selector and row action icon spacing, conditionally render toolbar filters
+  - add `lodash-es` dependency for deep equality checks
+
 ## 1.6.2
 
 ### Patch Changes
