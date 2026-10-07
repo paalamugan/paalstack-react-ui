@@ -146,7 +146,7 @@ const Label = ({ className, required = false, text, isInvalid, children, disable
   >
     {text || children}
     {required && (
-      <span className="text-danger" data-qa="required-indicator">
+      <span className="ml-0.5 text-danger" data-qa="required-indicator">
         *
       </span>
     )}
