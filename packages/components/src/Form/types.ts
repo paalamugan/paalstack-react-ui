@@ -397,4 +397,18 @@ export interface FormProps<TData extends FieldValues> extends React.PropsWithChi
    * Whether support the browser native form validation or not (default is true)
    */
   noValidate?: boolean;
+  /**
+   * The HTTP method the form's NATIVE submit uses. Defaults to 'post'.
+   *
+   * A <form> with no `method` attribute is a GET, so a submit that happens
+   * BEFORE React attaches its own handler - the window between the
+   * server-rendered HTML and hydration - puts every field value in the URL.
+   * For a sign-in form that is the password, in the address bar, in browser
+   * history, in the proxy's access log, and in the `Referer` header of the
+   * next navigation.
+   *
+   * 'post' keeps those values in the request body instead. Pass 'get' only
+   * when a native GET submit is genuinely wanted.
+   */
+  method?: 'get' | 'post';
 }

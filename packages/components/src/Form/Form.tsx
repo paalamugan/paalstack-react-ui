@@ -665,6 +665,7 @@ export const Form = <TData extends FieldValues>({
   hideResetButton = false,
   hideSubmitButton = false,
   noValidate = true,
+  method = 'post',
   inline: formInline,
   formRef,
   id,
@@ -683,6 +684,7 @@ export const Form = <TData extends FieldValues>({
       <form
         id={id}
         ref={formRef}
+        method={method}
         noValidate={noValidate}
         onSubmit={onSubmit ? form.handleSubmit(onSubmit, onSubmitError) : undefined}
         className={cn('space-y-4', className)}

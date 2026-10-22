@@ -110,6 +110,23 @@ NavigationMenu takes `items`; Form takes `fields`; ContextMenu/DropdownMenu
 take `entries`; Questionnaire takes `questions`; MessageScroller has
 `MessageScrollerChat` taking `messages`.
 
+## `Form` — the native submit is a POST (do not remove the `method` attribute)
+
+`<Form>` renders a real `<form method="post">`. The `method` prop defaults to
+`'post'`; pass `method="get"` only if you actually want a native GET submit.
+
+Why it matters: the browser only runs React's `onSubmit` once the form is
+hydrated. A submit in the window between the server-rendered HTML and
+hydration falls through to the browser's own submit, and a `<form>` with no
+`method` attribute is a GET — so every field value is appended to the URL. On a
+sign-in form that is the password: address bar, browser history, proxy access
+log, and the `Referer` header of the next navigation. `post` keeps those values
+in the request body.
+
+Do not "simplify" the `<form>` by dropping `method={method}` — the test in
+`packages/components/src/Form/Form.test.tsx` guards it, and it is the only
+thing standing between a fast click and a password in a URL.
+
 ## Component conventions (when editing the library)
 
 - `cn` from `@/shared/lib`; `Slot` from `@/shared/utils`
