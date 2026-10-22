@@ -35,3 +35,6 @@ node-compile-cache
 .pnpm-store
 graphify-out/
 scripts/.kb-extract.json
+
+# Local agent tooling: the hermes verify manifest, local-only
+.hermes/

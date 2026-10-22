@@ -744,12 +744,33 @@ export const WithMultipleOverflowChips: Story = {
   },
 };
 
+/**
+ * A clear button appears on the chips row whenever there is a selection.
+ * Clicking it removes every selected value at once.
+ */
+export const WithMultipleClear: Story = {
+  name: 'Multiple: With Clear',
+  render: (args) => {
+    const [value, setValue] = useState<string[]>(['item-1', 'item-2', 'item-3']);
+    return (
+      <div className="w-75 space-y-3">
+        <Combobox {...args} value={value} onValueChange={(v) => setValue(v as string[])} onClear={() => setValue([])} />
+        <p className="text-sm text-muted-foreground">Selected: {value.length ? JSON.stringify(value) : 'none'}</p>
+      </div>
+    );
+  },
+  args: {
+    ...WithMultipleSelectOptionAsValue.args,
+    maxSelectedChips: 3,
+  },
+};
+
 export const WithMultipleControlled: Story = {
   name: 'Multiple: Controlled',
   render: (args) => {
     const [value, setValue] = useState<string[]>(['item-1', 'item-2', 'item-3']);
     return (
-      <div className="w-[300px] space-y-3">
+      <div className="w-75 space-y-3">
         <Combobox {...args} value={value} onValueChange={(v) => setValue(v as string[])} />
         <p className="text-sm text-muted-foreground">Selected: {value.length ? JSON.stringify(value) : 'none'}</p>
       </div>

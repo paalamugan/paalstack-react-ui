@@ -53,7 +53,7 @@ const ComboboxClear = ({ className, ...props }: ComboboxPrimitive.Clear.Props) =
     className={cn(className)}
     {...props}
     render={
-      <InputGroupButton variant="ghost" size="icon-xs">
+      <InputGroupButton variant="ghost" size="icon-xs" aria-label="Clear">
         <XIcon className="pointer-events-none" />
       </InputGroupButton>
     }
@@ -675,6 +675,14 @@ const ComboboxForwardRef = React.forwardRef<ComboboxInputRef, ComboboxProps<unkn
                           {...chipsInputProps}
                           onChange={fetchOptions ? handleInputChange : chipsInputProps?.onChange}
                         />
+                        {values.length > 0 && (
+                          <ComboboxClear
+                            disabled={disabled}
+                            aria-label="Clear"
+                            className="ml-auto shrink-0"
+                            onClick={onClear}
+                          />
+                        )}
                       </>
                     );
                   }}

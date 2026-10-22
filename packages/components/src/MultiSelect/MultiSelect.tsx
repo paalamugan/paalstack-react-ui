@@ -94,6 +94,11 @@ export interface MultiSelectProps extends Omit<PopoverModalContentProps, 'option
    * Error message for the multiselect
    */
   errorMessage?: string;
+
+  /**
+   * Class name for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -305,6 +310,7 @@ export const MultiSelect = React.forwardRef<React.ElementRef<'button'>, MultiSel
       open: defaultOpen = false,
       onOpenChange,
       maxSelectedBadges = 3,
+      containerClassName,
       ...popoverModalContentProps
     },
     ref,
@@ -357,9 +363,13 @@ export const MultiSelect = React.forwardRef<React.ElementRef<'button'>, MultiSel
     return (
       <>
         <Box
-          className={cn('flex w-full flex-col gap-2', {
-            'flex-row items-center': inline,
-          })}
+          className={cn(
+            'flex w-full flex-col gap-2',
+            {
+              'flex-row items-center': inline,
+            },
+            containerClassName,
+          )}
           data-qa="multi-select-container"
         >
           {label && (
