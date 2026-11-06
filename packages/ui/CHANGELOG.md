@@ -1,5 +1,11 @@
 # @paalstack/react-ui
 
+## 1.7.2
+
+### Patch Changes
+
+- [`045160d`](https://github.com/paalamugan/paalstack-react-ui/commit/045160d90cd2850867dc1081a6b614dc12dfd62b) Thanks [@paalamugan](https://github.com/paalamugan)! - fixed combobox position
+
 ## 1.7.1
 
 ### Patch Changes
